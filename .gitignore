@@ -4,8 +4,19 @@
 /silverstripe-cache/
 /resources/
 /public/resources/
-/node_modules
-/.env.example
-/.htaccess
-/README.md
+/themes/main/images/
 
+# custom ignore
+*.bak
+*.sql
+*.tar.xz
+
+.editorconfig
+.env.example
+.htaccess
+README.md
+betterbuttons/
+composer.lock
+node_modules/
+package-lock.json
+phpcs.xml.dist
