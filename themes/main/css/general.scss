@@ -794,5 +794,56 @@ $frame-bg--pos__b: bottom center;
             }
         }
     }
+
+
+
+    .ftr-frame .logo-hldr {
+        width: 100%;
+    }
+
+    .ftr-frame .pursuit {
+        width: 100%;
+    }
+
+    .ftr-frame .contact {
+        width: 100%;
+    }
+
+    .ftr-frame .ftr-cntnr {
+        text-align: center;
+    }
+
+    .ftr-frame .logo-hldr .ftr-logo {
+        margin: auto;
+    }
+
+    .ftr-frame .social-link a {
+        margin: auto 10px;
+    }
+
+    .ftr-frame .pursuit .left-side, .ftr-frame .pursuit .right-side {
+        width: 100%;
+    }
+
+    .ftr-frame .logo-hldr {
+        margin-bottom: 20px;
+    }
+
+    .ftr-frame .pursuit {
+        margin-bottom: 20px;
+    }
+
+    .ftr-frame .pursuit .pursuit-title {
+        margin-bottom: 10px;
+    }
+
+    .ftr-frame .contact .contact-title {
+        margin-bottom: 10px;
+    }
+
+    .ftr-frame .ftr-bottom * {
+        color: white;
+        font-weight: bold;
+    }
 }
 

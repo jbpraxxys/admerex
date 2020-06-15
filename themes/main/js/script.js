@@ -82,20 +82,7 @@ var app = {
       			responsive: [
 		            {
 		              breakpoint: 1100,
-		              settings: {
-		                slidesToShow: 3,
-		                slidesPerRow: 1,
-		                slidesToScroll: 1
-		              }
-		            },
-		            {
-		              breakpoint: 700,
-		              settings: {
-		                slidesToShow: 1,
-		                slidesPerRow: 1,
-		                slidesToScroll: 1,
-		                arrows:false
-		              }
+		              settings: "unslick"
 		            }
 
 	            ]
@@ -116,6 +103,7 @@ var app = {
 				speed: 1000,
 				dots: true,
 				arrows: false,
+				adaptiveHeight: true,
 				responsive: [
 		            {
 		              breakpoint: 1024,
@@ -136,7 +124,7 @@ var app = {
 				speed: 1000,
 				// dots: true,
 				arrows: false,
-				asNavFor: '.year-slider'
+				asNavFor: '.year-slider',
 		      });
 
 			$('.year-slider').slick({
@@ -146,9 +134,19 @@ var app = {
 				// autoplay: true,
 				speed: 1000,
 				// dots: true,
-				arrows: false,
+				arrows: true,
 				focusOnSelect: true,
-				asNavFor: '.f8-image-slider'
+				asNavFor: '.f8-image-slider',
+				responsive: [
+		            {
+		              breakpoint: 1024,
+		              settings: {
+		                slidesToShow: 1,
+		                slidesPerRow: 1,
+		                slidesToScroll: 1
+		              }
+		            }
+	            ]
 		      });
 
 			$('.year-slider .year-hldr').click(function(){
@@ -165,11 +163,32 @@ var app = {
 				speed: 1000,
 				// dots: true,
 				arrows: false,
+				responsive: [
+		            {
+		              breakpoint: 1024,
+		              settings: {
+		                slidesToShow: 1,
+		                slidesPerRow: 1,
+		                slidesToScroll: 1
+		              }
+		            }
+	            ]
 		      });
 				
 		},
 
 		journeypage: function() {
+
+			$('.jrny-cont-slider').slick({
+			 	infinite: true,
+				slidesToShow: 1,
+				slidesToScroll:1,
+				// autoplay: true,
+				speed: 1000,
+				arrows: true,
+				dots: false,
+				asNavFor: '.jrny-img-slider',
+		      });
 
 			$('.jrny-img-slider').slick({
 			 	infinite: true,
@@ -186,39 +205,38 @@ var app = {
    				asNavFor: '.jrny-cont-slider',
       			responsive: [
 		            {
-		              breakpoint: 1100,
-		              settings: {
-		                slidesToShow: 3,
-		                slidesPerRow: 1,
-		                slidesToScroll: 1
-		              }
-		            },
-		            {
-		              breakpoint: 700,
+		              breakpoint: 1024,
 		              settings: {
 		                slidesToShow: 1,
 		                slidesPerRow: 1,
 		                slidesToScroll: 1,
-		                arrows:false
+		                centerMode: false
 		              }
 		            }
-
 	            ]
 
 		      });
 
-			$('.jrny-cont-slider').slick({
-			 	infinite: true,
-				slidesToShow: 1,
-				slidesToScroll:1,
-				// autoplay: true,
-				speed: 1000,
-				arrows: true,
-				dots: false,
-				asNavFor: '.jrny-img-slider',
-		      });
+			
+			//Calls the function on load to switch layout
+			segragateContent();
 
-			$('.journey-cntnr:nth-child(2n)').addClass("flex");
+			//Calls the function on resize to switch layout
+			window.addEventListener("resize", segragateContent);
+			function segragateContent(){
+				var width = $(window).width(); 
+				if (width <= 1024){
+					//Moves containers based on position
+					// $('.jrny_frame2 .frm-cntnr .journey-cntnr:nth-child(2n)').addClass("flex");
+				} else {
+					$('.jrny_frame2 .frm-cntnr .journey-cntnr:nth-child(2n)').addClass("flex");
+				}
+			};
+
+
+			
+
+			
 
 		},
 

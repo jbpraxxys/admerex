@@ -85,3 +85,26 @@
 		}
 	}
 }
+
+@media screen and (max-width: 1024px) {
+	.sol_frame1 .frm-cntnr {
+		width: 90%;
+		padding: 100px 0;
+	}
+
+	.sol_frame1 .frm-cntnr .sol_frame1-content {
+		width: 100%;
+	}
+
+	.sol_frame1 .frm-cntnr .sol_frame1-content .sol_frame1-header {
+		* {
+			font-size: 24px;
+		}
+	}
+
+	.sol_frame2 .frm-cntnr .solution-hldr {
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 50px;
+	}
+}

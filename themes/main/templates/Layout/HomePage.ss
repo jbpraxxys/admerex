@@ -215,6 +215,14 @@
 						</div>
 					</div>
 				</div>
+				<div class="m-content">
+					<div class="content-title">
+						<h2>$HTitle</h2>
+					</div>
+					<div class="content-desc">
+						<p>$Desc</p>
+					</div>
+				</div>
 			</div>
 			<% end_loop %>
 		</div>

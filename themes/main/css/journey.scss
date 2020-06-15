@@ -193,3 +193,70 @@
 		}
 	}
 }
+
+@media screen and (max-width: 1024px) {
+	.jrny_frame1 .frm-cntnr .jrny_frame1-content {
+		width: 100%;
+	}
+
+	.jrny_frame1 .frm-cntnr {
+		width: 90%;
+		padding: 100px 0;
+	}
+
+	.jrny_frame1 .frm-cntnr .jrny_frame1-content .jrny_frame1-header {
+		* {
+			font-size: 24px;
+		}
+	}
+
+	.jrny_frame2 {
+		padding-top: 50px;
+	}
+
+	.jrny_frame2 .frm-cntnr .image-hldr {
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 20px;
+	}
+
+	.jrny_frame2 .frm-cntnr .desc-hldr {
+		width: 100%;
+		text-align: center;
+	}
+
+	.jrny_frame2 .frm-cntnr .image-hldr .image {
+		height: 200px;
+	}
+
+	.jrny_frame2 .frm-cntnr .journey-cntnr {
+		padding-bottom: 50px;
+	}
+
+	.jrny_frame3 .image-cntnr.slick-active {
+		opacity: 1;
+	}
+
+	.jrny_frame3 .frm-cntnr {
+		width: 90%;
+	}
+
+	.jrny_frame3 .jrny-img-slider {
+		width: 100%;
+		left: auto;
+		transform: translateX(0);
+	}
+
+	.jrny_frame3 .image-cntnr .image {
+		height: 200px;
+		width: 100%;
+	}
+
+	.jrny_frame3 .jrny-cont-slider {
+		width: 100%;
+	}
+
+	.jrny_frame3 .content-hldr {
+		opacity: 1;
+	}
+}
