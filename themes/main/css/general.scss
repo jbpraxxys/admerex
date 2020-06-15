@@ -212,6 +212,10 @@ body {
 .hdr-bg {
 }
 
+.m-menu-hldr {
+    display: none;
+}
+
 .hdr-frame {
     position: fixed;
     z-index: 5;
@@ -732,6 +736,7 @@ $frame-bg--pos__b: bottom center;
 
     .m-menu-hldr {
         position: fixed;
+        display: block;
         left: 0;
         top: 0;
         background-color: white;
