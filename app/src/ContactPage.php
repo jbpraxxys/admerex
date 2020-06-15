@@ -23,22 +23,39 @@ namespace {
 
 		private static $db = [
 			
-			/*MAP*/
-			'Lng' => 'Text',
-	    	'Lat' => 'Text',
-
 	    	/*Email*/
 			'Email' => 'Text',
+
+			'F1Title' => 'Text',
+			'F1Desc' => 'Text',
+			
+
+			'F3Header' => 'Text',
+
+
+			'AIHeader' => 'Text',
+			'AIDesc' => 'Text',
+
+			'CIHeader' => 'Text',
+			'CIDesc' => 'Text',
+
+
+			'F4Desc' => 'Text',
+			'F4Link' => 'Text',
 
 		];
 
 		private static $has_one = [
-			'MapPin' => Image::class,
+			'F1BG' => Image::class,
 		];
 
 		private static $owns = [
-			'MapPin',
+			'F1BG'
 		];
+
+		private static $has_many = [
+	        'Medias' => Media::class,
+	    ];
 
 		private static $allowed_children = "none";
 
@@ -55,21 +72,60 @@ namespace {
 			#Remove by tab
 			$fields->removeFieldFromTab('Root.Main', 'Content');
 
-		
 			/*
 			|-----------------------------------------------
-			| @Map
+			| Frame 1
 			|----------------------------------------------- */
-			$fields->addFieldsToTab('Root.Map.Main', array(
-				$upload = UploadField::create('MapPin','Map Pin'),
-				new TextField('Lat', 'Latitude'),
-				new TextField('Lng', 'Longitude'),
+			$fields->addFieldsToTab('Root.Frame1.Main', array(
+				new TextField('F1Title', 'Title'),
+				new TextareaField('F1Desc', 'Description'),
+				$upload = new UploadField('F1BG', 'Background'),
 			));
 
 			# SET FIELD DESCRIPTION 
 			$upload->setDescription('Max file size: 2MB');
 			# Set destination path for the uploaded images.
-			$upload->setFolderName('contactpage/map');
+			$upload->setFolderName('contact');
+
+			/*
+			|-----------------------------------------------
+			| Frame 2
+			|----------------------------------------------- */
+			$fields->addFieldToTab('Root.Frame2.Main', new TabSet('Medias',
+				new Tab('Medias', GridField::create(
+		            'Medias',
+		            'Medias',
+		            $this->Medias(),
+		            GridFieldConfig_RecordEditor::create()
+				))
+			));
+
+			/*
+			|-----------------------------------------------
+			| Frame 3
+			|----------------------------------------------- */
+			$fields->addFieldsToTab('Root.Frame3.Main', array(
+				new TextField('F3Header', 'Header'),
+			));
+
+			$fields->addFieldsToTab('Root.Frame3.ApplicantInquiry', array(
+				new TextField('AIHeader', 'Header'),
+				new TextField('AIDesc', 'Description'),
+			));
+
+			$fields->addFieldsToTab('Root.Frame3.ClientInquiry', array(
+				new TextField('CIHeader', 'Header'),
+				new TextField('CIDesc', 'Description'),
+			));
+
+			/*
+			|-----------------------------------------------
+			| Frame 4
+			|----------------------------------------------- */
+			$fields->addFieldsToTab('Root.Frame4.Main', array(
+				new TextareaField('F4Desc', 'Description'),
+				new TextField('F4Link', 'Link'),
+			));
 
 
 			/*

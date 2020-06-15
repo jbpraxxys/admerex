@@ -1,120 +1,357 @@
-/*=================================================================================
-|                                 General Styling                                 |
-=================================================================================*/
 .cntct_frame1 {
-	padding-top: 119px;
-	background-color: #f8f8f8;
+	position: relative;
+	padding-top: 100px;
 
-	.cntct_form-hldr {
-		width: 50%;
-		background-color: #f1f1f1;
+	.cntct_frame1-bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
 	}
 
-	.cntct_form {
-		padding-top: 60px;
-		padding-bottom: 100px;
+	.content {
 		width: 500px;
+		margin: auto;
+		padding: 200px 0;
+		text-align: center;
+		* {
+			color: white;
+		}
+
+		.cntct_frame1-title {
+			margin-bottom: 10px;
+			* {
+				font-size: 31px;
+			}
+		}
+
+		.cntct_frame1-desc {
+			* {
+				line-height: 1.8em;
+			}
+		}
+	}
+}
+
+.cntct_frame2 {
+
+	padding-top: 100px;
+
+	.connect-cntnr {
+		width: 31.33%;
+		margin-right: 3%;
+		text-align: center;
+		padding-bottom: 50px;
+		&:nth-child(3n) {
+			margin-right: 0;
+		}
+
+		.image-hldr {
+			margin-bottom: 10px;
+		}
+
+		.image {
+			width: 100%;
+			height: 220px;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: cover;
+		}
+
+		.cdesc {
+			* {
+				line-height: 1.8em;
+			}
+		}
+	}
+}
+
+
+.cntct_frame3 {
+	position: relative;
+	img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		transition: all 0.34s ease;
+	}
+
+	.frm-cntnr {
+		width: 100%;
+		padding-top: 70px;
+		padding-bottom: 100px;
+
+		.tab-slct {
+			display: inline-block;
+			margin-right: 10px;
+			padding: 5px 25px;
+			border: 1px solid white;
+			border-radius: 20px;
+			transition: all 0.34s ease;
+			cursor: pointer;
+
+			* {
+				font-family: mont;
+				color: white;
+				font-size: 12px;
+			}
+
+			&.active {
+				background-color: white;
+				* {
+					color: #ade655;
+				}
+			}
+
+			&:hover {
+				background-color: white;
+				* {
+					color: #ade655;
+				}
+			}
+		}
+	}
+
+	.tabbing-select {
+		width: 50%;
+	}
+
+	.top-desc {
+		width: 50%;
+
+		* {
+			color: white;
+		}
+	}
+
+	.top-hldr {
+		width: 80%;
+		margin: auto;
+		margin-bottom: 50px;
+	}
+
+	.form-hldr {
+		width: 80%;
 		margin: auto;
 	}
 
+	.left-hldr {
+		width: 40%;
+		vertical-align: top;
+		* {
+			color: white;
+		}
 
-	.button-hldr {
-		text-align: center;
+		h2 {
+			font-size: 31px;
+			margin-bottom: 15px;
+			width: 70%;
+		}
+
+		p {
+		}
 	}
 
-	.input-hldr {
+	.right-hldr {
+		width: 60%;
+
+		.input-hldr {
+			width: 48%;
+			margin-right: 4%;
+			margin-bottom: 30px;
+
+			input {
+				width: calc(100% - 30px);
+				padding:10px 15px;
+				border-radius: 20px;
+				border: none;
+				font-family: gilroy;
+				font-size: 16px;
+			}
+
+			&:nth-child(2n) {
+				margin-right: 0;
+			}
+		}
+
+		.button-holder {
+			text-align: center;
+			button {
+
+			}
+		}
+	}
+}
+
+.cntct_frame4 {
+	position: relative;
+	z-index: -1;
+
+	.cntct_frame4-bg {
+		position: absolute;
+		top: -100px;
+		left: 0;
+		width: 100%;
+		height: calc(100% + 100px);
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+	}
+	.mascot-hldr {
+
+		width: 45%;
 		position: relative;
-		label {
+
+
+		.mascot {
+			position: relative;
+			width: 290px;
+			height: 358px;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: contain;
+		}
+
+		.messenger {
 			position: absolute;
-			right: 3%;
-			top: 10px;
-			color: red;
-			font-size: 12px;
-		}
-
-		input {
-			width: 100%;
-			border: none;
-			padding: 7px;
-			padding-left: 15px;
-			box-sizing: border-box;
-			margin-bottom: 25px;
-			font-size: 16px;
-			font-family: Open sans;
-			border-radius: 8px;
-			box-shadow: 0px 0px 4px 0px #dbdbdb;
-			color: black;
-
-			&::placeholder {
-				color: #ccc;
-			}
-		}
-
-		textarea {
-			width: 100%;
-			height: 90px;
-			border: none;
-			padding: 10px;
-			box-shadow: 0px 0px 4px 0px #dbdbdb;
-			padding-left: 15px;
-			box-sizing: border-box;
-			margin-bottom: 25px;
-			font-size: 16px;
-			font-family: Open sans;
-			border-radius: 8px;
-			color: black;
-
-			&::placeholder {
-				color: #ccc;
-			}
+			top: 50px;
+			right: -50px;
+			width: 45px;
+			height: 45px;
 		}
 	}
 
-	.map_hldr {
-		width: 50%;
-		padding-top: 60px;
+	.text-hldr {
+		width: 55%;
 
-
-        .map {
-			width: 550px;
-			margin: auto;
-			height: 300px;
+		.desc {
+			margin-bottom: 20px;
 		}
 	}
 
-
+	.frm-cntnr {
+		padding-top: 100px;
+	}
 }
 
 @media screen and (max-width: 1024px) {
 	.cntct_frame1 {
-		padding-top: 60px;
+		padding-top: 70px;
 	}
-
-	.cntct_frame1 .cntct_form-hldr {
+	.cntct_frame1 .content {
 		width: 100%;
+		padding: 100px 0;
 	}
 
-	.cntct_frame1 .cntct_form {
+	.cntct_frame1 .content .cntct_frame1-title {
+		* {
+			font-size: 24px;
+		}
+	}
+
+	.cntct_frame1 .frm-cntnr {
 		width: 90%;
-		margin: auto;
-		padding: 50px 0;
 	}
 
-	.cntct_frame1 .map_hldr {
-		width: 100%;
+	.cntct_frame2 {
 		padding-top: 50px;
 	}
 
-	.cntct_frame1 .map_hldr .contact-hldr {
-		width: 70%;
+	.cntct_frame2 .connect-cntnr {
+		width: 100%;
+		margin-right: 0;
 	}
 
-	.cntct_frame1 .map_hldr .cntct-hldr {
+	.cntct_frame2 .connect-cntnr .image {
+		height: 200px;
+	}
+
+	.cntct_frame3 {
+		text-align: center;
+	}
+
+	.cntct_frame3 img {
+		left: -15%;
+		width: 130%;
+	}
+
+	.cntct_frame3 .tabbing-select, .cntct_frame3 .top-desc {
 		width: 100%;
 	}
 
-	.cntct_frame1 .map_hldr .map {
+	.cntct_frame3 .tabbing-select {
+		margin-bottom: 10px;
+	}
+
+	.cntct_frame3 .left-hldr {
+		width: 100%;
+	}
+
+	.cntct_frame3 .right-hldr {
+		width: 100%;
+	}
+
+	.cntct_frame3 .top-hldr {
 		width: 90%;
-		height: 270px;
+		margin-bottom: 20px;
+	}
+
+	.cntct_frame3 .left-hldr h2 {
+		width: 100%;
+		font-size: 24px;
+	}
+
+	.cntct_frame3 .form-hldr {
+		width: 90%;
+	}
+
+	.cntct_frame3 .frm-cntnr .tab-slct:last-child {
+		margin-right: 0;
+	}
+
+	.cntct_frame3 .frm-cntnr .tab-slct {
+		padding: 5px 15px;
+	}
+
+	.cntct_frame3 .left-hldr {
+		margin-bottom: 20px;
+	}
+
+	.cntct_frame3 .right-hldr .input-hldr {
+		width: 100%;
+		margin-right: 0;
+	}
+
+	.cntct_frame3 .frm-cntnr {
+		padding: 50px 0;
+	}
+
+	.cntct_frame4 .frm-cntnr {
+		width: 90%;
+		padding-top: 50px;
+	}
+
+	.cntct_frame4 .mascot-hldr {
+		width: 100%;
+	}
+
+	.cntct_frame4 .mascot-hldr .mascot {
+		width: 70%;
+		background-position: bottom;
+	}
+
+	.cntct_frame4 .text-hldr {
+		width: 100%;
+		text-align: center;
+
+		.button {
+			margin: auto;
+		}
 	}
 }

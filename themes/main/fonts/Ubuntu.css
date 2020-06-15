@@ -21,3 +21,17 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'Mont';
+    src: url('Mont.otf') format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('Gilroy.otf') format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}

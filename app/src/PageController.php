@@ -39,5 +39,9 @@ namespace {
         public function getContactPage() {
             return ContactPage::get();
         }
+
+        public function getSolutionPage() {
+            return SolutionPage::get();
+        }
     }
 }
