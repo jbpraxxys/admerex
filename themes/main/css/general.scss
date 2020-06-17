@@ -835,6 +835,8 @@ $frame-bg--pos__b: bottom center;
 
     .ftr-frame .pursuit .left-side, .ftr-frame .pursuit .right-side {
         width: 100%;
+        column-count: 1;
+        display: none;
     }
 
     .ftr-frame .logo-hldr {
@@ -846,7 +848,7 @@ $frame-bg--pos__b: bottom center;
     }
 
     .ftr-frame .pursuit .pursuit-title {
-        margin-bottom: 10px;
+        margin-bottom: 0px;
     }
 
     .ftr-frame .contact .contact-title {
@@ -856,6 +858,10 @@ $frame-bg--pos__b: bottom center;
     .ftr-frame .ftr-bottom * {
         color: white;
         font-weight: bold;
+    }
+
+    .contact-cntnr {
+        display: none;
     }
 }
 

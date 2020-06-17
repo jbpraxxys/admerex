@@ -79,15 +79,15 @@
 					</div>
 				</div
 				><div class="top-desc">
-					<p>Interested in joining our team? Fill up the form below!</p>
+					<p>$F3Header</p>
 				</div>
 			</div>
 		</div>
 		<div class="form-hldr">
 			<div id="AIform" class="inlineBlock-parent">
 				<div class="left-hldr">
-					<h2>Want to partner with us?</h2>
-					<p>Interested in being our partner?</p>
+					<h2>$AIHeader</h2>
+					<p>$AIDesc</p>
 				</div
 				><div class="right-hldr">
 					<form action="" id="contactForm" method="post">
@@ -116,8 +116,8 @@
 			</div>
 			<div id="CIform" class="inlineBlock-parent">
 				<div class="left-hldr">
-					<h2>Join Us and #ExperienceHappy</h2>
-					<p>1500 teammates in Makati, Cebu and Mandaluyong!</p>
+					<h2>$CIHeader</h2>
+					<p>$CIDesc</p>
 				</div
 				><div class="right-hldr">
 					<form action="" id="contactForm2" method="post">
@@ -155,20 +155,20 @@
 <div class="cntct_frame4">
 	<div class="cntct_frame4-bg" style="background-image: url('$ThemeDir/images/f5.png');"></div>
 	<div class="frm-cntnr width--70">
-		<div class="inlineBlock-parent">
-			<div class="mascot-hldr">
+		<div class="inlineBlock-parent formobile-flex flex">
+			<div class="mascot-hldr fadeIn">
 				<div class="mascot" style="background-image: url('$ThemeDir/images/mascot.png');">
-					<a href="" class="messenger">
+					<a href="$F4Link" class="messenger" target="_blank">
 						<img src="$ThemeDir/images/messenger.png" alt="">
 					</a>
 				</div>
 			</div
-			><div class="text-hldr">
+			><div class="text-hldr fadeIn">
 				<div class="desc">
-					<p>This is all fine and dandy, but if you want reach us more conveniently and faster, check us out on Facebook Messenger!</p>
+					<p>$F4Desc</p>
 				</div>
 				<div class="button-hldr button">
-					<a href="">
+					<a href="$F4Link" target="_blank">
 						Check Us Out
 					</a>
 				</div>

@@ -32,11 +32,11 @@
 			</div>
 		</div
 		><div class="pursuit align-t">
-			<div class="pursuit-title">
+			<div id="pursuit" class="pursuit-title">
 				<p>PURSUIT</p>
 			</div>
 			<div class="inlineBlock-parent">
-				<div class="left-side">
+				<div id="pursuittog" class="left-side">
 					<% loop $SolutionPage %>
 					<% loop $Solutions %>
 					<div class="ftrlink">
@@ -48,11 +48,11 @@
 			</div>
 		</div
 		><div class="contact align-t">
-			<div class="contact-title">
+			<div id="contact" class="contact-title">
 				<p>CONTACT</p>
 			</div>
 			<% loop $HeaderFooter %>
-			<div class="contact-cntnr">
+			<div id="contact-tog" class="contact-cntnr">
 				<% if $ftrphone %>
 				<a href="tel:$ftrphone" target="_blank" style="display: inline-block">
 					<div class="inlineBlock-parent">
