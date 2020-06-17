@@ -55,7 +55,7 @@ namespace {
 			$fields->addFieldToTab('Root.Main', ReadonlyField::create('SortID', 'Sort ID'));
 			$fields->addFieldToTab('Root.Main', $upload = UploadField::create('Image','Image'));
 			$fields->addFieldToTab('Root.Main', TextField::create('ATitle', 'Title'));
-			$fields->addFieldToTab('Root.Main', DateField::create('Date', 'Date'));
+			$fields->addFieldToTab('Root.Main', TextField::create('Date', 'Date'));
 			$fields->addFieldToTab('Root.Main', TextareaField::create('Desc', 'Description'));
 
 			# SET FIELD DESCRIPTION 

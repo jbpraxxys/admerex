@@ -8,7 +8,7 @@
 	</div>
 	<div class="frm-cntnr width--80">
 		<div class="hm_frame1-content">
-			<div class="frame1-slider">
+			<div class="frame1-slider animate-up">
 				<% loop $HomeBanners %>
 				<div class="slider-hldr">
 					<div class="hm_frame1-title">
@@ -20,9 +20,9 @@
 				</div>
 				<% end_loop %>
 			</div>
-			<div class="hm_frame1-search">
-				<form action="">
-					<input type="text" placeholder="Search">
+			<div class="hm_frame1-search fadeIn">
+				<form action="{$BaseHref}search" method="GET">
+					<input type="text" name="q" placeholder="Search">
 					<div class="search-btn" style="background-image: url('$ThemeDir/images/search.png');"></div>
 				</form>
 			</div>
@@ -35,11 +35,11 @@
 	<div class="frm-cntnr width--80">
 		<div class="vertical-parent">
 			<div class="vertical-align">
-				<div class="f2-content">
-					<div class="f2-title">
+				<div class="f2-content staggerup_hldr">
+					<div class="f2-title staggerup">
 						<h2>$F2Title</h2>
 					</div>
-					<div class="f2-desc">
+					<div class="f2-desc staggerup">
 						<p>$F2Desc</p>
 					</div>
 				</div>
@@ -51,8 +51,8 @@
 	<div class="hm_frame3-bg" style="background-image: url('$ThemeDir/images/bgf3.png');"></div>
 	<div class="frm-cntnr width--90">
 		<div class="content-container inlineBlock-parent">
-			<div class="left-cntnr">
-				<div class="tabbing-hldr">
+			<div class="left-cntnr staggerup_hldr1">
+				<div class="tabbing-hldr staggerup1">
 					<div class="tab-cntnr" @click="activetab = 1" v-bind:class="{'active':activetab == 1}">
 						<p>$F3Title1</p>
 					</div
@@ -65,11 +65,11 @@
 				</div>
 				<transition name="slide-fade">
 				<div class="tabbing" v-if="activetab == 1">
-					<div class="tab-content">
+					<div class="tab-content staggerup1">
 						<p>$F3Desc1</p>
 					</div>
 					<a href="$F3link1">
-					<div class="button-hldr button">
+					<div class="button-hldr button fadeIn">
 						<p>Learn More</p>
 					</div>
 					</a>
@@ -100,7 +100,7 @@
 				</div>
 				</transition>
 			</div
-			><div class="right-cntnr">
+			><div class="right-cntnr fadeIn">
 				<div class="image-hldr">
 					<transition name="slide-fade">
 					<div v-if="activetab == 1" class="img" style="background-image: url('$F3Img1.URL');"></div>
@@ -118,11 +118,11 @@
 </div>
 <div class="hm_frame4">
 	<div class="frm-cntnr">
-		<div class="hm_frame4-content">
-			<div class="hm_frame4-title">
+		<div class="hm_frame4-content staggerup_hldr2">
+			<div class="hm_frame4-title staggerup2">
 				<h2>$F4Title</h2>
 			</div>
-			<div class="hm_frame4-desc">
+			<div class="hm_frame4-desc staggerup2">
 				<p>$F4Desc</p>
 			</div>
 		</div>
@@ -132,14 +132,14 @@
 	<div class="hm_frame5-cntnr">
 		<div class="hm_frame5-bg" style="background-image: url('$ThemeDir/images/f5.png');"></div>
 		<%-- <img src="$ThemeDir/images/f5.png" alt=""> --%>
-		<div class="frm-cntnr width--90">
-			<div class="f5-title">
+		<div class="frm-cntnr width--90 staggerup_hldr3">
+			<div class="f5-title staggerup3">
 				<h2>$F5Title</h2>
 			</div>
-			<div class="f5-desc">
+			<div class="f5-desc staggerup3">
 				$F5Desc
 			</div>
-			<div class="solution-slider">
+			<div class="solution-slider staggerup3">
 				<% loop $SolutionPage %>
 				<% loop $Solutions %>
 				<div class="solution-cntnr">
@@ -163,33 +163,33 @@
 			</a>
 		</div>
 	</div>
-	<div class="f6-cntnr">
-		<div class="f6-title">
+	<div class="f6-cntnr staggerup_hldr4">
+		<div class="f6-title staggerup4">
 			<h2>$F6Title</h2>
 		</div>
-		<div class="f6-desc">
+		<div class="f6-desc staggerup4">
 			<p>$F6Desc</p>
 		</div>
 		<a href="$F6Link">
-		<div class="button-hldr button">
+		<div class="button-hldr button staggerup4">
 			<p>Join Our Team</p>
 		</div>
 		</a>
 	</div>
 </div>
 <div class="hm_frame7">
-	<div class="frm-cntnr width--80">
+	<div class="frm-cntnr width--80 staggerup_hldr5">
 		<div class="inlineBlock-parent">
 			<div class="logo-holder">
-				<div class="logo-title">
+				<div class="logo-title staggerup5">
 					<h2>$F7Title</h2>
 				</div>
-				<div class="logo-cntnr">
+				<div class="logo-cntnr staggerup5">
 					<div class="logo" style="background-image: url('$F7IMG.URL');"></div>
 				</div>
 			</div
 			><div class="hm_frame7-desc">
-				<div class="desc-cntnr">
+				<div class="desc-cntnr staggerup5">
 					<p>$F7Desc</p>
 				</div>
 			</div>
@@ -199,10 +199,10 @@
 <div class="hm_frame8">
 	<div class="hm_frame8-bg" style="background-image: url('$ThemeDir/images/f8.png');"></div>
 	<div class="frm-cntnr width--80">
-		<div class="f8-title">
+		<div class="f8-title fadeIn">
 			<h2>$F8Title</h2>
 		</div>
-		<div class="f8-image-slider">
+		<div class="f8-image-slider fadeIn">
 			<% loop $Histories %>
 			<div class="image-cntnr">
 				<div class="image" style="background-image: url('$Image.URL');">
@@ -215,7 +215,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="m-content">
+				<div class="m-content fadeIn">
 					<div class="content-title">
 						<h2>$HTitle</h2>
 					</div>
@@ -245,15 +245,15 @@
 	<img class="hm_frame9-bg" src="$ThemeDir/images/f9bg.png" alt="">
 	<div class="frm-cntnr width--90">
 		<div class="inlineBlock-parent">
-			<div class="video-cntnr">
+			<div class="video-cntnr fadeIn">
 				<div class="video-thumbnail" style="background-image: url('$F9IMG.URL');"></div>
 			</div
 			><div class="hm_frame9-content">
-				<div class="content-hldr">
-					<div class="f9-title">
+				<div class="content-hldr staggerup_hldr7">
+					<div class="f9-title staggerup7">
 						<h2>$F9Title</h2>
 					</div>
-					<div class="f9-desc">
+					<div class="f9-desc staggerup7">
 						<p>$F9Desc</p>
 					</div>
 				</div>
@@ -264,11 +264,11 @@
 <div class="hm_frame10">
 	<%-- <div class="hm_frame10-bg" style="background-image: url('$ThemeDir/images/f5.png');"></div> --%>
 	<img class="hm_frame10-bg" src="$ThemeDir/images/f5.png" alt="">
-	<div class="frm-cntnr width--90">
+	<div class="frm-cntnr width--90 staggerup_hldr8">
 		<div class="location-cntnr">
 			<% loop $Locations %>
 			<div class="loc-hldr">
-				<div class="loc-logo">
+				<div class="loc-logo staggerup8">
 					<img src="$Image.URL" alt="">
 				</div>
 				<div class="loc-title">
@@ -290,16 +290,16 @@
 </div>
 <div class="hm_frame11">
 	<div class="frm-cntnr width--80">
-		<div class="hm_frame11-title">
+		<div class="hm_frame11-title fadeIn">
 			<h2>$F11Title</h2>
 		</div>
-		<div class="affiliate-slider">
+		<div class="affiliate-slider staggerup_hldr9">
 			<% loop $Affiliates %>
 			<div class="affiliate-cntnr">
 				<div class="vertical-parent">
 					<div class="vertical-align">
 						<a href="$ALink">
-							<img class="affiliate-logo" src="$Image.URL" alt="">
+							<img class="affiliate-logo staggerup9" src="$Image.URL" alt="">
 						</a>
 					</div>
 				</div>

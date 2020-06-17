@@ -29,16 +29,27 @@ namespace {
 
 			'copyright' => 'Text',	
 
+			'fblink' => 'Text',	
+			'iglink' => 'Text',	
+			'twitterlink' => 'Text',	
+
+			/*Contact*/
+
+			'ftrphone' => 'Text',
+			'ftrmail' => 'Text',
+
 		];
 
 		private static $has_one = [
 			'Logo' => Image::class,
+			'Logo2' => Image::class,
 			'Favicon' => Image::class,
 			
 		];
 
 		private static $owns = [
 			'Logo',
+			'Logo2',
 			'Favicon',
 			
 		];
@@ -63,7 +74,8 @@ namespace {
 			* Header
 			*/
 			$fields->addFieldsToTab('Root.Header', array(
-				$upload = new UploadField('Logo', 'Logo (Max size: 2MB)'),
+				$upload = new UploadField('Logo', 'Logo Black (Max size: 2MB)'),
+				$upload = new UploadField('Logo2', 'Logo White (Max size: 2MB)'),
 				$upload = new UploadField('Favicon', 'Fav Icon (Max size: 2MB)'),
 				// $upload = new UploadField('LoadingIcon', 'Loading Icon (Max size: 2MB)'),
 			));
@@ -89,6 +101,25 @@ namespace {
 			|----------------------------------------------- */
 			$fields->addFieldsToTab('Root.CopyRights.Main', array(
 				new TextField('copyright', 'Copy Rights'),
+			));
+
+			/*
+			|-----------------------------------------------
+			| @Social Media
+			|----------------------------------------------- */
+			$fields->addFieldsToTab('Root.SocialMedia.Main', array(
+				new TextField('fblink', 'Facebook Link'),
+				new TextField('iglink', 'Instagram Link'),
+				new TextField('twitterlink', 'twitter Link'),
+			));
+
+			/*
+			|-----------------------------------------------
+			| @Social Media
+			|----------------------------------------------- */
+			$fields->addFieldsToTab('Root.Contact.Main', array(
+				new TextField('ftrphone', 'Phone Number'),
+				new TextField('ftrmail', 'Email Address'),
 			));
 
 			return $fields;

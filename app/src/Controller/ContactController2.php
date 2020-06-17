@@ -9,12 +9,13 @@ use SilverStripe\View\ArrayData;
 
 require '../vendor/autoload.php';
 
-class ContactController extends Controller {
+class ContactController2 extends Controller {
 
 	private $fullname;
+	private $business;
+	private $service;
 	private $email;
 	private $contact;
-	private $job;
 	
 	// private $messagedetails;
 	private $recipient;
@@ -57,6 +58,10 @@ class ContactController extends Controller {
 			$this->fullname = $_POST['fullname'];
 		}
 
+		if(isset($_POST['business'])) {
+			$this->business = $_POST['business'];
+		}
+
 		if(isset($_POST['email'])) {
 			$this->email = $_POST['email'];
 		}
@@ -65,8 +70,8 @@ class ContactController extends Controller {
 			$this->contact = $_POST['contact'];
 		}
 
-		if(isset($_POST['job'])) {
-			$this->job = $_POST['job'];
+		if(isset($_POST['service'])) {
+			$this->service = $_POST['service'];
 		}
 
 
@@ -98,6 +103,12 @@ class ContactController extends Controller {
 			);
 		}
 
+		if(empty($_POST['business'])) {
+			$this->errors['business'] = array(
+				'error' => 'Please input your line of Business'
+			);
+		}
+
 
 		if(empty($_POST['email'])) {
 			$this->errors['email'] = array(
@@ -105,11 +116,11 @@ class ContactController extends Controller {
 			);
 		}
 
-		// if(empty($_POST['messagedetails'])) {
-		// 	$this->errors['messagedetails'] = array(
-		// 		'error' => 'Please leave a message'
-		// 	);
-		// }
+		if(empty($_POST['service'])) {
+			$this->errors['service'] = array(
+				'error' => 'Please put service that you are interested in'
+			);
+		}
 
 
 		switch ($this->postFlag) {
@@ -129,7 +140,7 @@ class ContactController extends Controller {
 	}
 
 	private function setRecipients() {
-		$email = ContactPage::get()->First()->AIEmail;
+		$email = ContactPage::get()->First()->CIEmail;
 		$this->recipient = $email;
 		// $this->recipient = $_POST['mailrecipient'];
 	}
@@ -171,11 +182,12 @@ class ContactController extends Controller {
 		    'fullname' => $this->fullname,
 		    'contact' => $this->contact,
 		    'email' => $this->email,
-		    'job' => $this->job,
+		    'business' => $this->business,
+		    'service' => $this->service,
 		    // 'messagedetails' => $this->messagedetails,
 		));
 
-		return $arrayData->renderWith('ContactEmailTemplate');
+		return $arrayData->renderWith('ContactEmailTemplate2');
 	}
 
 	private function sendPHPMailer($recipients, $subject, $body) {

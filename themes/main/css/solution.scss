@@ -86,6 +86,18 @@
 	}
 }
 
+
+.search_header {
+	padding-top: 80px;
+	width: 100%;
+	background-color: $green;
+	text-align: center;
+
+	.frm-title {
+		padding: 100px 0;
+	}
+}
+
 @media screen and (max-width: 1024px) {
 	.sol_frame1 .frm-cntnr {
 		width: 90%;
@@ -106,5 +118,9 @@
 		width: 100%;
 		margin-right: 0;
 		margin-bottom: 50px;
+	}
+
+	.search_header {
+		padding-top: 70px;
 	}
 }

@@ -89,9 +89,9 @@
 						<br>
 						<p class="color--back"><strong>Full Name :</strong> {$fullname}</p>
 						<p class="color--back"><strong>Contact Number :</strong> {$contact}</p>
-						<p class="color--back"><strong>Job Posting :</strong> {$job}</p>
+						<p class="color--back"><strong>Line of Business :</strong> {$business}</p>
 						<p class="color--back"><strong>Email Address :</strong> {$email}</p>
-						<p class="color--back"><strong>Message :</strong> {$messagedetails}</p>
+						<p class="color--back"><strong>Service interested In :</strong> {$service}</p>
 						<br>
 						<br>
 						<p class="color--back">Thank You,</p>

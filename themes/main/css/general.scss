@@ -395,11 +395,8 @@ body {
         width: 40%;
 
         .left-side {
-            width: 50%;
-        }
-
-        .right-side {
-            width: 50%;
+            width: 100%;
+            column-count: 2;
         }
 
         .pursuit-title {
@@ -416,6 +413,10 @@ body {
                 color: #ccc;
                 font-family: gilroy;
                 font-size: 14px;
+            }
+
+            a:hover {
+                color: $green;
             }
         }
      }
@@ -442,6 +443,12 @@ body {
             p {
                 font-family: gilroy;
                 color: #ccc;
+            }
+
+            a:hover {
+                * {
+                    color: $green;
+                }
             }
 
             .inlineBlock-parent {

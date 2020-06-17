@@ -1,24 +1,34 @@
 <div class="ftr-frame">
 	<div class="ftr-cntnr inlineBlock-parent">
 		<div class="logo-hldr align-t">
+			<% loop $HeaderFooter %>
 			<a href="">
-				<div class="ftr-logo" style="background-image: url('$ThemeDir/images/ftrlogo.png');"></div>
+				<div class="ftr-logo" style="background-image: url('$Logo2.URL');"></div>
 			</a>
+			<% end_loop %>
 			<div class="ftr-link">
 				<a class="ppolicy" href="privacy-policy">Privacy Policy</a>
 			</div>
 			<div class="social-link">
+				<% loop $HeaderFooter %>
 				<div class="inlineBlock-parent">
-					<a href="">
+					<% if $fblink %>
+					<a href="$fblink" target="_blank">
 						<img src="$ThemeDir/images/fb.svg" alt="">
 					</a>
-					<a href="">
+					<% end_if %>
+					<% if $iglink %>
+					<a href="$iglink" target="_blank">
 						<img src="$ThemeDir/images/ig.svg" alt="">
 					</a>
-					<a href="">
+					<% end_if %>
+					<% if $twitterlink %>
+					<a href="$twitterlink" target="_blank">
 						<img src="$ThemeDir/images/twitter.svg" alt="">
 					</a>
+					<% end_if %>
 				</div>
+				<% end_loop %>
 			</div>
 		</div
 		><div class="pursuit align-t">
@@ -27,38 +37,13 @@
 			</div>
 			<div class="inlineBlock-parent">
 				<div class="left-side">
+					<% loop $SolutionPage %>
+					<% loop $Solutions %>
 					<div class="ftrlink">
-						<a href="">Automation and Analysis</a>
+						<a href="$SolutionPage.Link">$SolTitle</a>
 					</div>
-					<div class="ftrlink">
-						<a href="">Consultation Services</a>
-					</div>
-					<div class="ftrlink">
-						<a href="">Credit Verification</a>
-					</div>
-					<div class="ftrlink">
-						<a href="">Customer Services</a>
-					</div>
-					<div class="ftrlink">
-						<a href="">Debt Recoveries</a>
-					</div>
-				</div
-				><div class="right-side">
-					<div class="ftrlink">
-						<a href="">Fraud Monitoring</a>
-					</div>
-					<div class="ftrlink">
-						<a href="">Receivables Management</a>
-					</div>
-					<div class="ftrlink">
-						<a href="">Sales</a>
-					</div>
-					<div class="ftrlink">
-						<a href="">Seat Hosting</a>
-					</div>
-					<div class="ftrlink">
-						<a href="">Workforce Services</a>
-					</div>
+					<% end_loop %>
+					<% end_loop %>
 				</div>
 			</div>
 		</div
@@ -66,18 +51,24 @@
 			<div class="contact-title">
 				<p>CONTACT</p>
 			</div>
+			<% loop $HeaderFooter %>
 			<div class="contact-cntnr">
-				<a href="">
+				<% if $ftrphone %>
+				<a href="tel:$ftrphone" target="_blank" style="display: inline-block">
 					<div class="inlineBlock-parent">
-						<img src="$ThemeDir/images/phone.svg" alt=""><p>(+63)2 755-6907</p>
+						<img src="$ThemeDir/images/phone.svg" alt=""><p>$ftrphone</p>
 					</div>
 				</a>
-				<a href="">
+				<% end_if %>
+				<% if $ftrmail %>
+				<a href="mailto:$ftrmail" target="_blank" style="display: inline-block">
 					<div class="inlineBlock-parent">
-						<img src="$ThemeDir/images/message.svg" alt=""><p>mktg@admerexsolutions.com</p>
+						<img src="$ThemeDir/images/message.svg" alt=""><p>$ftrmail</p>
 					</div>
 				</a>
+				<% end_if %>
 			</div>
+			<% end_loop %>
 		</div>
 	</div>
 	<div class="ftr-bottom">

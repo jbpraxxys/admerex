@@ -148,6 +148,8 @@ var app = {
 		            }
 	            ]
 		      });
+			$('.slick-prev').html('<i class="ion-chevron-left"></i>');
+     	 	$('.slick-next').html('<i class="ion-chevron-right"></i');
 
 			$('.year-slider .year-hldr').click(function(){
 				$('.year-slider .year-hldr').removeClass('active');
@@ -242,15 +244,25 @@ var app = {
 
 		contactpage: function() {
 			app.form.init($('#contactForm'), $('#contactBtn'), 'form/contact/send', false);
+			app.form.init($('#contactForm2'), $('#contactBtn2'), 'form/contact/send', false);
 
 			$(document).ready(function() {
 		        $("#lightgallery").lightGallery(); 
 		    });
 
-		    new Vue({
-			    el: '#tabs',
-			    data: { activetab: 2 },
-			});
+		   $("#AIbutton").click(function() {
+		   		$("#CIbutton").removeClass("active");
+		   		$(this).addClass("active");
+		   		$("#CIform").hide();
+		   		$("#AIform").fadeIn();
+		   });
+
+		   $("#CIbutton").click(function() {
+		   		$("#AIbutton").removeClass("active");
+		   		$(this).addClass("active");
+		   		$("#AIform").hide();
+		   		$("#CIform").fadeIn();
+		   });
 		},
 
 			

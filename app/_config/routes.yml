@@ -7,3 +7,4 @@ After:
 SilverStripe\Control\Director:
   rules:
     'form/contact/send//': 'ContactController'
+    'form/contact/send//': 'ContactController2'

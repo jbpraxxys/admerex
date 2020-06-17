@@ -584,6 +584,57 @@
 	}
 }
 
+.hm_frame8  .slick-next:before,
+.hm_frame8  .slick-prev:before {
+   display: none;
+}
+
+.hm_frame8 .slick-prev, 
+.hm_frame8 .slick-next {
+}
+
+.hm_frame8 button {
+	&:hover {
+		i {
+			display: block !important;
+		}
+	}
+}
+
+
+.hm_frame8 button.slick-prev, 
+.hm_frame8 button.slick-next {
+   	border: none;
+   	background-color: transparent;
+   	box-shadow: none;
+   	padding: 0 !important;
+   	transform: translateY(-3px);
+
+   	&:hover {
+   		color: $green;
+   	}
+   }
+
+.hm_frame8 .slick-prev > i, 
+.hm_frame8 .slick-next > i {
+   font-size: 24px;
+   color: #ccc;
+   transition: all 0.34s ease;
+
+   &:hover {
+   	display: block !important;
+   	color: $green;
+   }
+}
+
+.hm_frame8 .slick-prev {
+	left: -10px;
+}
+
+.hm_frame8 .slick-next {
+	right: -10px;
+}
+
 .hm_frame9 {
 	position: relative;
 	z-index: 1;

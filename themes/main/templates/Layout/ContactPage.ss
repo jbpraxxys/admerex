@@ -37,12 +37,12 @@
 
 <div class="cntct_frame1">
 	<div class="cntct_frame1-bg" style="background-image: url('$F1BG.URL');"></div>
-	<div class="frm-cntnr">
+	<div class="frm-cntnr staggerup_hldr">
 		<div class="content">
-			<div class="cntct_frame1-title">
+			<div class="cntct_frame1-title staggerup">
 				<h2>$F1Title</h2>
 			</div>
-			<div class="cntct_frame1-desc">
+			<div class="cntct_frame1-desc staggerup">
 				<p>$F1Desc</p>
 			</div>
 		</div>
@@ -50,9 +50,9 @@
 </div>
 
 <div class="cntct_frame2">
-	<div class="frm-cntnr width--90">
+	<div class="frm-cntnr width--90 staggerup_hldr1">
 		<div class="inlineBlock-parent" id="lightgallery">
-			<% loop $Medias %><div class="connect-cntnr" href="$Image.URL">
+			<% loop $Medias %><div class="connect-cntnr staggerup1" href="$Image.URL">
 				<div class="image-hldr">
 					<div class="image" style="background-image: url('$Image.URL');"></div>
 				</div>
@@ -67,14 +67,14 @@
 
 <div class="cntct_frame3">
 	<img src="$ThemeDir/images/f9bg.png" alt="">
-	<div class="frm-cntnr" id="tabs">
+	<div class="frm-cntnr">
 		<div class="top-hldr">
 			<div class="inlineBlock-parent">
 				<div class="tabbing-select">
-					<div class="tab-slct" @click="activetab = 1" v-bind:class="{'active':activetab == 1}">
+					<div id="AIbutton" class="tab-slct">
 						<p>Applicant Inquiry</p>
 					</div>
-					<div class="tab-slct" @click="activetab = 2" v-bind:class="{'active':activetab == 2}">
+					<div id="CIbutton" class="tab-slct active">
 						<p>Client Inquiry</p>
 					</div>
 				</div
@@ -84,65 +84,67 @@
 			</div>
 		</div>
 		<div class="form-hldr">
-			<div v-if="activetab == 1" class="inlineBlock-parent">
+			<div id="AIform" class="inlineBlock-parent">
 				<div class="left-hldr">
 					<h2>Want to partner with us?</h2>
 					<p>Interested in being our partner?</p>
 				</div
 				><div class="right-hldr">
-					<form action="">
+					<form action="" id="contactForm" method="post">
 						<div class="inlineBlock-parent">
 							<div class="input-hldr">
-								<input type="text" placeholder="Full Name">
+								<input type="text" name="fullname" placeholder="Full Name" required>
 							</div
 							><div class="input-hldr">
-								<input type="text" placeholder="Contact Number">
+								<input type="text" name="contact" placeholder="Contact Number" required>
 							</div>
 						</div>
 						<div class="inlineBlock-parent">
 							<div class="input-hldr">
-								<input type="text" placeholder="E-mail">
+								<input type="text" name="email" placeholder="E-mail" required>
 							</div
 							><div class="input-hldr">
-								<input type="text" placeholder="Job Post">
+								<input type="text" name="job" placeholder="Job Post" required>
 							</div>
 						</div>
 						<div class="button-holder">
-							<button>Submit</button>
+							<button id="contactBtn">Submit</button>
+							<input type="hidden" name="postFlag" value="1">
 						</div>
 					</form>
 				</div>
 			</div>
-			<div v-if="activetab == 2" class="inlineBlock-parent">
+			<div id="CIform" class="inlineBlock-parent">
 				<div class="left-hldr">
 					<h2>Join Us and #ExperienceHappy</h2>
 					<p>1500 teammates in Makati, Cebu and Mandaluyong!</p>
 				</div
 				><div class="right-hldr">
-					<form action="">
+					<form action="" id="contactForm2" method="post">
 						<div class="inlineBlock-parent">
 							<div class="input-hldr">
-								<input type="text" placeholder="Full Name">
+								<input type="text" name="fullname" placeholder="Full Name" required>
 							</div
 							><div class="input-hldr">
-								<input type="text" placeholder="Line of Business">
+								<input type="text" name="business" placeholder="Line of Business" required>
 							</div>
 						</div>
 						<div class="inlineBlock-parent">
 							<div class="input-hldr">
-								<input type="text" placeholder="E-mail">
+								<input type="text" name="email" placeholder="E-mail">
 							</div
 							><div class="input-hldr">
-								<input type="text" placeholder="Service Interested In">
+								<input type="text" name="service" placeholder="Service Interested In" required>
 							</div>
 						</div>
 						<div class="inlineBlock-parent">
 							<div class="input-hldr">
-								<input type="text" placeholder="Contact Number">
+								<input type="text" name="contact" placeholder="Contact Number" required>
 							</div>
 						</div>
 						<div class="button-holder">
-							<button>Submit</button>
+							<button id="contactBtn2">Submit</button>
+							<input type="hidden" name="postFlag" value="1">
 						</div>
 					</form>
 				</div>

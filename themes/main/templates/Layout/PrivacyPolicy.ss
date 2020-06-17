@@ -6,6 +6,5 @@
 		<div class="privacy-desc">
 			$Desc
 		</div>
-		
 	</div>
 </div>

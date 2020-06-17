@@ -35,9 +35,11 @@ namespace {
 
 			'AIHeader' => 'Text',
 			'AIDesc' => 'Text',
+			'AIEmail' => 'Text',
 
 			'CIHeader' => 'Text',
 			'CIDesc' => 'Text',
+			'CIEmail' => 'Text',
 
 
 			'F4Desc' => 'Text',
@@ -111,11 +113,13 @@ namespace {
 			$fields->addFieldsToTab('Root.Frame3.ApplicantInquiry', array(
 				new TextField('AIHeader', 'Header'),
 				new TextField('AIDesc', 'Description'),
+				new TextField('AIEmail', 'Email Receipient'),
 			));
 
 			$fields->addFieldsToTab('Root.Frame3.ClientInquiry', array(
 				new TextField('CIHeader', 'Header'),
 				new TextField('CIDesc', 'Description'),
+				new TextField('CIEmail', 'Email Receipient'),
 			));
 
 			/*

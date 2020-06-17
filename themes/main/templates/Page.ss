@@ -173,7 +173,7 @@
         <script type="text/javascript" src="$ThemeDir/js/vendor/chosen/chosen.jquery.min.js"></script>
         <script type="text/javascript" src="$ThemeDir/js/storelocator.js"></script>
 
-        <!-- Maps -->
+  <%--       <!-- Maps -->
          <% loop ContactPage %>
              <script type="text/javascript">
                     var mapLat = $Lat,
@@ -195,7 +195,7 @@
                     animation: google.maps.Animation.DROP,
                 });
             </script>
-            <% end_loop %>
+            <% end_loop %> --%>
 
                 
              <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
