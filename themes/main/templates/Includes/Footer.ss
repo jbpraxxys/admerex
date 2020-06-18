@@ -72,6 +72,8 @@
 		</div>
 	</div>
 	<div class="ftr-bottom">
-		<p>Copyright &copy; 2020. Admerex. All Rights Reserved</p>
+		<% loop $HeaderFooter %>
+		<p>$copyright</p>
+		<% end_loop %>
 	</div>
 </div>

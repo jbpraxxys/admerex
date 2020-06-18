@@ -81,7 +81,7 @@
 			<div class="email-template__card">
 				<div class="email-template__card-limit">
 					<div class="email-template__header">
-						<img class="email-template__logo" src="https://lh3.googleusercontent.com/CS2dKRNVGG7ldozi4d4LJxGO6MSBcNMq204H2tTJyAq67jmcLyR_m4Qjrfdh9Eg4QOO2Quf9xjZI_napCzmwHckwUX2DvBgBa3iquyuiLmEChDeDOiTluc7z8uj27R4LxAlqy4arSgAdICCqfbNtiDH0XhlYOOjN2jRaBPkAmB-XCPILs1TUsByF1hP6twKEpwqFkn-ZB73J0aQtH6J6QyE9VOcJHe3voBhuYy4s542d7OIl98DrdC_GQncfumxK91Oqft1mNT-9wVAGQ_bz7dpZIJcZySAZdBFySLZRCkk69FkrNFbSiJQ4Zi16x4-qLmTmJVsyQAKU0E09c17ASSopNGM18ySwyG--drRRHSc_f9tKfkcLvbIq8OIbV_rehOzGQhpgUshwoBJpcmtlxG4-XOTuTev4OqPQgd9tfS-KMN40srdyz8tM3X6QCId0FdOEcbDiYIVR14TCfGjC93YOT9skmUluOxExc-m4l0IRlfhyVQ2jHHfrcO2oadXrxlXwzq__9-ujCUReuYXzENDrFspwThBL6sJXux_Z7cZFPLmx-lQT2wBe9qVOKN5opNC3MEKttWH8Z8V0Il0b-ssqo1bPOGes3erNcUOo-LtPLcLmMCr8Ses-KQ=w1317-h637">
+						<img class="email-template__logo" src="https://mk0testameyodosbyws5.kinstacdn.com/wp-content/uploads/2019/08/admerex-logo-1.png">
 					</div>
 					<div class="email-template__description">
 						<br>

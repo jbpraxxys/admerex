@@ -142,7 +142,7 @@ class ContactController extends Controller {
 		// $headers .= "\r\n" . "MIME-Version: 1.0" . "\r\n";
 		// $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
 
-		$subject = $this->subject .'Trinity Health PH: New Website Inquiry!';
+		$subject = $this->subject .'ADMEREX: New Website Inquiry!';
 
 		$message = $this->getEmailTemplate();
 
@@ -154,7 +154,7 @@ class ContactController extends Controller {
 		// print_r('Email confirmation...');
 		
 		$recipients = explode(',', $this->email);
-		$subject = $this->subject .'Trinity Health PH: This is to notify you that we have succesfully received your message on Trinity Health PH';
+		$subject = $this->subject .'ADMEREX: This is to notify you that we have succesfully received your message on ADMEREX';
 		
 		// Enables HTML Text
 		// $headers .= "\r\n" . "MIME-Version: 1.0" . "\r\n";
@@ -191,7 +191,7 @@ class ContactController extends Controller {
 		    $mail->Password = '5xRaJCyQ6ddWRTeR';
 		    $mail->Port = 587;
 
-			$mail->setFrom('no-reply@praxxys.ph', 'www.trinityhealthph.com');
+			$mail->setFrom('no-reply@praxxys.ph', 'www.admerexsolutions.com');
 
 			// Add in each recipient to the "TO"
 			foreach ($recipients as $recipient) {
