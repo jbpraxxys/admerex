@@ -2,7 +2,11 @@
 	<div class="hm_frame1-bg">
 		<% loop $HomeBanners %>
 		<div>
-			<video autoplay loop src="$VidFile.URL"></video>
+			<% if $VidFile.URL %>
+			<video autoplay loop muted src="$VidFile.URL"></video>
+			<% else_if $Banner %>
+			<img src="$Banner.URL" alt="">
+			<% end_if %>
 		</div>
 		<% end_loop %>
 	</div>
@@ -23,7 +27,10 @@
 			<div class="hm_frame1-search fadeIn">
 				<form action="{$BaseHref}search" method="GET">
 					<input type="text" name="q" placeholder="Search">
-					<div class="search-btn" style="background-image: url('$ThemeDir/images/search.png');"></div>
+					<button class="btn-search">
+					<div class="search-btn" style="background-image: url('$ThemeDir/images/search.png');">
+					</button>
+					</div>
 				</form>
 			</div>
 		</div>

@@ -1,4 +1,11 @@
 <div class="ftr-frame">
+	<div class="go-top">
+		<a href="#top">
+			<div class="arrow">
+				<i class="fas fa-chevron-up"></i>
+			</div>
+		</a>
+	</div>
 	<div class="ftr-cntnr inlineBlock-parent">
 		<div class="logo-hldr align-t">
 			<% loop $HeaderFooter %>

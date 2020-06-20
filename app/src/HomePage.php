@@ -184,7 +184,7 @@ namespace {
 			|----------------------------------------------- */
 			$fields->addFieldsToTab('Root.Frame7.Main', array(
 				new TextField('F7Title', 'Header'),
-				new TextareaField('F7Desc', 'Description'),
+				new HTMLEditorField('F7Desc', 'Description'),
 				$upload = new UploadField('F7IMG', 'Image'),
 			));
 

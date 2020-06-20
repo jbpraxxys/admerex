@@ -36,6 +36,35 @@ var app = {
 			$('.m-menu-hldr .m-exit').click(function(){
 				$('.m-menu-hldr').css('transform', 'translateY(-110%)');
 			});
+
+
+			
+			//Calls the function on load to switch layout
+			segragateContent();
+
+			//Calls the function on resize to switch layout
+			window.addEventListener("resize", segragateContent);
+			function segragateContent(){
+				var width = $(window).width(); 
+				if (width <= 1024){
+					// $('#pursuit').click(function() {
+					// 	$('#pursuit-tog').toggleSlide();
+					// });
+
+					$('#pursuit').click(function(){
+						$('#pursuittog').slideToggle();
+					});
+
+					$('#contact').click(function(){
+						$('#contact-tog').slideToggle();
+					});
+				} else {
+					// $('#pursuit').click(function(){
+					// 	// $('#pursuit-tog').fadeIn();
+					// 	alert('S');
+					// });
+				}
+			};
 			
 
 		},
@@ -132,13 +161,14 @@ var app = {
 
 			$('.year-slider').slick({
 			 	infinite: true,
-				slidesToShow: 5,
+				slidesToShow: 4,
 				slidesToScroll:1,
 				// autoplay: true,
 				speed: 1000,
 				// dots: true,
 				arrows: true,
 				focusOnSelect: true,
+				centerMode: true,
 				asNavFor: '.f8-image-slider',
 				responsive: [
 		            {
@@ -184,32 +214,6 @@ var app = {
 
 		solutionpage: function() {
 
-			//Calls the function on load to switch layout
-			segragateContent();
-
-			//Calls the function on resize to switch layout
-			window.addEventListener("resize", segragateContent);
-			function segragateContent(){
-				var width = $(window).width(); 
-				if (width <= 1024){
-					// $('#pursuit').click(function() {
-					// 	$('#pursuit-tog').toggleSlide();
-					// });
-
-					$('#pursuit').click(function(){
-						$('#pursuittog').slideToggle();
-					});
-
-					$('#contact').click(function(){
-						$('#contact-tog').slideToggle();
-					});
-				} else {
-					// $('#pursuit').click(function(){
-					// 	// $('#pursuit-tog').fadeIn();
-					// 	alert('S');
-					// });
-				}
-			};
 		},
 
 		journeypage: function() {
