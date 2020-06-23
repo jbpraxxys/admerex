@@ -26,11 +26,13 @@ namespace {
 
 		private static $has_one = [
 			'VidFile' => File::class,
+			'Banner' => Image::class,
 			'HomePage' => HomePage::class
 		];
 
 		private static $owns = [
 			'VidFile',
+			'Banner',
 		];
 
 		public function getThumbnail() {
@@ -54,6 +56,7 @@ namespace {
 			$fields->addFieldsToTab('Root.Main', array(
 				new ReadonlyField('SortID', 'Sort ID'),
 				$upload = new UploadField('VidFile', 'Video'),
+				$upload = new UploadField('Banner', 'Banner 1300 x 650 (leave this empty to use vidbanner)'),
 				new HTMLEditorField('Header', 'Header'),
 				new TextareaField('Desc', 'Description'),
 			));

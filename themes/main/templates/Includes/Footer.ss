@@ -1,4 +1,11 @@
 <div class="ftr-frame">
+	<div class="go-top">
+		<a href="#top">
+			<div class="arrow">
+				<i class="fas fa-chevron-up"></i>
+			</div>
+		</a>
+	</div>
 	<div class="ftr-cntnr inlineBlock-parent">
 		<div class="logo-hldr align-t">
 			<% loop $HeaderFooter %>
@@ -33,7 +40,7 @@
 		</div
 		><div class="pursuit align-t">
 			<div id="pursuit" class="pursuit-title">
-				<p>PURSUIT</p>
+				<p>PURSUIT</p><i class="fas fa-caret-down"></i>
 			</div>
 			<div class="inlineBlock-parent">
 				<div id="pursuittog" class="left-side">
@@ -49,7 +56,7 @@
 		</div
 		><div class="contact align-t">
 			<div id="contact" class="contact-title">
-				<p>CONTACT</p>
+				<p>CONTACT</p><i class="fas fa-caret-down"></i>
 			</div>
 			<% loop $HeaderFooter %>
 			<div id="contact-tog" class="contact-cntnr">

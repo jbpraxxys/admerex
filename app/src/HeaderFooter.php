@@ -24,6 +24,7 @@ namespace {
 			/*Seo Keywords*/
 
 			'SeoKeywords' => 'Text',	
+			'SeoDesc' => 'Text',	
 
 			/*Footer copyrights*/
 
@@ -93,6 +94,10 @@ namespace {
 
 			$fields->addFieldsToTab('Root.SEO Keywords', [
 				new TextareaField('SeoKeywords', 'SEO Keywords'),
+			]);
+
+			$fields->addFieldsToTab('Root.SEO Description', [
+				new TextareaField('SeoDesc', 'SEO Description'),
 			]);
 
 			/*

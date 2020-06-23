@@ -26,7 +26,7 @@
 			.jrny_frame1-header {
 				margin-bottom: 20px;
 				* {
-					font-family: mont;
+					font-family: 'Mont', sans-serif;
 					font-size: 31px;
 				}
 			}
@@ -194,7 +194,62 @@
 	}
 }
 
+.jrny_frame3  .slick-next:before,
+.jrny_frame3  .slick-prev:before {
+   display: none;
+}
+
+.jrny_frame3 .slick-prev, 
+.jrny_frame3 .slick-next {
+}
+
+.jrny_frame3 button {
+	&:hover {
+		i {
+			display: block !important;
+		}
+	}
+}
+
+
+.jrny_frame3 button.slick-prev, 
+.jrny_frame3 button.slick-next {
+   	border: none;
+   	background-color: transparent;
+   	box-shadow: none;
+   	padding: 0 !important;
+   	transform: translateY(-20px);
+
+   	&:hover {
+   		color: $green;
+   	}
+   }
+
+.jrny_frame3 .slick-prev > i, 
+.jrny_frame3 .slick-next > i {
+   font-size: 24px;
+   color: #ccc;
+   transition: all 0.34s ease;
+
+   &:hover {
+   	display: block !important;
+   	color: $green;
+   }
+}
+
+.jrny_frame3 .slick-prev {
+	left: -100px;
+}
+
+.jrny_frame3 .slick-next {
+	right: -100px;
+}
+
 @media screen and (max-width: 1024px) {
+
+	.jrny_frame1 {
+		height: calc(100vh - 80px);
+	}
 	.jrny_frame1 .frm-cntnr .jrny_frame1-content {
 		width: 100%;
 	}
@@ -220,6 +275,14 @@
 		margin-bottom: 20px;
 	}
 
+	.jrny_frame2 .frm-cntnr .desc-hldr .d-desc {
+		max-height: 100%;
+	}
+
+	.jrny_frame3 .content-hldr .content-cntnr .desc {
+		height: auto;
+	}
+
 	.jrny_frame2 .frm-cntnr .desc-hldr {
 		width: 100%;
 		text-align: center;
@@ -239,6 +302,7 @@
 
 	.jrny_frame3 .frm-cntnr {
 		width: 90%;
+		text-align: center;
 	}
 
 	.jrny_frame3 .jrny-img-slider {

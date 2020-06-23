@@ -32,8 +32,12 @@ namespace {
             // requirements::themedCSS("assets/app.min.css");
         }
 
-         public function getHeaderFooter() {
+        public function getHeaderFooter() {
             return HeaderFooter::get();
+        }
+
+         public function getVideoModal() {
+            return VideoModal::get();
         }
 
         public function getContactPage() {

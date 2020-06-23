@@ -63,7 +63,7 @@ namespace {
 			$fields->addFieldsToTab('Root.Frame1.Main', array(
 				new TextField('F1Title', 'Title'),
 				new TextareaField('F1Desc', 'Description'),
-				$upload = new UploadField('F1BG', 'Background'),
+				$upload = new UploadField('F1BG', 'Background 1300 x 650'),
 			));
 
 			# SET FIELD DESCRIPTION 

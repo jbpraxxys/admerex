@@ -67,6 +67,7 @@ namespace {
 			'F3Img3' => Image::class,
 			'F7IMG' => Image::class,
 			'F9IMG' => Image::class,
+			'F9Vid' => File::class,
 			
 		];
 
@@ -76,6 +77,7 @@ namespace {
 			'F3Img3',
 			'F7IMG',
 			'F9IMG',
+			'F9Vid',
 		];
 
 		private static $has_many = [
@@ -127,21 +129,21 @@ namespace {
 			| Frame 3
 			|----------------------------------------------- */
 			$fields->addFieldsToTab('Root.Frame3.Solution', array(
-				$upload = new UploadField('F3Img1', 'Image'),
+				$upload = new UploadField('F3Img1', 'Image 590 x 350'),
 				new TextField('F3Title1', 'Title'),
 				new TextareaField('F3Desc1', 'Description'),
 				new TextField('F3link1', 'Link'),
 			));
 
 			$fields->addFieldsToTab('Root.Frame3.Journeys', array(
-				$upload = new UploadField('F3Img2', 'Image'),
+				$upload = new UploadField('F3Img2', 'Image 590 x 350'),
 				new TextField('F3Title2', 'Title'),
 				new TextareaField('F3Desc2', 'Description'),
 				new TextField('F3link2', 'Link'),
 			));
 
 			$fields->addFieldsToTab('Root.Frame3.ContactUs', array(
-				$upload = new UploadField('F3Img3', 'Image'),
+				$upload = new UploadField('F3Img3', 'Image 590 x 350'),
 				new TextField('F3Title3', 'Title'),
 				new TextareaField('F3Desc3', 'Description'),
 				new TextField('F3link3', 'Link'),
@@ -184,8 +186,8 @@ namespace {
 			|----------------------------------------------- */
 			$fields->addFieldsToTab('Root.Frame7.Main', array(
 				new TextField('F7Title', 'Header'),
-				new TextareaField('F7Desc', 'Description'),
-				$upload = new UploadField('F7IMG', 'Image'),
+				new HTMLEditorField('F7Desc', 'Description'),
+				$upload = new UploadField('F7IMG', 'Image 150 x 150'),
 			));
 
 			/*
@@ -212,7 +214,8 @@ namespace {
 			$fields->addFieldsToTab('Root.Frame9.Main', array(
 				new TextField('F9Title', 'Header'),
 				new TextareaField('F9Desc', 'Description'),
-				$upload = new UploadField('F9IMG', 'Image'),
+				$upload = new UploadField('F9IMG', 'Vid Thumbnail'),
+				$upload = new UploadField('F9Vid', 'Video'),
 			));
 
 			/*

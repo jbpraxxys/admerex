@@ -23,9 +23,6 @@ namespace {
 
 		private static $db = [
 			
-	    	/*Email*/
-			'Email' => 'Text',
-
 			'F1Title' => 'Text',
 			'F1Desc' => 'Text',
 			
@@ -81,7 +78,7 @@ namespace {
 			$fields->addFieldsToTab('Root.Frame1.Main', array(
 				new TextField('F1Title', 'Title'),
 				new TextareaField('F1Desc', 'Description'),
-				$upload = new UploadField('F1BG', 'Background'),
+				$upload = new UploadField('F1BG', 'Background 1300 x 650'),
 			));
 
 			# SET FIELD DESCRIPTION 
@@ -132,14 +129,6 @@ namespace {
 			));
 
 
-			/*
-			|-----------------------------------------------
-			| @E-mail
-			|----------------------------------------------- */
-			$fields->addFieldsToTab('Root.Email.Main', array(
-				new TextField('Email', 'E-mail Recipient'),
-			));
-			
 			return $fields;
 		}
 	}
