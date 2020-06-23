@@ -49,7 +49,7 @@ namespace {
 			| @Frame1
 			|----------------------------------------------- */
 			$fields->addFieldsToTab('Root.Frame1.Main', array(
-				new TextField('Header', 'header'),
+				new TextField('Title', 'header'),
 				new HTMLEditorField('Desc', 'Description'),
 			));
 			

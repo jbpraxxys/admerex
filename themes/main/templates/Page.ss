@@ -7,6 +7,7 @@
         <title><% if $MetaTitle %>$MetaTitle<% else %>$Title<% end_if %> | $SiteConfig.Title</title>
         <% loop HeaderFooter %>
         <meta name="keywords" content="$SeoKeywords"> 
+        <meta name="description" content="$SeoDesc"> 
         <link rel="shortcut icon" href="$Favicon.Url" type="image/x-icon" />
         <% if Logo %>
              <meta property="og:image" content="$Logo.Url">    

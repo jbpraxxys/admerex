@@ -679,13 +679,23 @@
 		padding: 100px 0;
 
 		.video-cntnr {
+			position: relative;
+			overflow: hidden;
 			width: 50%;
+
 			.video-thumbnail {
 				width: 100%;
 				height: 400px;
 				background-repeat: no-repeat;
 				background-position: center;
 				background-size: cover;
+				cursor: pointer;
+				transition: all 0.34s ease;
+
+				&:hover {
+					filter: grayscale(100%);
+					transform: rotate(2deg) scale(1.05);
+				}
 			}
 		}
 
@@ -769,9 +779,12 @@
 	}
 
 	.loc-desc {
+		margin: auto;
+		width: 95%;
 		margin-bottom: 10px;
 		* {
 			font-family: gilroy;
+			font-size: 14px;
 		}
 	}
 
@@ -781,6 +794,7 @@
 			font-family: 'Mont', sans-serif;
 			text-decoration: underline;
 			color: #93df65;
+			font-size: 14px;
 		}
 	}
 
@@ -793,13 +807,17 @@
 
 		a {
 			font-size: 14px;
+			transition: all 0.34s ease;
+			&:hover {
+				color: $green;
+			}
 		}
 	}
 
 	.loc-hldr {
 		display: inline-block;
 		width: 22%;
-		margin-right: 4%;
+		margin: auto;
 		text-align: center;
 		&:nth-child(4n) {
 			margin-right: 0;
@@ -940,6 +958,11 @@
 	.hm_frame5 .f6-cntnr {
 		width: 90%;
 		padding: 50px 0;
+		text-align: center;
+	}
+
+	.hm_frame5 .f6-cntnr .button-hldr {
+		margin: auto;
 	}
 
 	.hm_frame7 .frm-cntnr {
@@ -960,6 +983,14 @@
 		padding: 50px 0;
 		padding-bottom: 80px;
 		width: 90%;
+	}
+
+	.hm_frame8 .year-slider-cntnr .slick-track {
+		left: 0;
+	}
+
+	.hm_frame8 .year-slider-cntnr {
+		padding: 0;
 	}
 
 	.hm_frame8 .content-hldr {

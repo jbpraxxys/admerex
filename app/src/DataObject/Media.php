@@ -49,7 +49,7 @@ namespace {
 		public function getCMSFields() {
 			$fields = parent::getCMSFields();
 			$fields->addFieldToTab('Root.Main', ReadonlyField::create('SortID', 'Sort ID'));
-			$fields->addFieldToTab('Root.Main', $upload = UploadField::create('Image','Image'));
+			$fields->addFieldToTab('Root.Main', $upload = UploadField::create('Image','Image 370 x 220'));
 			$fields->addFieldToTab('Root.Main', TextareaField::create('Desc', 'Description'));
 
 			# SET FIELD DESCRIPTION 

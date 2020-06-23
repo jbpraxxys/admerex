@@ -56,7 +56,7 @@ namespace {
 			$fields->addFieldsToTab('Root.Main', array(
 				new ReadonlyField('SortID', 'Sort ID'),
 				$upload = new UploadField('VidFile', 'Video'),
-				$upload = new UploadField('Banner', 'Banner (leave this empty to use vidbanner)'),
+				$upload = new UploadField('Banner', 'Banner 1300 x 650 (leave this empty to use vidbanner)'),
 				new HTMLEditorField('Header', 'Header'),
 				new TextareaField('Desc', 'Description'),
 			));

@@ -431,9 +431,13 @@ body {
 
         .pursuit-title {
             width: 100%;
-            * {
+            p {
                 font-family: mont;
                 color: white;
+            }
+
+            i {
+                display: none;
             }
         }
 
@@ -456,9 +460,13 @@ body {
 
         .contact-title {
             width: 100%;
-            * {
+            p {
                 font-family: mont;
                 color: white;
+            }
+
+            i {
+                display: none;
             }
 
         }
@@ -733,6 +741,34 @@ $frame-bg--pos__b: bottom center;
 
 }
 
+#vid_modal {
+    width: 80%;
+    height: auto;
+    padding: 5px;
+    margin-bottom: 0;
+
+    video {
+        width: 100%;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 2;
+        i {
+            color: $green;
+            font-size: 25px;
+            cursor: pointer;
+            transition: all 0.34s ease;
+
+            &:hover {
+                color: red;
+            }
+        }
+    }
+}
+
 
 
 
@@ -786,7 +822,7 @@ $frame-bg--pos__b: bottom center;
         height: 100vh;
         padding: 50px 0;
         z-index: 10;
-        transform: translateY(-110%);
+        transform: translateX(110%);
         transition: all 0.34s ease;
 
         .wrapper {
@@ -842,6 +878,10 @@ $frame-bg--pos__b: bottom center;
         }
     }
 
+    #vid_modal {
+        width: 100%;
+    }
+
 
 
     .ftr-frame .logo-hldr {
@@ -884,10 +924,41 @@ $frame-bg--pos__b: bottom center;
 
     .ftr-frame .pursuit .pursuit-title {
         margin-bottom: 0px;
+
+        p {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        i {
+            display: inline-block;
+            color: $green;
+            font-size: 20px;
+            transition: all 0.34s ease;
+
+            &.open {
+                transform: rotate(-180deg);
+            }
+        }
     }
 
     .ftr-frame .contact .contact-title {
         margin-bottom: 10px;
+        p {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        i {
+            display: inline-block;
+            color: $green;
+            font-size: 20px;
+            transition: all 0.34s ease;
+
+            &.open {
+                transform: rotate(-180deg);
+            }
+        }
     }
 
     .ftr-frame .ftr-bottom * {

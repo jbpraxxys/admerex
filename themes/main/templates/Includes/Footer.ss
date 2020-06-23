@@ -40,7 +40,7 @@
 		</div
 		><div class="pursuit align-t">
 			<div id="pursuit" class="pursuit-title">
-				<p>PURSUIT</p>
+				<p>PURSUIT</p><i class="fas fa-caret-down"></i>
 			</div>
 			<div class="inlineBlock-parent">
 				<div id="pursuittog" class="left-side">
@@ -56,7 +56,7 @@
 		</div
 		><div class="contact align-t">
 			<div id="contact" class="contact-title">
-				<p>CONTACT</p>
+				<p>CONTACT</p><i class="fas fa-caret-down"></i>
 			</div>
 			<% loop $HeaderFooter %>
 			<div id="contact-tog" class="contact-cntnr">

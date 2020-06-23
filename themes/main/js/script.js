@@ -34,7 +34,7 @@ var app = {
 			});
 
 			$('.m-menu-hldr .m-exit').click(function(){
-				$('.m-menu-hldr').css('transform', 'translateY(-110%)');
+				$('.m-menu-hldr').css('transform', 'translateX(110%)');
 			});
 
 
@@ -53,10 +53,12 @@ var app = {
 
 					$('#pursuit').click(function(){
 						$('#pursuittog').slideToggle();
+						$('.ftr-frame .pursuit .pursuit-title i').toggleClass('open');
 					});
 
 					$('#contact').click(function(){
 						$('#contact-tog').slideToggle();
+						$('.ftr-frame .contact .contact-title i').toggleClass('open');
 					});
 				} else {
 					// $('#pursuit').click(function(){
@@ -226,6 +228,7 @@ var app = {
 				speed: 1000,
 				arrows: true,
 				dots: false,
+				adaptiveHeight: true,
 				asNavFor: '.jrny-img-slider',
 		      });
 
@@ -236,7 +239,7 @@ var app = {
 				// autoplay: true,
 				centerMode: true,
 				speed: 1000,
-				arrows: true,
+				arrows: false,
 				dots: false,
 				focusOnSelect: true,
 				// prevArrow: $('.prev-arrow'),
@@ -255,6 +258,8 @@ var app = {
 	            ]
 
 		      });
+			$('.slick-prev').html('<i class="ion-chevron-left"></i>');
+     	 	$('.slick-next').html('<i class="ion-chevron-right"></i');
 
 			
 			//Calls the function on load to switch layout

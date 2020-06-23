@@ -51,7 +51,7 @@ namespace {
 		public function getCMSFields() {
 			$fields = parent::getCMSFields();
 			$fields->addFieldToTab('Root.Main', ReadonlyField::create('SortID', 'Sort ID'));
-			$fields->addFieldToTab('Root.Main', $upload = UploadField::create('Image','Image'));
+			$fields->addFieldToTab('Root.Main', $upload = UploadField::create('Image','Image 50 x 50'));
 			$fields->addFieldToTab('Root.Main', TextField::create('SolTitle', 'Title'));
 			$fields->addFieldToTab('Root.Main', TextareaField::create('Teaser', 'Teaser'));
 			$fields->addFieldToTab('Root.Main', TextareaField::create('Desc', 'Description'));

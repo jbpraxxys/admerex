@@ -55,7 +55,7 @@ namespace {
 			$fields->addFieldsToTab('Root.Main', array(
 				new ReadonlyField('SortID', 'Sort ID'),
 				new TextField('Year', 'Year'),
-				$upload = new UploadField('Image', 'Image'),
+				$upload = new UploadField('Image', 'Image 650 x 350'),
 				new TextField('HTitle', 'Title'),
 				new TextareaField('Desc', 'Description'),
 			));

@@ -152,8 +152,9 @@
 	}
 
 	.left-hldr {
-		width: 40%;
+		width: calc(40% - 20px);
 		vertical-align: top;
+		padding-right: 20px;
 		* {
 			color: white;
 		}
@@ -172,9 +173,20 @@
 		width: 60%;
 
 		.input-hldr {
+			position: relative;
 			width: 48%;
 			margin-right: 4%;
 			margin-bottom: 30px;
+
+			label {
+				position: absolute;
+				top: 50%;
+				right: 5%;
+				transform: translateY(-50%);
+				font-size: 11px;
+				color: gray;
+				font-family: gilroy;
+			}
 
 			input {
 				width: calc(100% - 30px);
@@ -245,7 +257,7 @@
 		width: 55%;
 
 		.desc {
-			margin-bottom: 20px;
+			margin-bottom: 40px;
 		}
 	}
 
@@ -257,6 +269,8 @@
 @media screen and (max-width: 1024px) {
 	.cntct_frame1 {
 		padding-top: 70px;
+		height: calc(100vh - 70px);
+
 	}
 	.cntct_frame1 .content {
 		width: 100%;
