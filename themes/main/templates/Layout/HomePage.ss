@@ -253,7 +253,9 @@
 	<div class="frm-cntnr width--90">
 		<div class="inlineBlock-parent">
 			<div class="video-cntnr fadeIn">
-				<div class="video-thumbnail" data-remodal-target="vid1" style="background-image: url('$F9IMG.URL');"></div>
+				<div class="video-thumbnail" data-remodal-target="vid1" style="background-image: url('$F9IMG.URL');">
+					<img src="$ThemeDir/images/play.png" alt="">
+				</div>
 			</div
 			><div class="hm_frame9-content">
 				<div class="content-hldr staggerup_hldr7">
