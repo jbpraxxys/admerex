@@ -54,6 +54,7 @@ namespace {
 
 			'F9Title' => 'Text',
 			'F9Desc' => 'Text',
+			'YTLink' => 'Text',
 
 			'F10Title' => 'Text',
 			'F10Desc' => 'Text',
@@ -216,6 +217,7 @@ namespace {
 				new TextareaField('F9Desc', 'Description'),
 				$upload = new UploadField('F9IMG', 'Vid Thumbnail'),
 				$upload = new UploadField('F9Vid', 'Video'),
+				new TextField('YTLink', 'Youtube Link'),
 			));
 
 			/*

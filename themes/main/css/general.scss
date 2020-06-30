@@ -751,6 +751,11 @@ $frame-bg--pos__b: bottom center;
         width: 100%;
     }
 
+    iframe {
+        width: 100%;
+        height: 70vh;
+    }
+
     .modal-close {
         position: absolute;
         top: 20px;

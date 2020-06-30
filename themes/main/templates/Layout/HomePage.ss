@@ -1,12 +1,13 @@
 <div class="hm_frame1">
 	<div class="hm_frame1-bg">
 		<% loop $HomeBanners %>
-		<div>
+		<div class="bg-holder">
 			<% if $VidFile.URL %>
 			<video autoplay loop muted src="$VidFile.URL"></video>
 			<% else_if $Banner %>
 			<img src="$Banner.URL" alt="">
 			<% end_if %>
+			<div class="gradient-bg"></div>
 		</div>
 		<% end_loop %>
 	</div>
@@ -67,7 +68,7 @@
 						<p>$F3Title2</p>
 					</div
 					><div class="tab-cntnr" @click="activetab = 3" v-bind:class="{'active':activetab == 3}">
-						<p>$F3Title1</p>
+						<p>$F3Title3</p>
 					</div>
 				</div>
 				<transition name="slide-fade">
@@ -205,7 +206,7 @@
 </div>
 <div class="hm_frame8">
 	<div class="hm_frame8-bg" style="background-image: url('$ThemeDir/images/f8.png');"></div>
-	<div class="frm-cntnr width--80">
+	<div class="frm-cntnr">
 		<div class="f8-title fadeIn">
 			<h2>$F8Title</h2>
 		</div>
@@ -213,6 +214,7 @@
 			<% loop $Histories %>
 			<div class="image-cntnr">
 				<div class="image" style="background-image: url('$Image.URL');">
+					<div class="gradient"></div>
 					<div class="content-hldr">
 						<div class="content-title">
 							<h2>$HTitle</h2>
