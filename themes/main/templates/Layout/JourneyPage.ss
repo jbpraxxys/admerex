@@ -64,5 +64,10 @@
 			</div>
 			<% end_loop %>
 		</div>
+	<%-- 	<div class="pagination-slider">
+			<% loop $Articles %>
+			    <div class="number">$ID</div>
+			<% end_loop %>
+		</div> --%>
 	</div>
 </div>
