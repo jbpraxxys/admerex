@@ -18,7 +18,7 @@ class ContactController extends Controller {
 	
 	// private $messagedetails;
 	private $recipient;
-	// private $captchaResponse;
+	private $captcha;
 
 	private $errors;
 
@@ -27,13 +27,13 @@ class ContactController extends Controller {
 		// print_r('Init...');
 		if(isset($_POST['postFlag']) && is_numeric($_POST['postFlag'])) {
 
-    		$postFlag = $_POST['postFlag'];
-    		// print_r('PostFlag : '$_POST['postFlag']);
-    		switch ($postFlag) {
-    		
-	    		// Sending
-	    		case 1:
-	    				
+			$postFlag = $_POST['postFlag'];
+			// print_r('PostFlag : '$_POST['postFlag']);
+			switch ($postFlag) {
+			
+				// Sending
+				case 1:
+						
 					if($this->setPostVars() && $this->checkPostVars()) {
 						// print_r('Sending...');
 						$this->setRecipients();
@@ -44,9 +44,9 @@ class ContactController extends Controller {
 
 				break;
 			}
-    	}
+		}
 
-    	exit();
+		exit();
 	}
 
 	private function setPostVars() {
@@ -69,13 +69,13 @@ class ContactController extends Controller {
 			$this->job = $_POST['job'];
 		}
 
-
 		// if(isset($_POST['messagedetails'])) {
 		// 	$this->messagedetails = $_POST['messagedetails'];
 		// }
 
-		
-
+		if(isset($_POST['g-recaptcha-response'])){
+			$this->captcha=$_POST['g-recaptcha-response'];
+		}
 
 		return true;
 
@@ -91,13 +91,11 @@ class ContactController extends Controller {
 			);
 		}
 
-
 		if(empty($_POST['contact'])) {
 			$this->errors['contact'] = array(
 				'error' => 'Please input your Contact number'
 			);
 		}
-
 
 		if(empty($_POST['email'])) {
 			$this->errors['email'] = array(
@@ -111,17 +109,22 @@ class ContactController extends Controller {
 		// 	);
 		// }
 
+		if(empty($_POST['g-recaptcha-response']) ) {
+			$this->errors = 'Please check the the captcha form';
+		}
+
+		$secretKey = "6LcqdLAZAAAAAJN1lr9_3mf6yRXS3sgocn-ROxqS";
+		$response = $this->postRecaptcha($secretKey, $this->captcha);
+
+		// should return JSON with success as true
+		if($response->success) {
+		} else {
+			$this->errors = 'CAPTCHA verification failed.';
+		}
 
 		switch ($this->postFlag) {
-    		// Sending
-    		case 1: break;
-    	}		
-    	// print_($this->errors);
-		if(!empty(count($this->errors) > 0)) {
-			$this->returnEcho(0, 'Error');
-			// print_r($this->errors);
-
-			return false;
+			// Sending
+			case 1: break;
 		}
  
 		return true;
@@ -168,11 +171,11 @@ class ContactController extends Controller {
 	private function getEmailTemplate() {
 
 		$arrayData = new ArrayData(array(
-		    'fullname' => $this->fullname,
-		    'contact' => $this->contact,
-		    'email' => $this->email,
-		    'job' => $this->job,
-		    // 'messagedetails' => $this->messagedetails,
+			'fullname' => $this->fullname,
+			'contact' => $this->contact,
+			'email' => $this->email,
+			'job' => $this->job,
+			// 'messagedetails' => $this->messagedetails,
 		));
 
 		return $arrayData->renderWith('ContactEmailTemplate');
@@ -182,28 +185,25 @@ class ContactController extends Controller {
 		// print_r('Emailing...' . $recipients);
 		try {
 
-			$mail = new PHPMailer(true);  
-
-			$mail->SMTPDebug = 0;
-			$mail->SMTPAuth = true;
-			$mail->Host = 'email.praxxys.ph';
-		    $mail->Username = 'mark.praxxys';
-		    $mail->Password = '5xRaJCyQ6ddWRTeR';
-		    $mail->Port = 587;
-
-			$mail->setFrom('no-reply@praxxys.ph', 'www.admerexsolutions.com');
+			$mail = new PHPMailer;
+			// Set PHPMailer to use the sendmail transport
+			$mail->isSendmail();
+			//Set who the message is to be sent from
+			$mail->setFrom('no-reply@admerexsolutions.com', 'www.admerexsolutions.com');
+			//Set an alternative reply-to address
+			$mail->addReplyTo('no-reply@admerexsolutions.com', 'www.admerexsolutions.com');
+			//Set who the message is to be sent to
 
 			// Add in each recipient to the "TO"
 			foreach ($recipients as $recipient) {
 				$mail->addAddress($recipient, $recipient);
 			}
 
-			$mail->isSMTP();
 			$mail->isHTML(true);
 			$mail->Subject = $subject;
 			$mail->Body = $body;
 
-			$mail->send();
+			// $mail->send();
 
 			// print_r('Emailing done...');
 
@@ -219,6 +219,23 @@ class ContactController extends Controller {
 			'status' => $status,
 			'message' => $message
 		));
+	}
+
+	private function postRecaptcha($secret, $response) {
+
+		$data = array(
+			'secret' => $secret,
+			'response' => $response
+		);
+
+		$verify = curl_init();
+		curl_setopt($verify, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
+		curl_setopt($verify, CURLOPT_POST, true);
+		curl_setopt($verify, CURLOPT_POSTFIELDS, http_build_query($data));
+		curl_setopt($verify, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
+		return  json_decode(curl_exec($verify));
+
 	}
 
 }

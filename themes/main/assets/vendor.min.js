@@ -451,7 +451,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jQuery JavaScript Library v3.4.1
+ * jQuery JavaScript Library v3.5.1
  * https://jquery.com/
  *
  * Includes Sizzle.js
@@ -461,7 +461,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2019-05-01T21:04Z
+ * Date: 2020-05-04T22:49Z
  */
 (function (global, factory) {
 
@@ -497,13 +497,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 	var arr = [];
 
-	var document = window.document;
-
 	var getProto = Object.getPrototypeOf;
 
 	var slice = arr.slice;
 
-	var concat = arr.concat;
+	var flat = arr.flat ? function (array) {
+		return arr.flat.call(array);
+	} : function (array) {
+		return arr.concat.apply([], array);
+	};
 
 	var push = arr.push;
 
@@ -533,6 +535,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	var isWindow = function isWindow(obj) {
 		return obj != null && obj === obj.window;
 	};
+
+	var document = window.document;
 
 	var preservedScriptAttributes = {
 		type: true,
@@ -584,7 +588,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	// unguarded in another place, it seems safer to define global only for this module
 
 
-	var version = "3.4.1",
+	var version = "3.5.1",
 
 
 	// Define a local copy of jQuery
@@ -593,12 +597,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		// The jQuery object is actually just the init constructor 'enhanced'
 		// Need init if jQuery is called (just allow error to be thrown if not included)
 		return new jQuery.fn.init(selector, context);
-	},
-
-
-	// Support: Android <=4.0 only
-	// Make sure we trim BOM and NBSP
-	rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+	};
 
 	jQuery.fn = jQuery.prototype = {
 
@@ -662,6 +661,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 		last: function () {
 			return this.eq(-1);
+		},
+
+		even: function () {
+			return this.pushStack(jQuery.grep(this, function (_elem, i) {
+				return (i + 1) % 2;
+			}));
+		},
+
+		odd: function () {
+			return this.pushStack(jQuery.grep(this, function (_elem, i) {
+				return i % 2;
+			}));
 		},
 
 		eq: function (i) {
@@ -801,9 +812,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			return true;
 		},
 
-		// Evaluates a script in a global context
-		globalEval: function (code, options) {
-			DOMEval(code, { nonce: options && options.nonce });
+		// Evaluates a script in a provided context; falls back to the global one
+		// if not specified.
+		globalEval: function (code, options, doc) {
+			DOMEval(code, { nonce: options && options.nonce }, doc);
 		},
 
 		each: function (obj, callback) {
@@ -826,11 +838,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			}
 
 			return obj;
-		},
-
-		// Support: Android <=4.0 only
-		trim: function (text) {
-			return text == null ? "" : (text + "").replace(rtrim, "");
 		},
 
 		// results is for internal usage only
@@ -917,7 +924,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			}
 
 			// Flatten any nested arrays
-			return concat.apply([], ret);
+			return flat(ret);
 		},
 
 		// A global GUID counter for objects
@@ -933,7 +940,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	}
 
 	// Populate the class2type map
-	jQuery.each("Boolean Number String Function Array Date RegExp Object Error Symbol".split(" "), function (i, name) {
+	jQuery.each("Boolean Number String Function Array Date RegExp Object Error Symbol".split(" "), function (_i, name) {
 		class2type["[object " + name + "]"] = name.toLowerCase();
 	});
 
@@ -954,17 +961,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	}
 	var Sizzle =
 	/*!
-  * Sizzle CSS Selector Engine v2.3.4
+  * Sizzle CSS Selector Engine v2.3.5
   * https://sizzlejs.com/
   *
   * Copyright JS Foundation and other contributors
   * Released under the MIT license
   * https://js.foundation/
   *
-  * Date: 2019-04-08
+  * Date: 2020-03-14
   */
 	function (window) {
-
 		var i,
 		    support,
 		    Expr,
@@ -1010,9 +1016,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		hasOwn = {}.hasOwnProperty,
 		    arr = [],
 		    pop = arr.pop,
-		    push_native = arr.push,
+		    pushNative = arr.push,
 		    push = arr.push,
 		    slice = arr.slice,
+
 
 		// Use a stripped-down indexOf as it's faster than native
 		// https://jsperf.com/thor-indexof-vs-for/5
@@ -1026,7 +1033,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			}
 			return -1;
 		},
-		    booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",
+		    booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|" + "ismap|loop|multiple|open|readonly|required|scoped",
 
 
 		// Regular expressions
@@ -1035,22 +1042,28 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		whitespace = "[\\x20\\t\\r\\n\\f]",
 
 
-		// http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
-		identifier = "(?:\\\\.|[\\w-]|[^\0-\\xa0])+",
+		// https://www.w3.org/TR/css-syntax-3/#ident-token-diagram
+		identifier = "(?:\\\\[\\da-fA-F]{1,6}" + whitespace + "?|\\\\[^\\r\\n\\f]|[\\w-]|[^\0-\\x7f])+",
 
 
 		// Attribute selectors: http://www.w3.org/TR/selectors/#attribute-selectors
 		attributes = "\\[" + whitespace + "*(" + identifier + ")(?:" + whitespace +
+
 		// Operator (capture 2)
 		"*([*^$|!~]?=)" + whitespace +
-		// "Attribute values must be CSS identifiers [capture 5] or strings [capture 3 or capture 4]"
+
+		// "Attribute values must be CSS identifiers [capture 5]
+		// or strings [capture 3 or capture 4]"
 		"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + identifier + "))|)" + whitespace + "*\\]",
 		    pseudos = ":(" + identifier + ")(?:\\((" +
+
 		// To reduce the number of selectors needing tokenize in the preFilter, prefer arguments:
 		// 1. quoted (capture 3; capture 4 or capture 5)
 		"('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|" +
+
 		// 2. simple (capture 6)
 		"((?:\\\\.|[^\\\\()[\\]]|" + attributes + ")*)|" +
+
 		// 3. anything else (capture 2)
 		".*" + ")\\)|)",
 
@@ -1071,6 +1084,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			"PSEUDO": new RegExp("^" + pseudos),
 			"CHILD": new RegExp("^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" + whitespace + "*(even|odd|(([+-]|)(\\d*)n|)" + whitespace + "*(?:([+-]|)" + whitespace + "*(\\d+)|))" + whitespace + "*\\)|)", "i"),
 			"bool": new RegExp("^(?:" + booleans + ")$", "i"),
+
 			// For use in libraries implementing .is()
 			// We use this for POS matching in `select`
 			"needsContext": new RegExp("^" + whitespace + "*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" + whitespace + "*((?:-\\d)?\\d*)" + whitespace + "*\\)|)(?=[^-]|$)", "i")
@@ -1088,17 +1102,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 		// CSS escapes
 		// http://www.w3.org/TR/CSS21/syndata.html#escaped-characters
-		runescape = new RegExp("\\\\([\\da-f]{1,6}" + whitespace + "?|(" + whitespace + ")|.)", "ig"),
-		    funescape = function (_, escaped, escapedWhitespace) {
-			var high = "0x" + escaped - 0x10000;
-			// NaN means non-codepoint
-			// Support: Firefox<24
-			// Workaround erroneous numeric interpretation of +"0x"
-			return high !== high || escapedWhitespace ? escaped : high < 0 ?
-			// BMP codepoint
-			String.fromCharCode(high + 0x10000) :
-			// Supplemental Plane codepoint (surrogate pair)
-			String.fromCharCode(high >> 10 | 0xD800, high & 0x3FF | 0xDC00);
+		runescape = new RegExp("\\\\[\\da-fA-F]{1,6}" + whitespace + "?|\\\\([^\\r\\n\\f])", "g"),
+		    funescape = function (escape, nonHex) {
+			var high = "0x" + escape.slice(1) - 0x10000;
+
+			return nonHex ?
+
+			// Strip the backslash prefix from a non-hex escape sequence
+			nonHex :
+
+			// Replace a hexadecimal escape sequence with the encoded Unicode code point
+			// Support: IE <=11+
+			// For values outside the Basic Multilingual Plane (BMP), manually construct a
+			// surrogate pair
+			high < 0 ? String.fromCharCode(high + 0x10000) : String.fromCharCode(high >> 10 | 0xD800, high & 0x3FF | 0xDC00);
 		},
 
 
@@ -1136,15 +1153,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		// Optimize for push.apply( _, NodeList )
 		try {
 			push.apply(arr = slice.call(preferredDoc.childNodes), preferredDoc.childNodes);
+
 			// Support: Android<4.0
 			// Detect silently failing push.apply
+			// eslint-disable-next-line no-unused-expressions
 			arr[preferredDoc.childNodes.length].nodeType;
 		} catch (e) {
 			push = { apply: arr.length ?
 
 				// Leverage slice if possible
 				function (target, els) {
-					push_native.apply(target, slice.call(els));
+					pushNative.apply(target, slice.call(els));
 				} :
 
 				// Support: IE<9
@@ -1152,6 +1171,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				function (target, els) {
 					var j = target.length,
 					    i = 0;
+
 					// Can't trust NodeList.length
 					while (target[j++] = els[i++]) {}
 					target.length = j - 1;
@@ -1183,10 +1203,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 			// Try to shortcut find operations (as opposed to filters) in HTML documents
 			if (!seed) {
-
-				if ((context ? context.ownerDocument || context : preferredDoc) !== document) {
-					setDocument(context);
-				}
+				setDocument(context);
 				context = context || document;
 
 				if (documentIsHTML) {
@@ -1253,26 +1270,33 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 						// descendant combinators, which is not what we want.
 						// In such cases, we work around the behavior by prefixing every selector in the
 						// list with an ID selector referencing the scope context.
+						// The technique has to be used as well when a leading combinator is used
+						// as such selectors are not recognized by querySelectorAll.
 						// Thanks to Andrew Dupont for this technique.
-						if (nodeType === 1 && rdescend.test(selector)) {
+						if (nodeType === 1 && (rdescend.test(selector) || rcombinators.test(selector))) {
 
-							// Capture the context ID, setting it first if necessary
-							if (nid = context.getAttribute("id")) {
-								nid = nid.replace(rcssescape, fcssescape);
-							} else {
-								context.setAttribute("id", nid = expando);
+							// Expand context for sibling selectors
+							newContext = rsibling.test(selector) && testContext(context.parentNode) || context;
+
+							// We can use :scope instead of the ID hack if the browser
+							// supports it & if we're not changing the context.
+							if (newContext !== context || !support.scope) {
+
+								// Capture the context ID, setting it first if necessary
+								if (nid = context.getAttribute("id")) {
+									nid = nid.replace(rcssescape, fcssescape);
+								} else {
+									context.setAttribute("id", nid = expando);
+								}
 							}
 
 							// Prefix every selector in the list
 							groups = tokenize(selector);
 							i = groups.length;
 							while (i--) {
-								groups[i] = "#" + nid + " " + toSelector(groups[i]);
+								groups[i] = (nid ? "#" + nid : ":scope") + " " + toSelector(groups[i]);
 							}
 							newSelector = groups.join(",");
-
-							// Expand context for sibling selectors
-							newContext = rsibling.test(selector) && testContext(context.parentNode) || context;
 						}
 
 						try {
@@ -1303,8 +1327,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			var keys = [];
 
 			function cache(key, value) {
+
 				// Use (key + " ") to avoid collision with native prototype properties (see Issue #157)
 				if (keys.push(key + " ") > Expr.cacheLength) {
+
 					// Only keep the most recent entries
 					delete cache[keys.shift()];
 				}
@@ -1334,10 +1360,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			} catch (e) {
 				return false;
 			} finally {
+
 				// Remove from its parent by default
 				if (el.parentNode) {
 					el.parentNode.removeChild(el);
 				}
+
 				// release memory in IE
 				el = null;
 			}
@@ -1521,7 +1549,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			    doc = node ? node.ownerDocument || node : preferredDoc;
 
 			// Return early if doc is invalid or already selected
-			if (doc === document || doc.nodeType !== 9 || !doc.documentElement) {
+			// Support: IE 11+, Edge 17 - 18+
+			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+			// two documents; shallow comparisons work.
+			// eslint-disable-next-line eqeqeq
+			if (doc == document || doc.nodeType !== 9 || !doc.documentElement) {
 				return document;
 			}
 
@@ -1530,9 +1562,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			docElem = document.documentElement;
 			documentIsHTML = !isXML(document);
 
-			// Support: IE 9-11, Edge
+			// Support: IE 9 - 11+, Edge 12 - 18+
 			// Accessing iframe documents after unload throws "permission denied" errors (jQuery #13936)
-			if (preferredDoc !== document && (subWindow = document.defaultView) && subWindow.top !== subWindow) {
+			// Support: IE 11+, Edge 17 - 18+
+			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+			// two documents; shallow comparisons work.
+			// eslint-disable-next-line eqeqeq
+			if (preferredDoc != document && (subWindow = document.defaultView) && subWindow.top !== subWindow) {
 
 				// Support: IE 11, Edge
 				if (subWindow.addEventListener) {
@@ -1543,6 +1579,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 					subWindow.attachEvent("onunload", unloadHandler);
 				}
 			}
+
+			// Support: IE 8 - 11+, Edge 12 - 18+, Chrome <=16 - 25 only, Firefox <=3.6 - 31 only,
+			// Safari 4 - 5 only, Opera <=11.6 - 12.x only
+			// IE/Edge & older browsers don't support the :scope pseudo-class.
+			// Support: Safari 6.0 only
+			// Safari 6.0 supports :scope but it's an alias of :root there.
+			support.scope = assert(function (el) {
+				docElem.appendChild(el).appendChild(document.createElement("div"));
+				return typeof el.querySelectorAll !== "undefined" && !el.querySelectorAll(":scope fieldset div").length;
+			});
 
 			/* Attributes
    ---------------------------------------------------------------------- */
@@ -1646,6 +1692,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				    tmp = [],
 				    i = 0,
 
+
 				// By happy coincidence, a (broken) gEBTN appears on DocumentFragment nodes too
 				results = context.getElementsByTagName(tag);
 
@@ -1685,9 +1732,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			rbuggyQSA = [];
 
 			if (support.qsa = rnative.test(document.querySelectorAll)) {
+
 				// Build QSA regex
 				// Regex strategy adopted from Diego Perini
 				assert(function (el) {
+
+					var input;
+
 					// Select is set to empty string on purpose
 					// This is to test IE's treatment of not explicitly
 					// setting a boolean content attribute,
@@ -1714,6 +1765,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 						rbuggyQSA.push("~=");
 					}
 
+					// Support: IE 11+, Edge 15 - 18+
+					// IE 11/Edge don't find elements on a `[name='']` query in some cases.
+					// Adding a temporary attribute to the document before the selection works
+					// around the issue.
+					// Interestingly, IE 10 & older don't seem to have the issue.
+					input = document.createElement("input");
+					input.setAttribute("name", "");
+					el.appendChild(input);
+					if (!el.querySelectorAll("[name='']").length) {
+						rbuggyQSA.push("\\[" + whitespace + "*name" + whitespace + "*=" + whitespace + "*(?:''|\"\")");
+					}
+
 					// Webkit/Opera - :checked should return selected option elements
 					// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
 					// IE8 throws error here and will not see later tests
@@ -1727,6 +1790,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 					if (!el.querySelectorAll("a#" + expando + "+*").length) {
 						rbuggyQSA.push(".#.+[+~]");
 					}
+
+					// Support: Firefox <=3.6 - 5 only
+					// Old Firefox doesn't throw on a badly-escaped identifier.
+					el.querySelectorAll("\\\f");
+					rbuggyQSA.push("[\\r\\n\\f]");
 				});
 
 				assert(function (el) {
@@ -1757,6 +1825,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 						rbuggyQSA.push(":enabled", ":disabled");
 					}
 
+					// Support: Opera 10 - 11 only
 					// Opera 10-11 does not throw on post-comma invalid pseudos
 					el.querySelectorAll("*,:x");
 					rbuggyQSA.push(",.*:");
@@ -1766,6 +1835,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			if (support.matchesSelector = rnative.test(matches = docElem.matches || docElem.webkitMatchesSelector || docElem.mozMatchesSelector || docElem.oMatchesSelector || docElem.msMatchesSelector)) {
 
 				assert(function (el) {
+
 					// Check to see if it's possible to do matchesSelector
 					// on a disconnected node (IE 9)
 					support.disconnectedMatch = matches.call(el, "*");
@@ -1821,7 +1891,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				}
 
 				// Calculate position if both inputs belong to the same document
-				compare = (a.ownerDocument || a) === (b.ownerDocument || b) ? a.compareDocumentPosition(b) :
+				// Support: IE 11+, Edge 17 - 18+
+				// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+				// two documents; shallow comparisons work.
+				// eslint-disable-next-line eqeqeq
+				compare = (a.ownerDocument || a) == (b.ownerDocument || b) ? a.compareDocumentPosition(b) :
 
 				// Otherwise we know they are disconnected
 				1;
@@ -1830,10 +1904,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				if (compare & 1 || !support.sortDetached && b.compareDocumentPosition(a) === compare) {
 
 					// Choose the first element that is related to our preferred document
-					if (a === document || a.ownerDocument === preferredDoc && contains(preferredDoc, a)) {
+					// Support: IE 11+, Edge 17 - 18+
+					// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+					// two documents; shallow comparisons work.
+					// eslint-disable-next-line eqeqeq
+					if (a == document || a.ownerDocument == preferredDoc && contains(preferredDoc, a)) {
 						return -1;
 					}
-					if (b === document || b.ownerDocument === preferredDoc && contains(preferredDoc, b)) {
+
+					// Support: IE 11+, Edge 17 - 18+
+					// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+					// two documents; shallow comparisons work.
+					// eslint-disable-next-line eqeqeq
+					if (b == document || b.ownerDocument == preferredDoc && contains(preferredDoc, b)) {
 						return 1;
 					}
 
@@ -1843,6 +1926,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 				return compare & 4 ? -1 : 1;
 			} : function (a, b) {
+
 				// Exit early if the nodes are identical
 				if (a === b) {
 					hasDuplicate = true;
@@ -1858,7 +1942,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 				// Parentless nodes are either documents or disconnected
 				if (!aup || !bup) {
-					return a === document ? -1 : b === document ? 1 : aup ? -1 : bup ? 1 : sortInput ? indexOf(sortInput, a) - indexOf(sortInput, b) : 0;
+
+					// Support: IE 11+, Edge 17 - 18+
+					// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+					// two documents; shallow comparisons work.
+					/* eslint-disable eqeqeq */
+					return a == document ? -1 : b == document ? 1 :
+					/* eslint-enable eqeqeq */
+					aup ? -1 : bup ? 1 : sortInput ? indexOf(sortInput, a) - indexOf(sortInput, b) : 0;
 
 					// If the nodes are siblings, we can do a quick check
 				} else if (aup === bup) {
@@ -1881,11 +1972,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				}
 
 				return i ?
+
 				// Do a sibling check if the nodes have a common ancestor
 				siblingCheck(ap[i], bp[i]) :
 
 				// Otherwise nodes in our document sort first
-				ap[i] === preferredDoc ? -1 : bp[i] === preferredDoc ? 1 : 0;
+				// Support: IE 11+, Edge 17 - 18+
+				// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+				// two documents; shallow comparisons work.
+				/* eslint-disable eqeqeq */
+				ap[i] == preferredDoc ? -1 : bp[i] == preferredDoc ? 1 :
+				/* eslint-enable eqeqeq */
+				0;
 			};
 
 			return document;
@@ -1896,10 +1994,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		};
 
 		Sizzle.matchesSelector = function (elem, expr) {
-			// Set document vars if needed
-			if ((elem.ownerDocument || elem) !== document) {
-				setDocument(elem);
-			}
+			setDocument(elem);
 
 			if (support.matchesSelector && documentIsHTML && !nonnativeSelectorCache[expr + " "] && (!rbuggyMatches || !rbuggyMatches.test(expr)) && (!rbuggyQSA || !rbuggyQSA.test(expr))) {
 
@@ -1908,6 +2003,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 					// IE 9's matchesSelector returns false on disconnected nodes
 					if (ret || support.disconnectedMatch ||
+
 					// As well, disconnected nodes are said to be in a document
 					// fragment in IE 9
 					elem.document && elem.document.nodeType !== 11) {
@@ -1922,20 +2018,31 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		};
 
 		Sizzle.contains = function (context, elem) {
+
 			// Set document vars if needed
-			if ((context.ownerDocument || context) !== document) {
+			// Support: IE 11+, Edge 17 - 18+
+			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+			// two documents; shallow comparisons work.
+			// eslint-disable-next-line eqeqeq
+			if ((context.ownerDocument || context) != document) {
 				setDocument(context);
 			}
 			return contains(context, elem);
 		};
 
 		Sizzle.attr = function (elem, name) {
+
 			// Set document vars if needed
-			if ((elem.ownerDocument || elem) !== document) {
+			// Support: IE 11+, Edge 17 - 18+
+			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+			// two documents; shallow comparisons work.
+			// eslint-disable-next-line eqeqeq
+			if ((elem.ownerDocument || elem) != document) {
 				setDocument(elem);
 			}
 
 			var fn = Expr.attrHandle[name.toLowerCase()],
+
 
 			// Don't get fooled by Object.prototype properties (jQuery #13807)
 			val = fn && hasOwn.call(Expr.attrHandle, name.toLowerCase()) ? fn(elem, name, !documentIsHTML) : undefined;
@@ -1995,17 +2102,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			    nodeType = elem.nodeType;
 
 			if (!nodeType) {
+
 				// If no nodeType, this is expected to be an array
 				while (node = elem[i++]) {
+
 					// Do not traverse comment nodes
 					ret += getText(node);
 				}
 			} else if (nodeType === 1 || nodeType === 9 || nodeType === 11) {
+
 				// Use textContent for elements
 				// innerText usage removed for consistency of new lines (jQuery #11153)
 				if (typeof elem.textContent === "string") {
 					return elem.textContent;
 				} else {
+
 					// Traverse its children
 					for (elem = elem.firstChild; elem; elem = elem.nextSibling) {
 						ret += getText(elem);
@@ -2014,6 +2125,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			} else if (nodeType === 3 || nodeType === 4) {
 				return elem.nodeValue;
 			}
+
 			// Do not include comment or processing instruction nodes
 
 			return ret;
@@ -2054,6 +2166,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				},
 
 				"CHILD": function (match) {
+
 					/* matches from matchExpr["CHILD"]
      	1 type (only|nth|...)
      	2 what (child|of-type)
@@ -2067,6 +2180,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 					match[1] = match[1].toLowerCase();
 
 					if (match[1].slice(0, 3) === "nth") {
+
 						// nth-* requires argument
 						if (!match[3]) {
 							Sizzle.error(match[0]);
@@ -2099,8 +2213,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 						// Strip excess characters from unquoted arguments
 					} else if (unquoted && rpseudo.test(unquoted) && (
+
 					// Get excess from tokenize (recursively)
 					excess = tokenize(unquoted, true)) && (
+
 					// advance to the next closing parenthesis
 					excess = unquoted.indexOf(")", unquoted.length - excess) - unquoted.length)) {
 
@@ -2146,11 +2262,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 						result += "";
 
+						/* eslint-disable max-len */
+
 						return operator === "=" ? result === check : operator === "!=" ? result !== check : operator === "^=" ? check && result.indexOf(check) === 0 : operator === "*=" ? check && result.indexOf(check) > -1 : operator === "$=" ? check && result.slice(-check.length) === check : operator === "~=" ? (" " + result.replace(rwhitespace, " ") + " ").indexOf(check) > -1 : operator === "|=" ? result === check || result.slice(0, check.length + 1) === check + "-" : false;
+						/* eslint-enable max-len */
 					};
 				},
 
-				"CHILD": function (type, what, argument, first, last) {
+				"CHILD": function (type, what, _argument, first, last) {
 					var simple = type.slice(0, 3) !== "nth",
 					    forward = type.slice(-4) !== "last",
 					    ofType = what === "of-type";
@@ -2160,7 +2279,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 					// Shortcut for :nth-*(n)
 					function (elem) {
 						return !!elem.parentNode;
-					} : function (elem, context, xml) {
+					} : function (elem, _context, xml) {
 						var cache,
 						    uniqueCache,
 						    outerCache,
@@ -2185,6 +2304,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 											return false;
 										}
 									}
+
 									// Reverse direction for :only-* (if we haven't yet done so)
 									start = dir = type === "only" && !start && "nextSibling";
 								}
@@ -2223,8 +2343,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 									}
 								}
 							} else {
+
 								// Use previously-cached element index if available
 								if (useCache) {
+
 									// ...in a gzip-friendly way
 									node = elem;
 									outerCache = node[expando] || (node[expando] = {});
@@ -2241,6 +2363,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 								// xml :nth-child(...)
 								// or :nth-last-child(...) or :nth(-last)?-of-type(...)
 								if (diff === false) {
+
 									// Use the same loop as above to seek `elem` from the start
 									while (node = ++nodeIndex && node && node[dir] || (diff = nodeIndex = 0) || start.pop()) {
 
@@ -2273,6 +2396,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				},
 
 				"PSEUDO": function (pseudo, argument) {
+
 					// pseudo-class names are case-insensitive
 					// http://www.w3.org/TR/selectors/#pseudo-classes
 					// Prioritize by case sensitivity in case custom pseudos are added with uppercase letters
@@ -2308,8 +2432,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			},
 
 			pseudos: {
+
 				// Potentially complex pseudos
 				"not": markFunction(function (selector) {
+
 					// Trim the selector passed to compile
 					// to avoid treating leading and trailing
 					// spaces as combinators
@@ -2317,7 +2443,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 					    results = [],
 					    matcher = compile(selector.replace(rtrim, "$1"));
 
-					return matcher[expando] ? markFunction(function (seed, matches, context, xml) {
+					return matcher[expando] ? markFunction(function (seed, matches, _context, xml) {
 						var elem,
 						    unmatched = matcher(seed, null, xml, []),
 						    i = seed.length;
@@ -2328,9 +2454,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 								seed[i] = !(matches[i] = elem);
 							}
 						}
-					}) : function (elem, context, xml) {
+					}) : function (elem, _context, xml) {
 						input[0] = elem;
 						matcher(input, null, xml, results);
+
 						// Don't keep the element (issue #299)
 						input[0] = null;
 						return !results.pop();
@@ -2358,6 +2485,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				// The identifier C does not have to be a valid language name."
 				// http://www.w3.org/TR/selectors/#lang-pseudo
 				"lang": markFunction(function (lang) {
+
 					// lang value must be a valid identifier
 					if (!ridentifier.test(lang || "")) {
 						Sizzle.error("unsupported lang: " + lang);
@@ -2395,6 +2523,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				"disabled": createDisabledPseudo(true),
 
 				"checked": function (elem) {
+
 					// In CSS3, :checked should return both checked and selected elements
 					// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
 					var nodeName = elem.nodeName.toLowerCase();
@@ -2402,9 +2531,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				},
 
 				"selected": function (elem) {
+
 					// Accessing this property makes selected-by-default
 					// options in Safari work properly
 					if (elem.parentNode) {
+						// eslint-disable-next-line no-unused-expressions
 						elem.parentNode.selectedIndex;
 					}
 
@@ -2413,6 +2544,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 				// Contents
 				"empty": function (elem) {
+
 					// http://www.w3.org/TR/selectors/#empty-pseudo
 					// :empty is negated by element (1) or content nodes (text: 3; cdata: 4; entity ref: 5),
 					//   but not by others (comment: 8; processing instruction: 7; etc.)
@@ -2457,11 +2589,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 					return [0];
 				}),
 
-				"last": createPositionalPseudo(function (matchIndexes, length) {
+				"last": createPositionalPseudo(function (_matchIndexes, length) {
 					return [length - 1];
 				}),
 
-				"eq": createPositionalPseudo(function (matchIndexes, length, argument) {
+				"eq": createPositionalPseudo(function (_matchIndexes, length, argument) {
 					return [argument < 0 ? argument + length : argument];
 				}),
 
@@ -2537,6 +2669,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				// Comma and first run
 				if (!matched || (match = rcomma.exec(soFar))) {
 					if (match) {
+
 						// Don't consume trailing commas as valid
 						soFar = soFar.slice(match[0].length) || soFar;
 					}
@@ -2550,6 +2683,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 					matched = match.shift();
 					tokens.push({
 						value: matched,
+
 						// Cast descendant combinators to space
 						type: match[0].replace(rtrim, " ")
 					});
@@ -2578,6 +2712,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			// if we're just parsing
 			// Otherwise, throw an error or return tokens
 			return parseOnly ? soFar.length : soFar ? Sizzle.error(selector) :
+
 			// Cache the tokens
 			tokenCache(selector, groups).slice(0);
 		};
@@ -2600,6 +2735,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			    doneName = done++;
 
 			return combinator.first ?
+
 			// Check against closest ancestor/preceding element
 			function (elem, context, xml) {
 				while (elem = elem[dir]) {
@@ -2642,6 +2778,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 								// Assign to newCache so results back-propagate to previous elements
 								return newCache[2] = oldCache[2];
 							} else {
+
 								// Reuse newcache so results back-propagate to previous elements
 								uniqueCache[key] = newCache;
 
@@ -2722,6 +2859,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				// Prefilter to get matcher input, preserving a map for seed-results synchronization
 				matcherIn = preFilter && (seed || !selector) ? condense(elems, preMap, preFilter, context, xml) : elems,
 				    matcherOut = matcher ?
+
 				// If we have a postFinder, or filtered seed, or non-seed postFilter or preexisting results,
 				postFinder || (seed ? preFilter : preexisting || postFilter) ?
 
@@ -2753,11 +2891,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				if (seed) {
 					if (postFinder || preFilter) {
 						if (postFinder) {
+
 							// Get the final matcherOut by condensing this intermediate into postFinder contexts
 							temp = [];
 							i = matcherOut.length;
 							while (i--) {
 								if (elem = matcherOut[i]) {
+
 									// Restore matcherIn since elem is not yet a final match
 									temp.push(matcherIn[i] = elem);
 								}
@@ -2806,6 +2946,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			}, implicitRelative, true),
 			    matchers = [function (elem, context, xml) {
 				var ret = !leadingRelative && (xml || context !== outermostContext) || ((checkContext = context).nodeType ? matchContext(elem, context, xml) : matchAnyContext(elem, context, xml));
+
 				// Avoid hanging onto element (issue #299)
 				checkContext = null;
 				return ret;
@@ -2819,6 +2960,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 					// Return special upon seeing a positional matcher
 					if (matcher[expando]) {
+
 						// Find the next relative operator (if any) for proper handling
 						j = ++i;
 						for (; j < len; j++) {
@@ -2827,6 +2969,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 							}
 						}
 						return setMatcher(i > 1 && elementMatcher(matchers), i > 1 && toSelector(
+
 						// If the preceding token was a descendant combinator, insert an implicit any-element `*`
 						tokens.slice(0, i - 1).concat({ value: tokens[i - 2].type === " " ? "*" : "" })).replace(rtrim, "$1"), matcher, i < j && matcherFromTokens(tokens.slice(i, j)), j < len && matcherFromTokens(tokens = tokens.slice(j)), j < len && toSelector(tokens));
 					}
@@ -2850,15 +2993,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				    setMatched = [],
 				    contextBackup = outermostContext,
 
+
 				// We must always have either seed elements or outermost context
 				elems = seed || byElement && Expr.find["TAG"]("*", outermost),
+
 
 				// Use integer dirruns iff this is the outermost matcher
 				dirrunsUnique = dirruns += contextBackup == null ? 1 : Math.random() || 0.1,
 				    len = elems.length;
 
 				if (outermost) {
-					outermostContext = context === document || context || outermost;
+
+					// Support: IE 11+, Edge 17 - 18+
+					// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+					// two documents; shallow comparisons work.
+					// eslint-disable-next-line eqeqeq
+					outermostContext = context == document || context || outermost;
 				}
 
 				// Add elements passing elementMatchers directly to results
@@ -2867,7 +3017,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				for (; i !== len && (elem = elems[i]) != null; i++) {
 					if (byElement && elem) {
 						j = 0;
-						if (!context && elem.ownerDocument !== document) {
+
+						// Support: IE 11+, Edge 17 - 18+
+						// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
+						// two documents; shallow comparisons work.
+						// eslint-disable-next-line eqeqeq
+						if (!context && elem.ownerDocument != document) {
 							setDocument(elem);
 							xml = !documentIsHTML;
 						}
@@ -2884,6 +3039,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 					// Track unmatched elements for set filters
 					if (bySet) {
+
 						// They will have gone through all possible matchers
 						if (elem = !matcher && elem) {
 							matchedCount--;
@@ -2914,6 +3070,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 					}
 
 					if (seed) {
+
 						// Reintegrate element matches to eliminate the need for sorting
 						if (matchedCount > 0) {
 							while (i--) {
@@ -2956,6 +3113,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			    cached = compilerCache[selector + " "];
 
 			if (!cached) {
+
 				// Generate a function of recursive functions that can be used to check each element
 				if (!match) {
 					match = tokenize(selector);
@@ -3029,6 +3187,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 						break;
 					}
 					if (find = Expr.find[type]) {
+
 						// Search, expanding context for leading sibling combinators
 						if (seed = find(token.matches[0].replace(runescape, funescape), rsibling.test(tokens[0].type) && testContext(context.parentNode) || context)) {
 
@@ -3067,6 +3226,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		// Support: Webkit<537.32 - Safari 6.0.3/Chrome 25 (fixed in Chrome 27)
 		// Detached nodes confoundingly follow *each other*
 		support.sortDetached = assert(function (el) {
+
 			// Should return 1, but returns 4 (following)
 			return el.compareDocumentPosition(document.createElement("fieldset")) & 1;
 		});
@@ -3092,7 +3252,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			el.firstChild.setAttribute("value", "");
 			return el.firstChild.getAttribute("value") === "";
 		})) {
-			addHandle("value", function (elem, name, isXML) {
+			addHandle("value", function (elem, _name, isXML) {
 				if (!isXML && elem.nodeName.toLowerCase() === "input") {
 					return elem.defaultValue;
 				}
@@ -3448,7 +3608,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		parents: function (elem) {
 			return dir(elem, "parentNode");
 		},
-		parentsUntil: function (elem, i, until) {
+		parentsUntil: function (elem, _i, until) {
 			return dir(elem, "parentNode", until);
 		},
 		next: function (elem) {
@@ -3463,10 +3623,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		prevAll: function (elem) {
 			return dir(elem, "previousSibling");
 		},
-		nextUntil: function (elem, i, until) {
+		nextUntil: function (elem, _i, until) {
 			return dir(elem, "nextSibling", until);
 		},
-		prevUntil: function (elem, i, until) {
+		prevUntil: function (elem, _i, until) {
 			return dir(elem, "previousSibling", until);
 		},
 		siblings: function (elem) {
@@ -3476,7 +3636,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			return siblings(elem.firstChild);
 		},
 		contents: function (elem) {
-			if (typeof elem.contentDocument !== "undefined") {
+			if (elem.contentDocument != null &&
+
+			// Support: IE 11+
+			// <object> elements with no `data` attribute has an object
+			// `contentDocument` with a `null` prototype.
+			getProto(elem.contentDocument)) {
+
 				return elem.contentDocument;
 			}
 
@@ -3813,7 +3979,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 					var fns = arguments;
 
 					return jQuery.Deferred(function (newDefer) {
-						jQuery.each(tuples, function (i, tuple) {
+						jQuery.each(tuples, function (_i, tuple) {
 
 							// Map tuples (progress, done, fail) to arguments (done, fail, progress)
 							var fn = isFunction(fns[tuple[4]]) && fns[tuple[4]];
@@ -4208,7 +4374,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 					// ...except when executing function values
 				} else {
 					bulk = fn;
-					fn = function (elem, key, value) {
+					fn = function (elem, _key, value) {
 						return bulk.call(jQuery(elem), value);
 					};
 				}
@@ -4238,7 +4404,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	    rdashAlpha = /-([a-z])/g;
 
 	// Used by camelCase as callback to replace()
-	function fcamelCase(all, letter) {
+	function fcamelCase(_all, letter) {
 		return letter.toUpperCase();
 	}
 
@@ -4749,27 +4915,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		isAttached(elem) && jQuery.css(elem, "display") === "none";
 	};
 
-	var swap = function (elem, options, callback, args) {
-		var ret,
-		    name,
-		    old = {};
-
-		// Remember the old values, and insert the new ones
-		for (name in options) {
-			old[name] = elem.style[name];
-			elem.style[name] = options[name];
-		}
-
-		ret = callback.apply(elem, args || []);
-
-		// Revert the old values
-		for (name in options) {
-			elem.style[name] = old[name];
-		}
-
-		return ret;
-	};
-
 	function adjustCSS(elem, prop, valueParts, tween) {
 		var adjusted,
 		    scale,
@@ -4931,11 +5076,39 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 	var rscriptType = /^$|^module$|\/(?:java|ecma)script/i;
 
-	// We have to close these tags to support XHTML (#13200)
-	var wrapMap = {
+	(function () {
+		var fragment = document.createDocumentFragment(),
+		    div = fragment.appendChild(document.createElement("div")),
+		    input = document.createElement("input");
+
+		// Support: Android 4.0 - 4.3 only
+		// Check state lost if the name is set (#11217)
+		// Support: Windows Web Apps (WWA)
+		// `name` and `type` must use .setAttribute for WWA (#14901)
+		input.setAttribute("type", "radio");
+		input.setAttribute("checked", "checked");
+		input.setAttribute("name", "t");
+
+		div.appendChild(input);
+
+		// Support: Android <=4.1 only
+		// Older WebKit doesn't clone checked state correctly in fragments
+		support.checkClone = div.cloneNode(true).cloneNode(true).lastChild.checked;
+
+		// Support: IE <=11 only
+		// Make sure textarea (and checkbox) defaultValue is properly cloned
+		div.innerHTML = "<textarea>x</textarea>";
+		support.noCloneChecked = !!div.cloneNode(true).lastChild.defaultValue;
 
 		// Support: IE <=9 only
-		option: [1, "<select multiple='multiple'>", "</select>"],
+		// IE <=9 replaces <option> tags with their contents when inserted outside of
+		// the select element.
+		div.innerHTML = "<option></option>";
+		support.option = !!div.lastChild;
+	})();
+
+	// We have to close these tags to support XHTML (#13200)
+	var wrapMap = {
 
 		// XHTML parsers do not magically insert elements in the
 		// same way that tag soup parsers do. So we cannot shorten
@@ -4948,11 +5121,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		_default: [0, "", ""]
 	};
 
-	// Support: IE <=9 only
-	wrapMap.optgroup = wrapMap.option;
-
 	wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
 	wrapMap.th = wrapMap.td;
+
+	// Support: IE <=9 only
+	if (!support.option) {
+		wrapMap.optgroup = wrapMap.option = [1, "<select multiple='multiple'>", "</select>"];
+	}
 
 	function getAll(context, tag) {
 
@@ -5081,31 +5256,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		return fragment;
 	}
 
-	(function () {
-		var fragment = document.createDocumentFragment(),
-		    div = fragment.appendChild(document.createElement("div")),
-		    input = document.createElement("input");
-
-		// Support: Android 4.0 - 4.3 only
-		// Check state lost if the name is set (#11217)
-		// Support: Windows Web Apps (WWA)
-		// `name` and `type` must use .setAttribute for WWA (#14901)
-		input.setAttribute("type", "radio");
-		input.setAttribute("checked", "checked");
-		input.setAttribute("name", "t");
-
-		div.appendChild(input);
-
-		// Support: Android <=4.1 only
-		// Older WebKit doesn't clone checked state correctly in fragments
-		support.checkClone = div.cloneNode(true).cloneNode(true).lastChild.checked;
-
-		// Support: IE <=11 only
-		// Make sure textarea (and checkbox) defaultValue is properly cloned
-		div.innerHTML = "<textarea>x</textarea>";
-		support.noCloneChecked = !!div.cloneNode(true).lastChild.defaultValue;
-	})();
-
 	var rkeyEvent = /^key/,
 	    rmouseEvent = /^(?:mouse|pointer|contextmenu|drag|drop)|click/,
 	    rtypenamespace = /^([^.]*)(?:\.(.+)|)/;
@@ -5221,8 +5371,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			    origType,
 			    elemData = dataPriv.get(elem);
 
-			// Don't attach events to noData or text/comment nodes (but allow plain objects)
-			if (!elemData) {
+			// Only attach events to objects that accept data
+			if (!acceptData(elem)) {
 				return;
 			}
 
@@ -5246,7 +5396,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 			// Init the element's event structure and main handler, if this is the first
 			if (!(events = elemData.events)) {
-				events = elemData.events = {};
+				events = elemData.events = Object.create(null);
 			}
 			if (!(eventHandle = elemData.handle)) {
 				eventHandle = elemData.handle = function (e) {
@@ -5403,9 +5553,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 		dispatch: function (nativeEvent) {
 
-			// Make a writable jQuery.Event from the native event object
-			var event = jQuery.event.fix(nativeEvent);
-
 			var i,
 			    j,
 			    ret,
@@ -5413,7 +5560,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			    handleObj,
 			    handlerQueue,
 			    args = new Array(arguments.length),
-			    handlers = (dataPriv.get(this, "events") || {})[event.type] || [],
+
+
+			// Make a writable jQuery.Event from the native event object
+			event = jQuery.event.fix(nativeEvent),
+			    handlers = (dataPriv.get(this, "events") || Object.create(null))[event.type] || [],
 			    special = jQuery.event.special[event.type] || {};
 
 			// Use the fix-ed jQuery.Event rather than the (read-only) native event
@@ -5964,14 +6115,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 	var
 
-	/* eslint-disable max-len */
-
-	// See https://github.com/eslint/eslint/issues/3229
-	rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([a-z][^\/\0>\x20\t\r\n\f]*)[^>]*)\/>/gi,
-
-
-	/* eslint-enable */
-
 	// Support: IE <=10 - 11, Edge 12 - 13 only
 	// In IE/Edge using regex groups here causes severe slowdowns.
 	// See https://connect.microsoft.com/IE/feedback/details/1736512/
@@ -6008,7 +6151,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	}
 
 	function cloneCopyEvent(src, dest) {
-		var i, l, type, pdataOld, pdataCur, udataOld, udataCur, events;
+		var i, l, type, pdataOld, udataOld, udataCur, events;
 
 		if (dest.nodeType !== 1) {
 			return;
@@ -6016,13 +6159,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 		// 1. Copy private data: events, handlers, etc.
 		if (dataPriv.hasData(src)) {
-			pdataOld = dataPriv.access(src);
-			pdataCur = dataPriv.set(dest, pdataOld);
+			pdataOld = dataPriv.get(src);
 			events = pdataOld.events;
 
 			if (events) {
-				delete pdataCur.handle;
-				pdataCur.events = {};
+				dataPriv.remove(dest, "handle events");
 
 				for (type in events) {
 					for (i = 0, l = events[type].length; i < l; i++) {
@@ -6058,7 +6199,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	function domManip(collection, args, callback, ignored) {
 
 		// Flatten any nested arrays
-		args = concat.apply([], args);
+		args = flat(args);
 
 		var fragment,
 		    first,
@@ -6134,7 +6275,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 								if (jQuery._evalUrl && !node.noModule) {
 									jQuery._evalUrl(node.src, {
 										nonce: node.nonce || node.getAttribute("nonce")
-									});
+									}, doc);
 								}
 							} else {
 								DOMEval(node.textContent.replace(rcleanScript, ""), node, doc);
@@ -6171,7 +6312,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 	jQuery.extend({
 		htmlPrefilter: function (html) {
-			return html.replace(rxhtmlTag, "<$1></$2>");
+			return html;
 		},
 
 		clone: function (elem, dataAndEvents, deepDataAndEvents) {
@@ -6434,6 +6575,27 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		return view.getComputedStyle(elem);
 	};
 
+	var swap = function (elem, options, callback) {
+		var ret,
+		    name,
+		    old = {};
+
+		// Remember the old values, and insert the new ones
+		for (name in options) {
+			old[name] = elem.style[name];
+			elem.style[name] = options[name];
+		}
+
+		ret = callback.call(elem);
+
+		// Revert the old values
+		for (name in options) {
+			elem.style[name] = old[name];
+		}
+
+		return ret;
+	};
+
 	var rboxStyle = new RegExp(cssExpand.join("|"), "i");
 
 	(function () {
@@ -6488,6 +6650,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		    boxSizingReliableVal,
 		    scrollboxSizeVal,
 		    pixelBoxStylesVal,
+		    reliableTrDimensionsVal,
 		    reliableMarginLeftVal,
 		    container = document.createElement("div"),
 		    div = document.createElement("div");
@@ -6523,6 +6686,32 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			scrollboxSize: function () {
 				computeStyleTests();
 				return scrollboxSizeVal;
+			},
+
+			// Support: IE 9 - 11+, Edge 15 - 18+
+			// IE/Edge misreport `getComputedStyle` of table rows with width/height
+			// set in CSS while `offset*` properties report correct values.
+			// Behavior in IE 9 is more subtle than in newer versions & it passes
+			// some versions of this test; make sure not to make it pass there!
+			reliableTrDimensions: function () {
+				var table, tr, trChild, trStyle;
+				if (reliableTrDimensionsVal == null) {
+					table = document.createElement("table");
+					tr = document.createElement("tr");
+					trChild = document.createElement("div");
+
+					table.style.cssText = "position:absolute;left:-11111px";
+					tr.style.height = "1px";
+					trChild.style.height = "9px";
+
+					documentElement.appendChild(table).appendChild(tr).appendChild(trChild);
+
+					trStyle = window.getComputedStyle(tr);
+					reliableTrDimensionsVal = parseInt(trStyle.height) > 3;
+
+					documentElement.removeChild(table);
+				}
+				return reliableTrDimensionsVal;
 			}
 		});
 	})();
@@ -6646,7 +6835,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		fontWeight: "400"
 	};
 
-	function setPositiveNumber(elem, value, subtract) {
+	function setPositiveNumber(_elem, value, subtract) {
 
 		// Any relative (+/-) values have already been
 		// normalized at this point
@@ -6743,15 +6932,27 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			val = "auto";
 		}
 
+		// Support: IE 9 - 11 only
+		// Use offsetWidth/offsetHeight for when box sizing is unreliable.
+		// In those cases, the computed value can be trusted to be border-box.
+		if ((!support.boxSizingReliable() && isBorderBox ||
+
+		// Support: IE 10 - 11+, Edge 15 - 18+
+		// IE/Edge misreport `getComputedStyle` of table rows with width/height
+		// set in CSS while `offset*` properties report correct values.
+		// Interestingly, in some cases IE 9 doesn't suffer from this issue.
+		!support.reliableTrDimensions() && nodeName(elem, "tr") ||
+
 		// Fall back to offsetWidth/offsetHeight when value is "auto"
 		// This happens for inline elements with no explicit setting (gh-3571)
+		val === "auto" ||
+
 		// Support: Android <=4.1 - 4.3 only
 		// Also use offsetWidth/offsetHeight for misreported inline dimensions (gh-3602)
-		// Support: IE 9-11 only
-		// Also use offsetWidth/offsetHeight for when box sizing is unreliable
-		// We use getClientRects() to check for hidden/disconnected.
-		// In those cases, the computed value can be trusted to be border-box
-		if ((!support.boxSizingReliable() && isBorderBox || val === "auto" || !parseFloat(val) && jQuery.css(elem, "display", false, styles) === "inline") && elem.getClientRects().length) {
+		!parseFloat(val) && jQuery.css(elem, "display", false, styles) === "inline") &&
+
+		// Make sure the element is visible & connected
+		elem.getClientRects().length) {
 
 			isBorderBox = jQuery.css(elem, "boxSizing", false, styles) === "border-box";
 
@@ -6938,7 +7139,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		}
 	});
 
-	jQuery.each(["height", "width"], function (i, dimension) {
+	jQuery.each(["height", "width"], function (_i, dimension) {
 		jQuery.cssHooks[dimension] = {
 			get: function (elem, computed, extra) {
 				if (computed) {
@@ -7674,7 +7875,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				clearQueue = type;
 				type = undefined;
 			}
-			if (clearQueue && type !== false) {
+			if (clearQueue) {
 				this.queue(type || "fx", []);
 			}
 
@@ -7756,7 +7957,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		}
 	});
 
-	jQuery.each(["toggle", "show", "hide"], function (i, name) {
+	jQuery.each(["toggle", "show", "hide"], function (_i, name) {
 		var cssFn = jQuery.fn[name];
 		jQuery.fn[name] = function (speed, easing, callback) {
 			return speed == null || typeof speed === "boolean" ? cssFn.apply(this, arguments) : this.animate(genFx(name, true), speed, easing, callback);
@@ -7971,7 +8172,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		}
 	};
 
-	jQuery.each(jQuery.expr.match.bool.source.match(/\w+/g), function (i, name) {
+	jQuery.each(jQuery.expr.match.bool.source.match(/\w+/g), function (_i, name) {
 		var getter = attrHandle[name] || jQuery.find.attr;
 
 		attrHandle[name] = function (elem, name, isXML) {
@@ -8562,7 +8763,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				event.type = i > 1 ? bubbleType : special.bindType || type;
 
 				// jQuery handler
-				handle = (dataPriv.get(cur, "events") || {})[event.type] && dataPriv.get(cur, "handle");
+				handle = (dataPriv.get(cur, "events") || Object.create(null))[event.type] && dataPriv.get(cur, "handle");
 				if (handle) {
 					handle.apply(cur, data);
 				}
@@ -8665,7 +8866,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 			jQuery.event.special[fix] = {
 				setup: function () {
-					var doc = this.ownerDocument || this,
+
+					// Handle: regular nodes (via `this.ownerDocument`), window
+					// (via `this.document`) & document (via `this`).
+					var doc = this.ownerDocument || this.document || this,
 					    attaches = dataPriv.access(doc, fix);
 
 					if (!attaches) {
@@ -8674,7 +8878,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 					dataPriv.access(doc, fix, (attaches || 0) + 1);
 				},
 				teardown: function () {
-					var doc = this.ownerDocument || this,
+					var doc = this.ownerDocument || this.document || this,
 					    attaches = dataPriv.access(doc, fix) - 1;
 
 					if (!attaches) {
@@ -8689,7 +8893,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	}
 	var location = window.location;
 
-	var nonce = Date.now();
+	var nonce = { guid: Date.now() };
 
 	var rquery = /\?/;
 
@@ -8801,7 +9005,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 				// Use .is( ":disabled" ) so that fieldset[disabled] works
 				return this.name && !jQuery(this).is(":disabled") && rsubmittable.test(this.nodeName) && !rsubmitterTypes.test(type) && (this.checked || !rcheckableType.test(type));
-			}).map(function (i, elem) {
+			}).map(function (_i, elem) {
 				var val = jQuery(this).val();
 
 				if (val == null) {
@@ -9432,7 +9636,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				// Add or update anti-cache param if needed
 				if (s.cache === false) {
 					cacheURL = cacheURL.replace(rantiCache, "$1");
-					uncached = (rquery.test(cacheURL) ? "&" : "?") + "_=" + nonce++ + uncached;
+					uncached = (rquery.test(cacheURL) ? "&" : "?") + "_=" + nonce.guid++ + uncached;
 				}
 
 				// Put hash and anti-cache on the URL that will be requested (gh-1732)
@@ -9561,6 +9765,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 					response = ajaxHandleResponses(s, jqXHR, responses);
 				}
 
+				// Use a noop converter for missing script
+				if (!isSuccess && jQuery.inArray("script", s.dataTypes) > -1) {
+					s.converters["text script"] = function () {};
+				}
+
 				// Convert no matter what (that way responseXXX fields are always set)
 				response = ajaxConvert(s, response, jqXHR, isSuccess);
 
@@ -9650,7 +9859,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		}
 	});
 
-	jQuery.each(["get", "post"], function (i, method) {
+	jQuery.each(["get", "post"], function (_i, method) {
 		jQuery[method] = function (url, data, callback, type) {
 
 			// Shift arguments if data argument was omitted
@@ -9671,7 +9880,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		};
 	});
 
-	jQuery._evalUrl = function (url, options) {
+	jQuery.ajaxPrefilter(function (s) {
+		var i;
+		for (i in s.headers) {
+			if (i.toLowerCase() === "content-type") {
+				s.contentType = s.headers[i] || "";
+			}
+		}
+	});
+
+	jQuery._evalUrl = function (url, options, doc) {
 		return jQuery.ajax({
 			url: url,
 
@@ -9689,7 +9907,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 				"text script": function () {}
 			},
 			dataFilter: function (response) {
-				jQuery.globalEval(response, options);
+				jQuery.globalEval(response, options, doc);
 			}
 		});
 	};
@@ -9978,7 +10196,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	jQuery.ajaxSetup({
 		jsonp: "callback",
 		jsonpCallback: function () {
-			var callback = oldCallbacks.pop() || jQuery.expando + "_" + nonce++;
+			var callback = oldCallbacks.pop() || jQuery.expando + "_" + nonce.guid++;
 			this[callback] = true;
 			return callback;
 		}
@@ -10183,13 +10401,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		return this;
 	};
 
-	// Attach a bunch of functions for handling common AJAX events
-	jQuery.each(["ajaxStart", "ajaxStop", "ajaxComplete", "ajaxError", "ajaxSuccess", "ajaxSend"], function (i, type) {
-		jQuery.fn[type] = function (fn) {
-			return this.on(type, fn);
-		};
-	});
-
 	jQuery.expr.pseudos.animated = function (elem) {
 		return jQuery.grep(jQuery.timers, function (fn) {
 			return elem === fn.elem;
@@ -10246,6 +10457,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			if ("using" in options) {
 				options.using.call(elem, props);
 			} else {
+				if (typeof props.top === "number") {
+					props.top += "px";
+				}
+				if (typeof props.left === "number") {
+					props.left += "px";
+				}
 				curElem.css(props);
 			}
 		}
@@ -10390,7 +10607,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	// Blink bug: https://bugs.chromium.org/p/chromium/issues/detail?id=589347
 	// getComputedStyle returns percent when specified for top/left/bottom/right;
 	// rather than make the css module depend on the offset module, just check for it here
-	jQuery.each(["top", "left"], function (i, prop) {
+	jQuery.each(["top", "left"], function (_i, prop) {
 		jQuery.cssHooks[prop] = addGetHookIf(support.pixelPosition, function (elem, computed) {
 			if (computed) {
 				computed = curCSS(elem, prop);
@@ -10440,18 +10657,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		});
 	});
 
-	jQuery.each(("blur focus focusin focusout resize scroll click dblclick " + "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " + "change select submit keydown keypress keyup contextmenu").split(" "), function (i, name) {
-
-		// Handle event binding
-		jQuery.fn[name] = function (data, fn) {
-			return arguments.length > 0 ? this.on(name, null, data, fn) : this.trigger(name);
+	jQuery.each(["ajaxStart", "ajaxStop", "ajaxComplete", "ajaxError", "ajaxSuccess", "ajaxSend"], function (_i, type) {
+		jQuery.fn[type] = function (fn) {
+			return this.on(type, fn);
 		};
-	});
-
-	jQuery.fn.extend({
-		hover: function (fnOver, fnOut) {
-			return this.mouseenter(fnOver).mouseleave(fnOut || fnOver);
-		}
 	});
 
 	jQuery.fn.extend({
@@ -10470,8 +10679,24 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 			// ( namespace ) or ( selector, types [, fn] )
 			return arguments.length === 1 ? this.off(selector, "**") : this.off(types, selector || "**", fn);
+		},
+
+		hover: function (fnOver, fnOut) {
+			return this.mouseenter(fnOver).mouseleave(fnOut || fnOver);
 		}
 	});
+
+	jQuery.each(("blur focus focusin focusout resize scroll click dblclick " + "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " + "change select submit keydown keypress keyup contextmenu").split(" "), function (_i, name) {
+
+		// Handle event binding
+		jQuery.fn[name] = function (data, fn) {
+			return arguments.length > 0 ? this.on(name, null, data, fn) : this.trigger(name);
+		};
+	});
+
+	// Support: Android <=4.0 only
+	// Make sure we trim BOM and NBSP
+	var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
 
 	// Bind a function to a context, optionally partially applying any
 	// arguments.
@@ -10535,6 +10760,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		!isNaN(obj - parseFloat(obj));
 	};
 
+	jQuery.trim = function (text) {
+		return text == null ? "" : (text + "").replace(rtrim, "");
+	};
+
 	// Register as a named AMD module, since jQuery can be concatenated with other
 	// files that may use define, but not via a proper concatenation script that
 	// understands anonymous AMD modules. A named AMD is safest and most robust
@@ -10579,7 +10808,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	// Expose jQuery and $ identifiers, even in AMD
 	// (#7102#comment:10, https://github.com/jquery/jquery/pull/557)
 	// and CommonJS for browser emulators (#13566)
-	if (!noGlobal) {
+	if (typeof noGlobal === "undefined") {
 		window.jQuery = window.$ = jQuery;
 	}
 
@@ -12328,7 +12557,7 @@ exports.clearImmediate = typeof self !== "undefined" && self.clearImmediate || t
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * EventEmitter v5.2.8 - git.io/ee
+ * EventEmitter v5.2.9 - git.io/ee
  * Unlicense - http://unlicense.org/
  * Oliver Caldwell - https://oli.me.uk/
  * @preserve
@@ -13791,7 +14020,7 @@ module.exports = function spread(callback) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
- * Vue.js v2.6.10
+ * Vue.js v2.6.11
  * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
@@ -15584,7 +15813,7 @@ MutationObserver.toString() === '[object MutationObserverConstructor]')) {
   isUsingMicroTask = true;
 } else if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
   // Fallback to setImmediate.
-  // Techinically it leverages the (macro) task queue,
+  // Technically it leverages the (macro) task queue,
   // but it is still a better choice than setTimeout.
   timerFunc = function () {
     setImmediate(flushCallbacks);
@@ -15655,7 +15884,7 @@ var initProxy;
   };
 
   var warnReservedPrefix = function (target, key) {
-    warn("Property \"" + key + "\" must be accessed with \"$data." + key + "\" because " + 'properties starting with "$" or "_" are not proxied in the Vue instance to ' + 'prevent conflicts with Vue internals' + 'See: https://vuejs.org/v2/api/#data', target);
+    warn("Property \"" + key + "\" must be accessed with \"$data." + key + "\" because " + 'properties starting with "$" or "_" are not proxied in the Vue instance to ' + 'prevent conflicts with Vue internals. ' + 'See: https://vuejs.org/v2/api/#data', target);
   };
 
   var hasProxy = typeof Proxy !== 'undefined' && isNative(Proxy);
@@ -16402,7 +16631,7 @@ function bindDynamicKeys(baseObj, values) {
     if (typeof key === 'string' && key) {
       baseObj[values[i]] = values[i + 1];
     } else if (key !== '' && key !== null) {
-      // null is a speical value for explicitly removing a binding
+      // null is a special value for explicitly removing a binding
       warn("Invalid value for dynamic directive argument (expected string or null): " + key, this);
     }
   }
@@ -16823,6 +17052,9 @@ function _createElement(context, tag, data, children, normalizationType) {
     ns = context.$vnode && context.$vnode.ns || config.getTagNamespace(tag);
     if (config.isReservedTag(tag)) {
       // platform built-in elements
+      if (isDef(data) && isDef(data.nativeOn)) {
+        warn("The .native modifier for v-on is only valid on components but it was used on <" + tag + ">.", context);
+      }
       vnode = new VNode(config.parsePlatformTagName(tag), data, children, undefined, undefined, context);
     } else if ((!data || !data.pre) && isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
       // component
@@ -16945,7 +17177,7 @@ function renderMixin(Vue) {
     // render self
     var vnode;
     try {
-      // There's no need to maintain a stack becaues all render fns are called
+      // There's no need to maintain a stack because all render fns are called
       // separately from one another. Nested component's render fns are called
       // when parent component is patched.
       currentRenderingInstance = vm;
@@ -18691,7 +18923,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.6.10';
+Vue.version = '2.6.11';
 
 /*  */
 
@@ -19300,7 +19532,7 @@ function createPatchFunction(backend) {
     }
   }
 
-  function removeVnodes(parentElm, vnodes, startIdx, endIdx) {
+  function removeVnodes(vnodes, startIdx, endIdx) {
     for (; startIdx <= endIdx; ++startIdx) {
       var ch = vnodes[startIdx];
       if (isDef(ch)) {
@@ -19415,7 +19647,7 @@ function createPatchFunction(backend) {
       refElm = isUndef(newCh[newEndIdx + 1]) ? null : newCh[newEndIdx + 1].elm;
       addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx, insertedVnodeQueue);
     } else if (newStartIdx > newEndIdx) {
-      removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx);
+      removeVnodes(oldCh, oldStartIdx, oldEndIdx);
     }
   }
 
@@ -19503,7 +19735,7 @@ function createPatchFunction(backend) {
         }
         addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue);
       } else if (isDef(oldCh)) {
-        removeVnodes(elm, oldCh, 0, oldCh.length - 1);
+        removeVnodes(oldCh, 0, oldCh.length - 1);
       } else if (isDef(oldVnode.text)) {
         nodeOps.setTextContent(elm, '');
       }
@@ -19721,7 +19953,7 @@ function createPatchFunction(backend) {
 
         // destroy old node
         if (isDef(parentElm)) {
-          removeVnodes(parentElm, [oldVnode], 0, 0);
+          removeVnodes([oldVnode], 0, 0);
         } else if (isDef(oldVnode.tag)) {
           invokeDestroyHook(oldVnode);
         }
@@ -22156,7 +22388,7 @@ var startTagOpen = new RegExp("^<" + qnameCapture);
 var startTagClose = /^\s*(\/?)>/;
 var endTag = new RegExp("^<\\/" + qnameCapture + "[^>]*>");
 var doctype = /^<!DOCTYPE [^>]+>/i;
-// #7298: escape - to avoid being pased as HTML comment when inlined in page
+// #7298: escape - to avoid being passed as HTML comment when inlined in page
 var comment = /^<!\--/;
 var conditionalComment = /^<!\[/;
 
@@ -22440,7 +22672,7 @@ function parseHTML(html, options) {
 /*  */
 
 var onRE = /^@|^v-on:/;
-var dirRE = /^v-|^@|^:/;
+var dirRE = /^v-|^@|^:|^#/;
 var forAliasRE = /([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/;
 var forIteratorRE = /,([^,\}\]]*)(?:,([^,\}\]]*))?$/;
 var stripParensRE = /^\(|\)$/g;
@@ -22982,7 +23214,7 @@ function processSlotContent(el) {
             warn$2("Unexpected mixed usage of different slot syntaxes.", el);
           }
           if (el.parent && !maybeComponent(el.parent)) {
-            warn$2("<template v-slot> can only appear at the root level inside " + "the receiving the component", el);
+            warn$2("<template v-slot> can only appear at the root level inside " + "the receiving component", el);
           }
         }
         var ref = getSlotName(slotBinding);
@@ -23466,7 +23698,7 @@ function isDirectChildOfTemplateFor(node) {
 
 /*  */
 
-var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*(?:[\w$]+)?\s*\(/;
+var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function(?:\s+[\w$]+)?\s*\(/;
 var fnInvokeRE = /\([^)]*?\);*$/;
 var simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/;
 
@@ -24136,6 +24368,8 @@ function checkNode(node, warn) {
           var range = node.rawAttrsMap[name];
           if (name === 'v-for') {
             checkFor(node, "v-for=\"" + value + "\"", warn, range);
+          } else if (name === 'v-slot' || name[0] === '#') {
+            checkFunctionParameterExpression(value, name + "=\"" + value + "\"", warn, range);
           } else if (onRE.test(name)) {
             checkEvent(value, name + "=\"" + value + "\"", warn, range);
           } else {
@@ -24155,9 +24389,9 @@ function checkNode(node, warn) {
 }
 
 function checkEvent(exp, text, warn, range) {
-  var stipped = exp.replace(stripStringRE, '');
-  var keywordMatch = stipped.match(unaryOperatorsRE);
-  if (keywordMatch && stipped.charAt(keywordMatch.index - 1) !== '$') {
+  var stripped = exp.replace(stripStringRE, '');
+  var keywordMatch = stripped.match(unaryOperatorsRE);
+  if (keywordMatch && stripped.charAt(keywordMatch.index - 1) !== '$') {
     warn("avoid using JavaScript unary operator as property name: " + "\"" + keywordMatch[0] + "\" in expression " + text.trim(), range);
   }
   checkExpression(exp, text, warn, range);
@@ -24190,6 +24424,14 @@ function checkExpression(exp, text, warn, range) {
     } else {
       warn("invalid expression: " + e.message + " in\n\n" + "    " + exp + "\n\n" + "  Raw expression: " + text.trim() + "\n", range);
     }
+  }
+}
+
+function checkFunctionParameterExpression(exp, text, warn, range) {
+  try {
+    new Function(exp, '');
+  } catch (e) {
+    warn("invalid function parameter expression: " + e.message + " in\n\n" + "    " + exp + "\n\n" + "  Raw expression: " + text.trim() + "\n", range);
   }
 }
 
@@ -24541,7 +24783,7 @@ module.exports = Vue;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
- * Vue.js v2.6.10
+ * Vue.js v2.6.11
  * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
@@ -25455,7 +25697,7 @@ var e = Object.freeze({});function t(e) {
   }(e);
 }(wn), Object.defineProperty(wn.prototype, "$isServer", { get: te }), Object.defineProperty(wn.prototype, "$ssrContext", { get: function () {
     return this.$vnode && this.$vnode.ssrContext;
-  } }), Object.defineProperty(wn, "FunctionalRenderContext", { value: Tt }), wn.version = "2.6.10";var En = p("style,class"),
+  } }), Object.defineProperty(wn, "FunctionalRenderContext", { value: Tt }), wn.version = "2.6.11";var En = p("style,class"),
     Nn = p("input,textarea,option,select,progress"),
     jn = function (e, t, n) {
   return "value" === n && Nn(e) && "button" !== t || "selected" === n && "option" === e || "checked" === n && "input" === e || "muted" === n && "video" === e;
@@ -25952,9 +26194,9 @@ var e = Object.freeze({});function t(e) {
     var t,
         r,
         i = e.data;if (n(i)) for (n(t = i.hook) && n(t = t.destroy) && t(e), t = 0; t < s.destroy.length; ++t) s.destroy[t](e);if (n(t = e.children)) for (r = 0; r < e.children.length; ++r) b(e.children[r]);
-  }function $(e, t, r, i) {
-    for (; r <= i; ++r) {
-      var o = t[r];n(o) && (n(o.tag) ? (w(o), b(o)) : l(o.elm));
+  }function $(e, t, r) {
+    for (; t <= r; ++t) {
+      var i = e[t];n(i) && (n(i.tag) ? (w(i), b(i)) : l(i.elm));
     }
   }function w(e, t) {
     if (n(t) || n(e.data)) {
@@ -25977,8 +26219,8 @@ var e = Object.freeze({});function t(e) {
             y = i.children;if (n(v) && m(i)) {
           for (d = 0; d < s.update.length; ++d) s.update[d](e, i);n(d = v.hook) && n(d = d.update) && d(e, i);
         }t(i.text) ? n(h) && n(y) ? h !== y && function (e, r, i, o, a) {
-          for (var s, c, l, p = 0, d = 0, v = r.length - 1, h = r[0], m = r[v], y = i.length - 1, g = i[0], b = i[y], w = !a; p <= v && d <= y;) t(h) ? h = r[++p] : t(m) ? m = r[--v] : ir(h, g) ? (x(h, g, o, i, d), h = r[++p], g = i[++d]) : ir(m, b) ? (x(m, b, o, i, y), m = r[--v], b = i[--y]) : ir(h, b) ? (x(h, b, o, i, y), w && u.insertBefore(e, h.elm, u.nextSibling(m.elm)), h = r[++p], b = i[--y]) : ir(m, g) ? (x(m, g, o, i, d), w && u.insertBefore(e, m.elm, h.elm), m = r[--v], g = i[++d]) : (t(s) && (s = or(r, p, v)), t(c = n(g.key) ? s[g.key] : C(g, r, p, v)) ? f(g, o, e, h.elm, !1, i, d) : ir(l = r[c], g) ? (x(l, g, o, i, d), r[c] = void 0, w && u.insertBefore(e, l.elm, h.elm)) : f(g, o, e, h.elm, !1, i, d), g = i[++d]);p > v ? _(e, t(i[y + 1]) ? null : i[y + 1].elm, i, d, y, o) : d > y && $(0, r, p, v);
-        }(p, h, y, o, l) : n(y) ? (n(e.text) && u.setTextContent(p, ""), _(p, null, y, 0, y.length - 1, o)) : n(h) ? $(0, h, 0, h.length - 1) : n(e.text) && u.setTextContent(p, "") : e.text !== i.text && u.setTextContent(p, i.text), n(v) && n(d = v.hook) && n(d = d.postpatch) && d(e, i);
+          for (var s, c, l, p = 0, d = 0, v = r.length - 1, h = r[0], m = r[v], y = i.length - 1, g = i[0], b = i[y], w = !a; p <= v && d <= y;) t(h) ? h = r[++p] : t(m) ? m = r[--v] : ir(h, g) ? (x(h, g, o, i, d), h = r[++p], g = i[++d]) : ir(m, b) ? (x(m, b, o, i, y), m = r[--v], b = i[--y]) : ir(h, b) ? (x(h, b, o, i, y), w && u.insertBefore(e, h.elm, u.nextSibling(m.elm)), h = r[++p], b = i[--y]) : ir(m, g) ? (x(m, g, o, i, d), w && u.insertBefore(e, m.elm, h.elm), m = r[--v], g = i[++d]) : (t(s) && (s = or(r, p, v)), t(c = n(g.key) ? s[g.key] : C(g, r, p, v)) ? f(g, o, e, h.elm, !1, i, d) : ir(l = r[c], g) ? (x(l, g, o, i, d), r[c] = void 0, w && u.insertBefore(e, l.elm, h.elm)) : f(g, o, e, h.elm, !1, i, d), g = i[++d]);p > v ? _(e, t(i[y + 1]) ? null : i[y + 1].elm, i, d, y, o) : d > y && $(r, p, v);
+        }(p, h, y, o, l) : n(y) ? (n(e.text) && u.setTextContent(p, ""), _(p, null, y, 0, y.length - 1, o)) : n(h) ? $(h, 0, h.length - 1) : n(e.text) && u.setTextContent(p, "") : e.text !== i.text && u.setTextContent(p, i.text), n(v) && n(d = v.hook) && n(d = d.postpatch) && d(e, i);
       }
     }
   }function k(e, t, i) {
@@ -26017,7 +26259,7 @@ var e = Object.freeze({});function t(e) {
             for (var _ = 0; _ < s.destroy.length; ++_) s.destroy[_](y);if (y.elm = i.elm, g) {
               for (var w = 0; w < s.create.length; ++w) s.create[w](nr, y);var C = y.data.hook.insert;if (C.merged) for (var A = 1; A < C.fns.length; A++) C.fns[A]();
             } else tr(y);y = y.parent;
-          }n(h) ? $(0, [e], 0, 0) : n(e.tag) && b(e);
+          }n(h) ? $([e], 0, 0) : n(e.tag) && b(e);
         }
       }return k(i, p, l), i.elm;
     }n(e) && b(e);
@@ -26216,7 +26458,7 @@ var e = Object.freeze({});function t(e) {
     qo,
     Wo,
     Zo = /^@|^v-on:/,
-    Go = /^v-|^@|^:/,
+    Go = /^v-|^@|^:|^#/,
     Xo = /([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/,
     Yo = /,([^,\}\]]*)(?:,([^,\}\]]*))?$/,
     Qo = /^\(|\)$/g,
@@ -26482,7 +26724,7 @@ var e = Object.freeze({});function t(e) {
       if ((t.static || t.once) && (t.staticInFor = n), t.static && t.children.length && (1 !== t.children.length || 3 !== t.children[0].type)) return void (t.staticRoot = !0);if (t.staticRoot = !1, t.children) for (var r = 0, i = t.children.length; r < i; r++) e(t.children[r], n || !!t.for);if (t.ifConditions) for (var o = 1, a = t.ifConditions.length; o < a; o++) e(t.ifConditions[o].block, n);
     }
   }(e, !1));
-}var Aa = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*(?:[\w$]+)?\s*\(/,
+}var Aa = /^([\w$_]+|\([^)]*?\))\s*=>|^function(?:\s+[\w$]+)?\s*\(/,
     Oa = /\([^)]*?\);*$/,
     Sa = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/,
     Ta = { esc: 27, tab: 9, enter: 13, space: 32, up: 38, left: 37, right: 39, down: 40, delete: [8, 46] },

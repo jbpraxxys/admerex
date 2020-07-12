@@ -1,35 +1,49 @@
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
-       <% base_tag %>
+        <% base_tag %>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title><% if $MetaTitle %>$MetaTitle<% else %>$Title<% end_if %> | $SiteConfig.Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
         <% loop HeaderFooter %>
+        <link rel="shortcut icon" href="$Favicon.Url" type="image/x-icon" />
         <meta name="keywords" content="$SeoKeywords"> 
         <meta name="description" content="$SeoDesc"> 
-        <link rel="shortcut icon" href="$Favicon.Url" type="image/x-icon" />
         <% if Logo %>
-             <meta property="og:image" content="$Logo.Url">    
+             <meta property="og:image" content="$Logo.Url">
         <% end_if %>
         <% end_loop %>
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <% if $MetaDescription %>
+            <meta name="description" content="$MetaDescription">
+            <meta property="og:description" content="$MetaDescription">
+        <% else %>
+            <% loop HeaderFooter %>
+                <meta name="description" content="$Description">
+                <meta property="og:description" content="$Description">
+            <% end_loop %>
+        <% end_if %>
+
         <meta property="og:title" content="$Title">
-        <meta property="og:description" content="$MetaDescription">
         <meta property="og:url" content="{$AbsoluteBaseURL}">
         <meta property="og:site_name" content="$SiteConfig.Title">
         <meta property="og:type" content="website">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
+        <% if $ExtraMeta %>
+            $ExtraMeta
+        <% end_if %>
 
-        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
         <!-- Ionicon -->
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+        <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
         
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
         <!-- Slick -->
         <link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.slick/1.3.15/slick.css"/>
@@ -48,11 +62,14 @@
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 
         <!-- Fonts -->
-       <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
         <link href="$ThemeDir/fonts/Ubuntu.css" rel="stylesheet">
 
         <!-- Compiled CSS -->
         <link href="$ThemeDir/assets/app.min.css" rel="stylesheet">
+
+        <!-- Recaptcha -->
+        <script src='https://www.google.com/recaptcha/api.js' async defer></script>
         
         <!--[if lt IE 9]>
         <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -67,7 +84,6 @@
 
         <div class="main" id="top">
         <% include Header %>
-
 
             $Form
             $Layout
@@ -96,14 +112,14 @@
         </script>
 
 
-       <!-- Global site tag (gtag.js) - Google Analytics -->
+        <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142397134-4"></script>
         <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-          gtag('config', 'UA-142397134-4');
+            gtag('config', 'UA-142397134-4');
         </script>
 
 
@@ -119,10 +135,10 @@
                 s0.parentNode.insertBefore(s1,s0);
             })();
         </script>
-<!--End of Tawk.to Script-->
+        <!--End of Tawk.to Script-->
 
         <!-- Script -->
-        <!-- <script type="text/javascript" src="$ThemeDir/assets/vendor.min.js"></script> -->
+        <script type="text/javascript" src="$ThemeDir/assets/vendor.min.js"></script>
         <script type="text/javascript" src="$ThemeDir/assets/app.min.js"></script>
 
         <!-- jQuery -->
@@ -141,10 +157,7 @@
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>
 
         <!-- jQuery Zoom -->
-
-           <!-- <script src="https://cdn.rawgit.com/jackmoore/zoom/master/jquery.zoom.min.js"></script>-->
-
-       
+        <!-- <script src="https://cdn.rawgit.com/jackmoore/zoom/master/jquery.zoom.min.js"></script>-->
 
         <!-- Validate -->
         <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
@@ -155,7 +168,6 @@
         <!-- Slick -->
         <script src="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick.min.js"></script>
         <script src="//alexandrebuffet.fr/codepen/slider/slick-animation.min.js"></script>
-
         
         <!-- Remodal -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/remodal/1.0.6/remodal.min.js"></script>
@@ -180,7 +192,6 @@
         <!-- Go to www.addthis.com/dashboard to customize your tools -->
         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d0c0ed665a9655b"></script>
 
-
         <!-- HoverIntent -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js"></script>
         
@@ -189,8 +200,8 @@
         <script type="text/javascript" src="$ThemeDir/js/vendor/chosen/chosen.jquery.min.js"></script>
         <script type="text/javascript" src="$ThemeDir/js/storelocator.js"></script>
 
-  <%--       <!-- Maps -->
-         <% loop ContactPage %>
+        <%--  <!-- Maps -->
+        <% loop ContactPage %>
              <script type="text/javascript">
                     var mapLat = $Lat,
                         mapLng = $Lng;
@@ -211,12 +222,9 @@
                     animation: google.maps.Animation.DROP,
                 });
             </script>
-            <% end_loop %> --%>
+        <% end_loop %> --%>
 
-                
-             <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
-        async defer></script>
-
+        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
         
         <!-- Light Gallery -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.4/js/lightgallery.min.js"></script>

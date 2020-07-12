@@ -3,7 +3,14 @@
 		<% loop $HomeBanners %>
 		<div class="bg-holder">
 			<% if $VidFile.URL %>
-			<video autoplay loop muted src="$VidFile.URL"></video>
+			<video autoplay="" muted="" loop="" playsinline="" poster="$Banner.URL">
+				<% if $VidFile %>
+					<source src="$VidFile.URL">
+				<% else_if $Fr1File2 %>
+					<source src="$Fr1File2">
+				<% end_if %>
+				<p>Your browser does not support the <code>video</code> element </p>
+			</video>
 			<% else_if $Banner %>
 			<img src="$Banner.URL" alt="">
 			<% end_if %>
@@ -11,7 +18,7 @@
 		</div>
 		<% end_loop %>
 	</div>
-	<div class="frm-cntnr width--80">
+	<div class="frm-cntnr width--90">
 		<div class="hm_frame1-content">
 			<div class="frame1-slider animate-up">
 				<% loop $HomeBanners %>
@@ -30,16 +37,22 @@
 					<input type="text" name="q" placeholder="Search">
 					<button class="btn-search">
 					<div class="search-btn" style="background-image: url('$ThemeDir/images/search.png');">
-					</button>
 					</div>
+					</button>
 				</form>
+				<div class="progressBarContainer inlineBlock-parent fadeIn">
+					<% loop HomeBanners %>
+					<div class="item">
+						<span class="progressBar"></span>
+					</div>
+					<% end_loop %>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <div class="hm_frame2">
-	<div class="hm_frame2-bg" style="background-image: url('$ThemeDir/images/bg2.png');"></div>
-	<div class="gradient"></div>
+	<div class="hm_frame2-bg" style="background-image: url('$F2Bg.URL');"></div>
 	<div class="frm-cntnr width--80">
 		<div class="vertical-parent">
 			<div class="vertical-align">
@@ -56,69 +69,75 @@
 	</div>
 </div>
 <div class="hm_frame3" id="tabs">
-	<div class="hm_frame3-bg" style="background-image: url('$ThemeDir/images/bgf3.png');"></div>
+	<div class="hm_frame3-bg" style="background-image: url('$F3Bg.URL');"></div>
 	<div class="frm-cntnr width--90">
 		<div class="content-container inlineBlock-parent">
 			<div class="left-cntnr staggerup_hldr1">
-				<div class="tabbing-hldr staggerup1">
-					<div class="tab-cntnr" @click="activetab = 1" v-bind:class="{'active':activetab == 1}">
+				<div class="tabbing-hldr fadeIn">
+					<div class="tab-cntnr active" data-id="1">
 						<p>$F3Title1</p>
 					</div
-					><div class="tab-cntnr" @click="activetab = 2" v-bind:class="{'active':activetab == 2}">
+					><div class="tab-cntnr" data-id="2">
 						<p>$F3Title2</p>
 					</div
-					><div class="tab-cntnr" @click="activetab = 3" v-bind:class="{'active':activetab == 3}">
+					><div class="tab-cntnr" data-id="3">
 						<p>$F3Title3</p>
 					</div>
 				</div>
-				<transition name="slide-fade">
-				<div class="tabbing" v-if="activetab == 1">
-					<div class="tab-content staggerup1">
+				<%-- <transition name="slide-fade" mode="out-in"> --%>
+				<div class="tabbing" data-target="1">
+					<div class="tab-content fadeIn">
 						<p>$F3Desc1</p>
 					</div>
-					<a href="$F3link1">
-					<div class="button-hldr button fadeIn">
-						<p>Learn More</p>
+					<div class="btn-con">
+						<a href="$F3link1">
+						<div class="button-hldr button fadeIn">
+							<p>$F3Btn1</p>
+						</div>
+						</a>
 					</div>
-					</a>
 				</div>
-				</transition>
-				<transition name="slide-fade">
-				<div class="tabbing" v-if="activetab == 2">
+				<%-- </transition>
+				<transition name="slide-fade" mode="out-in"> --%>
+				<div class="tabbing" data-target="2">
 					<div class="tab-content">
 						<p>$F3Desc2</p>
 					</div>
-					<a href="$F3link2">
-					<div class="button-hldr button">
-						<p>Learn More</p>
+					<div class="btn-con">
+						<a href="$F3link2">
+						<div class="button-hldr button">
+							<p>$F3Btn2</p>
+						</div>
+						</a>
 					</div>
-					</a>
 				</div>
-				</transition>
-				<transition name="slide-fade">
-				<div class="tabbing" v-if="activetab == 3">
+				<%-- </transition>
+				<transition name="slide-fade" mode="out-in"> --%>
+				<div class="tabbing" data-target="3">
 					<div class="tab-content">
 						<p>$F3Desc1</p>
 					</div>
-					<a href="$F3link3">
-					<div class="button-hldr button">
-						<p>Learn More</p>
+					<div class="btn-con">
+						<a href="$F3link3">
+						<div class="button-hldr button">
+							<p>$F3Btn3</p>
+						</div>
+						</a>
 					</div>
-					</a>
 				</div>
-				</transition>
+				<%-- </transition> --%>
 			</div
 			><div class="right-cntnr fadeIn">
 				<div class="image-hldr">
-					<transition name="slide-fade">
-					<div v-if="activetab == 1" class="img" style="background-image: url('$F3Img1.URL');"></div>
-					</transition>
-					<transition name="slide-fade">
-					<div v-if="activetab == 2" class="img" style="background-image: url('$F3Img2.URL');"></div>
-					</transition>
-					<transition name="slide-fade">
-					<div v-if="activetab == 3" class="img" style="background-image: url('$F3Img3.URL');"></div>
-					</transition>
+					<%-- <transition name="slide-fade" mode="out-in"> --%>
+					<div data-target="1" class="img" style="background-image: url('$F3Img1.URL');"></div>
+					<%-- </transition>
+					<transition name="slide-fade" mode="out-in"> --%>
+					<div data-target="2" class="img" style="background-image: url('$F3Img2.URL');"></div>
+					<%-- </transition>
+					<transition name="slide-fade" mode="out-in"> --%>
+					<div data-target="3" class="img" style="background-image: url('$F3Img3.URL');"></div>
+					<%-- </transition> --%>
 				</div>
 			</div>
 		</div>
@@ -166,7 +185,7 @@
 			</div>
 			<a href="$F5Link">
 			<div class="button-hldr button">
-				<p>Learn More</p>
+				<p>$F5Btn</p>
 			</div>
 			</a>
 		</div>
@@ -180,7 +199,7 @@
 		</div>
 		<a href="$F6Link">
 		<div class="button-hldr button staggerup4">
-			<p>Join Our Team</p>
+			<p>$F6Btn</p>
 		</div>
 		</a>
 	</div>
