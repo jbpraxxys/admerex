@@ -308,7 +308,7 @@
 					<p>$Address</p>
 				</div>
 				<div class="loc-link">
-					<a href="$LLink">View Map</a>
+					<a href="$LLink" target="_blank">View Map</a>
 				</div>
 				<div class="loc-details">
 					$Contact
