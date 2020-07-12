@@ -370,7 +370,7 @@ var app = {
 
 		contactpage: function() {
 			app.form.init($('#contactForm'), $('#contactBtn'), 'form/contact/send', false);
-			app.form.init($('#contactForm2'), $('#contactBtn2'), 'form/contact/send', false);
+			app.form.init($('#contactForm2'), $('#contactBtn2'), 'form/client/send', false);
 
 			$(document).ready(function() {
 				$("#lightgallery").lightGallery(); 

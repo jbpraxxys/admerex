@@ -9,7 +9,7 @@ use SilverStripe\View\ArrayData;
 
 require '../vendor/autoload.php';
 
-class ContactController2 extends Controller {
+class ClientController extends Controller {
 
 	private $fullname;
 	private $business;
