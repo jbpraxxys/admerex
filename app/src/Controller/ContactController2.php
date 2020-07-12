@@ -158,9 +158,9 @@ class ContactController2 extends Controller {
 		// $headers .= "\r\n" . "MIME-Version: 1.0" . "\r\n";
 		// $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
 
-		$subject = $this->subject .'ADMEREX: New Website Inquiry!';
+		$subject = $this->subject .'ADMEREX: New Website Client Inquiry!';
 
-		$message = $this->getEmailTemplate();
+		$message = $this->getAdminEmailTemplate();
 
 		$this->sendPHPMailer($to, $subject, $message);
 
@@ -181,7 +181,7 @@ class ContactController2 extends Controller {
 	// 	$this->sendPHPMailer($recipients, $subject, $message);
 	// }
 
-	private function getEmailTemplate() {
+	private function getAdminEmailTemplate() {
 
 		$arrayData = new ArrayData(array(
 		    'fullname' => $this->fullname,

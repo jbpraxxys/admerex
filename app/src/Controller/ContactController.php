@@ -145,7 +145,7 @@ class ContactController extends Controller {
 		// $headers .= "\r\n" . "MIME-Version: 1.0" . "\r\n";
 		// $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
 
-		$subject = $this->subject .'ADMEREX: New Website Inquiry!';
+		$subject = $this->subject .'ADMEREX: New Website Application Inquiry!';
 
 		$message = $this->getEmailTemplate();
 
