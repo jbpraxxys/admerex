@@ -10,11 +10,11 @@ $gray: #363636;
 $green: #93df65;
 
 .mont {
-    font-family: mont;
+    font-family: mont, sans-serif;
 }
 
 .gilroy {
-    font-family: gilroy;
+    font-family: gilroy, sans-serif;
 }
 
 /*****
@@ -504,6 +504,11 @@ body {
                 transform: translateY(-4px);
             }
         }
+
+        img {
+            max-width: 20px;
+            max-height: 20px;
+        }
      }
 
 
@@ -513,6 +518,8 @@ body {
         background-color: #191919;
         border-bottom: 5px solid $green;
         * {
+            width: 90%;
+            margin: auto;
             font-size: 14px;
             color: #ccc;
             font-family: gilroy;
@@ -932,13 +939,13 @@ $frame-bg--pos__b: bottom center;
 
         p {
             display: inline-block;
-            margin-right: 10px;
         }
 
         i {
             display: inline-block;
             color: $green;
             font-size: 20px;
+            margin-left: 10px;
             transition: all 0.34s ease;
 
             &.open {
@@ -951,13 +958,13 @@ $frame-bg--pos__b: bottom center;
         margin-bottom: 10px;
         p {
             display: inline-block;
-            margin-right: 10px;
         }
 
         i {
             display: inline-block;
             color: $green;
             font-size: 20px;
+            margin-left: 10px;
             transition: all 0.34s ease;
 
             &.open {

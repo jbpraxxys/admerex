@@ -51,14 +51,14 @@ var app = {
 					// 	$('#pursuit-tog').toggleSlide();
 					// });
 
-					$('#pursuit').click(function(){
+					$('#pursuit p').on('click', function(){
 						$('#pursuittog').slideToggle();
 						$('.ftr-frame .pursuit .pursuit-title i').toggleClass('open');
 					});
 
-					$('#contact').click(function(){
+					$('#contact p').on('click', function(){
 						$('#contact-tog').slideToggle();
-						$('.ftr-frame .contact .contact-title i').toggleClass('open');
+						$(this + ' i').toggleClass('open');
 					});
 				} else {
 					// $('#pursuit').click(function(){
@@ -73,13 +73,13 @@ var app = {
 
 		homepage: function() {
 
-			$(window).scroll(function() {    
-			    var scroll = $(window).scrollTop();
-			    if (scroll >= 100) {
-			        $(".header").addClass("header-scroll");
-			    } else {
-			    	$(".header").removeClass("header-scroll");
-			    }
+			$(window).scroll(function() {
+				var scroll = $(window).scrollTop();
+				if (scroll >= 100) {
+					$(".header").addClass("header-scroll");
+				} else {
+					$(".header").removeClass("header-scroll");
+				}
 			});
 
 			$('.hm_frame1-bg').slick({
@@ -88,19 +88,71 @@ var app = {
 				slidesToScroll:1,
 				fade: true,
 				dots: false,
-		      });
+			});
 
 			$('.frame1-slider').slick({
-			 	infinite: true,
+				infinite: true,
 				slidesToShow: 1,
 				slidesToScroll:1,
-				dots: true,
+				dots: false,
 				arrows: false,
 				speed: 1000,
+				adaptiveHeight: true,
 				asNavFor: '.hm_frame1-bg'
-		      });
+			});
 
+			//ticking machine
+			var percentTime;
+			var tick;
+			var time = .1;
+			var progressBarIndex = 0;
 
+			$('.progressBarContainer .progressBar').each(function(index) {
+				var progress = "<div class='inProgress inProgress" + index + "'></div>";
+				$(this).html(progress);
+			});
+
+			function startProgressbar() {
+				resetProgressbar();
+				percentTime = 0;
+				tick = setInterval(interval, 10);
+			}
+
+			function interval() {
+				if (($('.slider-hldr[data-slick-index="' + progressBarIndex + '"]').attr("aria-hidden")) === "true") {
+					progressBarIndex = $('.slider-hldr[aria-hidden="false"]').data("slickIndex");
+					startProgressbar();
+				} else {
+					percentTime += 1 / (time + 5);
+					$('.inProgress' + progressBarIndex).css({
+						width: percentTime + "%"
+					});
+					if (percentTime >= 100) {
+						$('.frame1-slider').slick('slickNext');
+						progressBarIndex++;
+						if (progressBarIndex > 2) {
+							progressBarIndex = 0;
+						}
+						startProgressbar();
+					}
+				}
+			}
+
+			function resetProgressbar() {
+				$('.inProgress').css({
+					width: 0 + '%'
+				});
+				clearInterval(tick);
+			}
+			startProgressbar();
+			// End ticking machine
+
+			$('.item').click(function () {
+				clearInterval(tick);
+				var goToThisIndex = $(this).find("span").data("slickIndex");
+				$('.frame1-slider').slick('slickGoTo', goToThisIndex, false);
+				startProgressbar();
+			});
 
 			$('.affiliate-slider').slick({
 			 	infinite: true,
@@ -112,22 +164,43 @@ var app = {
 				arrows: true,
 				dots: false,
 				// prevArrow: $('.prev-arrow'),
-    //   			nextArrow: $('.next-arrow'),
-      			responsive: [
-		            {
-		              breakpoint: 1100,
-		              settings: "unslick"
-		            }
-
-	            ]
-
-		      });
-
-
-			new Vue({
-			    el: '#tabs',
-			    data: { activetab: 1 },
+				// nextArrow: $('.next-arrow'),
+				responsive: [
+					{
+					  breakpoint: 1100,
+					  settings: "unslick"
+					}
+				]
 			});
+
+			$('.tabbing[data-target=' + 1 + ']').addClass('active').slideDown(300);
+			$('.image-hldr .img[data-target=' + 1 + ']').addClass('active').slideDown(300);
+
+			$('.tabbing-hldr .tab-cntnr').on('click', function(){
+
+				if ($(this).hasClass("active")){
+
+				} else {
+					$('.tabbing-hldr .tab-cntnr').removeClass('active');
+					$('.tabbing').removeClass('active').slideUp(300);
+					$('.image-hldr .img').removeClass('active').slideUp(300);
+
+
+					var target = $(this).data('id');
+					$(this).addClass('active');
+
+					setTimeout(function(){
+						$('.tabbing[data-target=' + target + ']').addClass('active').slideDown(300);
+						$('.image-hldr .img[data-target=' + target + ']').addClass('active').slideDown(300);
+					}, 300);
+				}
+
+			})
+
+			// new Vue({
+			// 	el: '#tabs',
+			// 	data: { activetab: 1 },
+			// });
 
 			$('.solution-slider').slick({
 			 	infinite: true,
@@ -139,19 +212,19 @@ var app = {
 				arrows: false,
 				adaptiveHeight: true,
 				responsive: [
-		            {
-		              breakpoint: 1024,
-		              settings: {
-		                slidesToShow: 1,
-		                slidesPerRow: 1,
-		                slidesToScroll: 1
-		              }
-		            }
-	            ]
-		      });
+					{
+					  breakpoint: 1024,
+					  settings: {
+						slidesToShow: 1,
+						slidesPerRow: 1,
+						slidesToScroll: 1
+					  }
+					}
+				]
+			});
 
 			$('.f8-image-slider').slick({
-			 	infinite: true,
+				infinite: true,
 				slidesToShow: 3,
 				slidesToScroll:1,
 				// autoplay: true,
@@ -160,7 +233,7 @@ var app = {
 				arrows: false,
 				centerMode: true,
 				asNavFor: '.year-slider',
-		      });
+			});
 
 			$('.year-slider').slick({
 			 	infinite: true,
@@ -174,18 +247,18 @@ var app = {
 				centerMode: true,
 				asNavFor: '.f8-image-slider',
 				responsive: [
-		            {
-		              breakpoint: 1024,
-		              settings: {
-		                slidesToShow: 1,
-		                slidesPerRow: 1,
-		                slidesToScroll: 1
-		              }
-		            }
-	            ]
-		      });
+					{
+					  breakpoint: 1024,
+					  settings: {
+						slidesToShow: 1,
+						slidesPerRow: 1,
+						slidesToScroll: 1
+					  }
+					}
+				]
+			});
 			$('.slick-prev').html('<i class="ion-chevron-left"></i>');
-     	 	$('.slick-next').html('<i class="ion-chevron-right"></i');
+	 	 	$('.slick-next').html('<i class="ion-chevron-right"></i');
 
 			$('.year-slider .year-hldr').click(function(){
 				$('.year-slider .year-hldr').removeClass('active');
@@ -202,16 +275,16 @@ var app = {
 				// dots: true,
 				arrows: false,
 				responsive: [
-		            {
-		              breakpoint: 1024,
-		              settings: {
-		                slidesToShow: 1,
-		                slidesPerRow: 1,
-		                slidesToScroll: 1
-		              }
-		            }
-	            ]
-		      });
+					{
+					  breakpoint: 1024,
+					  settings: {
+						slidesToShow: 1,
+						slidesPerRow: 1,
+						slidesToScroll: 1
+					  }
+					}
+				]
+			  });
 				
 		},
 
@@ -231,7 +304,7 @@ var app = {
 				dots: false,
 				adaptiveHeight: true,
 				asNavFor: '.jrny-img-slider',
-		      });
+			  });
 
 			$('.jrny-img-slider').slick({
 			 	infinite: true,
@@ -244,25 +317,25 @@ var app = {
 				dots: false,
 				focusOnSelect: true,
 				// prevArrow: $('.prev-arrow'),
-    //   			nextArrow: $('.next-arrow'),
+	//   			nextArrow: $('.next-arrow'),
    				asNavFor: '.jrny-cont-slider',
-      			responsive: [
-		            {
-		              breakpoint: 1024,
-		              settings: {
-		                slidesToShow: 1,
-		                slidesPerRow: 1,
-		                slidesToScroll: 1,
-		                centerMode: false
-		              }
-		            }
-	            ]
+	  			responsive: [
+					{
+					  breakpoint: 1024,
+					  settings: {
+						slidesToShow: 1,
+						slidesPerRow: 1,
+						slidesToScroll: 1,
+						centerMode: false
+					  }
+					}
+				]
 
-		      });
+			  });
 			// $('.slick-prev').html('<i class="ion-chevron-left"></i>');
    //   	 	$('.slick-next').html('<i class="ion-chevron-right"></i');
 
-     	 	$('.pagination-slider').slick({
+	 	 	$('.pagination-slider').slick({
 			 	infinite: true,
 				slidesToShow: 4,
 				slidesToScroll:1,
@@ -270,7 +343,7 @@ var app = {
 				speed: 1000,
 				arrows: true,
 				dots: false,
-		      });
+			  });
 
 			
 			//Calls the function on load to switch layout
@@ -300,8 +373,8 @@ var app = {
 			app.form.init($('#contactForm2'), $('#contactBtn2'), 'form/contact/send', false);
 
 			$(document).ready(function() {
-		        $("#lightgallery").lightGallery(); 
-		    });
+				$("#lightgallery").lightGallery(); 
+			});
 
 		   $("#AIbutton").click(function() {
 		   		$("#CIbutton").removeClass("active");
@@ -414,8 +487,8 @@ var app = {
 				$url = url;
 
 			$file_upload.fileupload({
-		        url: baseHref + $url,
-		        dataType: 'json',
+				url: baseHref + $url,
+				dataType: 'json',
 				submit: function(e, data) {},
 				done: function(e, data) {
 					switch(data.result.status) {
@@ -429,7 +502,7 @@ var app = {
 						break;
 					}
 				}
-		    });
+			});
 		}
 	},
 };

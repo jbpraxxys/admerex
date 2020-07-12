@@ -19,15 +19,17 @@ namespace {
 
 		private static $db = [
 			#Specialty
+			'SortOrder' => 'Int',
 			'SortID' => 'Int',
 			'Header' => 'HTMLText',
 			'Desc' => 'Text',
+			'Fr1File2' => 'Text',
 		];
 
 		private static $has_one = [
 			'VidFile' => File::class,
 			'Banner' => Image::class,
-			'HomePage' => HomePage::class
+			'HomePage' => 'HomePage',
 		];
 
 		private static $owns = [
@@ -35,37 +37,35 @@ namespace {
 			'Banner',
 		];
 
-		public function getThumbnail() {
-		   if ($this->VidFile()->exists()) { 
-		       return $this->VidFile()->ScaleWidth(50); 
-		   } else { 
-		       return '(No Video)'; 
-		   }
-		}
-
 		private static $summary_fields = array(
-			'Thumbnail' => 'VidFile',
-			'Header' => 'Header',
+			'Header' => 'Title',
 			'Desc' => 'Description',
-			
-
 		);
 
 		public function getCMSFields() {
 			$fields = parent::getCMSFields();
 			$fields->addFieldsToTab('Root.Main', array(
 				new ReadonlyField('SortID', 'Sort ID'),
-				$upload = new UploadField('VidFile', 'Video'),
-				$upload = new UploadField('Banner', 'Banner 1300 x 650 (leave this empty to use vidbanner)'),
-				new HTMLEditorField('Header', 'Header'),
+				new HTMLEditorField('Header', 'Title'),
 				new TextareaField('Desc', 'Description'),
 			));
 
+			$fields->addFieldToTab('Root.Media', $upload_2 = new UploadField('Banner', 'Background Image'));
+			$fields->addFieldToTab('Root.Media', $upload_1 = new UploadField('VidFile', 'Video'));
+			$fields->addFieldToTab('Root.Media', $upload_3 = TextField::create('Fr1File2', 'Video Link Outsource'));
+
+			$fields->removeByName('SortOrder');
+			$fields->removeByName('HomePageID');
+			$fields->removeByName('SortID');
+
 			# SET FIELD DESCRIPTION 
-			$upload->setDescription('Max file size: 2MB');
+			$upload_1->setDescription('Max file size: 2MB | Dimension: 1366px x 768px');
+			$upload_2->setDescription('Max file size: 2MB | Dimension: 1366px x 768px');
+			$upload_3->setDescription('Make sure that the link ends with a video format like .mp4');
 
 			# Set destination path for the uploaded images.
-			$upload->setFolderName('homepage/banner');
+			$upload_1->setFolderName('homepage/banner');
+			$upload_2->setFolderName('homepage/banner');
 
 			return $fields;
 		}

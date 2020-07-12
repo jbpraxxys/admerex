@@ -1,23 +1,35 @@
 <?php
 namespace {
 	use SilverStripe\CMS\Model\SiteTree;
-	use Page;  
-	use PageController;
-	use SilverStripe\Forms\TextField;
-	use SilverStripe\Forms\TextareaField;
-	use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
-	use SilverStripe\Forms\HTMLEditor;
-	use SilverStripe\Forms\FormField;
-	use SilverStripe\AssetAdmin\Forms\UploadField;
-	use SilverStripe\Assets\Image;
-	use SilverStripe\Assets\File;
+
 	use SilverStripe\Forms\TabSet;
 	use SilverStripe\Forms\Tab;
-	use SilverStripe\ORM\DataObject;
-	use SilverStripe\Forms\FieldList;
+	use SilverStripe\Forms\TextField;
+	use SilverStripe\Forms\TextareaField;
+	use SilverStripe\Forms\CheckboxField;
+	use SilverStripe\Forms\DateField;
+	use SilverStripe\Forms\ReadonlyField;
+	use SilverStripe\Forms\DropdownField;
+	use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
+
 	use SilverStripe\Forms\GridField\GridField;
 	use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 	use UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows;
+	use Bummzack\SortableFile\Forms\SortableUploadField;
+
+	use SilverStripe\AssetAdmin\Forms\UploadField;
+	use SilverStripe\Assets\Image;
+	use SilverStripe\Assets\File;
+
+	use SilverStripe\ORM\PaginatedList;
+	use SilverStripe\ORM\DataObject;
+	use SilverStripe\ORM\ArrayList;
+	use SilverStripe\ORM\GroupedList;
+
+	use SilverStripe\View\Requirements;
+	use SilverStripe\View\ArrayData;
+
+	use SilverStripe\Control\HTTPRequest;
 
 	class HomePage extends Page {
 
@@ -31,6 +43,9 @@ namespace {
 			'F3Desc1' => 'Text',
 			'F3Desc2' => 'Text',
 			'F3Desc3' => 'Text',
+			'F3Btn1' => 'Text',
+			'F3Btn2' => 'Text',
+			'F3Btn3' => 'Text',
 			'F3link1' => 'Text',
 			'F3link2' => 'Text',
 			'F3link3' => 'Text',
@@ -40,11 +55,13 @@ namespace {
 
 			'F5Title' => 'Text',
 			'F5Desc' => 'HTMLText',
+			'F5Btn' => 'Text',
 			'F5Link' => 'Text',
 
 
 			'F6Title' => 'Text',
 			'F6Desc' => 'HTMLText',
+			'F6Btn' => 'Text',
 			'F6Link' => 'Text',
 
 			'F7Title' => 'Text',
@@ -63,30 +80,36 @@ namespace {
 		];
 
 		private static $has_one = [
+			'F2Bg' => Image::class,
 			'F3Img1' => Image::class,
 			'F3Img2' => Image::class,
 			'F3Img3' => Image::class,
+			'F3Bg' => Image::class,
 			'F7IMG' => Image::class,
+			'F8Bg' => Image::class,
 			'F9IMG' => Image::class,
 			'F9Vid' => File::class,
 			
 		];
 
 		private static $owns = [
+			'F2Bg',
 			'F3Img1',
 			'F3Img2',
 			'F3Img3',
+			'F3Bg',
 			'F7IMG',
+			'F8Bg',
 			'F9IMG',
 			'F9Vid',
 		];
 
 		private static $has_many = [
-	        'HomeBanners' => HomeBanner::class,
-	        'Histories' => History::class,
-	        'Locations' => Location::class,
-	        'Affiliates' => Affiliate::class,
-	    ];
+			'HomeBanners' => HomeBanner::class,
+			'Histories' => History::class,
+			'Locations' => Location::class,
+			'Affiliates' => Affiliate::class,
+		];
 
 		private static $allowed_children = "none";
 
@@ -107,22 +130,27 @@ namespace {
 			|-----------------------------------------------
 			| Frame 1
 			|----------------------------------------------- */
-			$fields->addFieldToTab('Root.Frame1.Main', new TabSet('HomeBanners',
-				new Tab('HomeBanners', GridField::create(
-		            'HomeBanners',
-		            'HomeBanners',
-		            $this->HomeBanners(),
-		            GridFieldConfig_RecordEditor::create()
-				))
+			$fields->addFieldToTab('Root.Frame1', new TabSet('HomeBanners',
+				new Tab('List',
+					GridField::create('HomeBanners', 'List of Home Banners', 
+						$this->HomeBanners(), 
+					GridFieldConfig_RecordEditor::create(10)
+					->addComponent(new GridFieldSortableRows('SortOrder'))
+					)
+				)
 			));
 
 			/*
 			|-----------------------------------------------
 			| Frame 2
 			|----------------------------------------------- */
-			$fields->addFieldsToTab('Root.Frame2.Main', array(
-				new TextField('F2Title', 'Header'),
+			$fields->addFieldsToTab('Root.Frame2.Text', array(
+				new TextField('F2Title', 'Title'),
 				new TextareaField('F2Desc', 'Description'),
+			));
+
+			$fields->addFieldsToTab('Root.Frame2.Image', array(
+				$uploadf2 = new UploadField('F2Bg', 'Background Image')
 			));
 
 			/*
@@ -130,24 +158,31 @@ namespace {
 			| Frame 3
 			|----------------------------------------------- */
 			$fields->addFieldsToTab('Root.Frame3.Solution', array(
-				$upload = new UploadField('F3Img1', 'Image 590 x 350'),
+				$uploadf3_1 = new UploadField('F3Img1', 'Image'),
 				new TextField('F3Title1', 'Title'),
 				new TextareaField('F3Desc1', 'Description'),
+				new TextField('F3Btn1', 'Button Text'),
 				new TextField('F3link1', 'Link'),
 			));
 
 			$fields->addFieldsToTab('Root.Frame3.Journeys', array(
-				$upload = new UploadField('F3Img2', 'Image 590 x 350'),
+				$uploadf3_2 = new UploadField('F3Img2', 'Image'),
 				new TextField('F3Title2', 'Title'),
 				new TextareaField('F3Desc2', 'Description'),
+				new TextField('F3Btn2', 'Button Text'),
 				new TextField('F3link2', 'Link'),
 			));
 
 			$fields->addFieldsToTab('Root.Frame3.ContactUs', array(
-				$upload = new UploadField('F3Img3', 'Image 590 x 350'),
+				$uploadf3_3 = new UploadField('F3Img3', 'Image'),
 				new TextField('F3Title3', 'Title'),
 				new TextareaField('F3Desc3', 'Description'),
+				new TextField('F3Btn3', 'Button Text'),
 				new TextField('F3link3', 'Link'),
+			));
+
+			$fields->addFieldsToTab('Root.Frame3.BackgroundImage', array(
+				$uploadf3_4 = new UploadField('F3Bg', 'Background Image')
 			));
 
 			/*
@@ -155,7 +190,7 @@ namespace {
 			| Frame 4
 			|----------------------------------------------- */
 			$fields->addFieldsToTab('Root.Frame4.Main', array(
-				new TextField('F4Title', 'Header'),
+				new TextField('F4Title', 'Title'),
 				new TextareaField('F4Desc', 'Description'),
 			));
 
@@ -164,8 +199,9 @@ namespace {
 			| Frame 5
 			|----------------------------------------------- */
 			$fields->addFieldsToTab('Root.Frame5.Main', array(
-				new TextField('F5Title', 'Header'),
+				new TextField('F5Title', 'Title'),
 				new HTMLEditorField('F5Desc', 'Description'),
+				new TextField('F5Btn', 'Button Text'),
 				new TextField('F5Link', 'Link'),
 			));
 
@@ -174,19 +210,18 @@ namespace {
 			| Frame 6
 			|----------------------------------------------- */
 			$fields->addFieldsToTab('Root.Frame6.Main', array(
-				new TextField('F6Title', 'Header'),
+				new TextField('F6Title', 'Title'),
 				new HTMLEditorField('F6Desc', 'Description'),
+				new TextField('F6Btn', 'Button Text'),
 				new TextField('F6Link', 'Link'),
 			));
-
-
 
 			/*
 			|-----------------------------------------------
 			| Frame 7
 			|----------------------------------------------- */
 			$fields->addFieldsToTab('Root.Frame7.Main', array(
-				new TextField('F7Title', 'Header'),
+				new TextField('F7Title', 'Title'),
 				new HTMLEditorField('F7Desc', 'Description'),
 				$upload = new UploadField('F7IMG', 'Image 150 x 150'),
 			));
@@ -195,16 +230,17 @@ namespace {
 			|-----------------------------------------------
 			| Frame 8
 			|----------------------------------------------- */
-			$fields->addFieldsToTab('Root.Frame8.Main', array(
-				new TextField('F8Title', 'Header'),
+			$fields->addFieldsToTab('Root.Frame8.TextBackground', array(
+				new TextField('F8Title', 'Title'),
+				$upload = new UploadField('F8Bg', 'Image 590 x 350'),
 			));
 
-			$fields->addFieldToTab('Root.Frame8.Main', new TabSet('Histories',
+			$fields->addFieldToTab('Root.Frame8.List', new TabSet('Histories',
 				new Tab('Histories', GridField::create(
-		            'Histories',
-		            'Histories',
-		            $this->Histories(),
-		            GridFieldConfig_RecordEditor::create()
+					'Histories',
+					'Histories',
+					$this->Histories(),
+					GridFieldConfig_RecordEditor::create()
 				))
 			));
 
@@ -213,7 +249,7 @@ namespace {
 			| Frame 9
 			|----------------------------------------------- */
 			$fields->addFieldsToTab('Root.Frame9.Main', array(
-				new TextField('F9Title', 'Header'),
+				new TextField('F9Title', 'Title'),
 				new TextareaField('F9Desc', 'Description'),
 				$upload = new UploadField('F9IMG', 'Vid Thumbnail'),
 				$upload = new UploadField('F9Vid', 'Video'),
@@ -227,10 +263,10 @@ namespace {
 
 			$fields->addFieldToTab('Root.Frame10.Main', new TabSet('Locations',
 				new Tab('Locations', GridField::create(
-		            'Locations',
-		            'Locations',
-		            $this->Locations(),
-		            GridFieldConfig_RecordEditor::create()
+					'Locations',
+					'Locations',
+					$this->Locations(),
+					GridFieldConfig_RecordEditor::create()
 				))
 			));
 
@@ -245,12 +281,29 @@ namespace {
 
 			$fields->addFieldToTab('Root.Frame11.Main', new TabSet('Affiliates',
 				new Tab('Affiliates', GridField::create(
-		            'Affiliates',
-		            'Affiliates',
-		            $this->Affiliates(),
-		            GridFieldConfig_RecordEditor::create()
+					'Affiliates',
+					'Affiliates',
+					$this->Affiliates(),
+					GridFieldConfig_RecordEditor::create()
 				))
 			));
+
+			# SET FIELD DESCRIPTION 
+			$uploadf2->setDescription('Max file size: 2MB | Dimension: 1366px x 500px');
+
+			$uploadf3_1->setDescription('Max file size: 2MB | Dimension: 590px x 350px');
+			$uploadf3_2->setDescription('Max file size: 2MB | Dimension: 590px x 350px');
+			$uploadf3_3->setDescription('Max file size: 2MB | Dimension: 590px x 350px');
+			$uploadf3_4->setDescription('Max file size: 2MB | Dimension: 1366px x 600px');
+
+			
+			# Set destination path for the uploaded images.
+			$uploadf2->setFolderName('HomePage/frame2');
+
+			$uploadf3_1->setFolderName('HomePage/frame3');
+			$uploadf3_2->setFolderName('HomePage/frame3');
+			$uploadf3_3->setFolderName('HomePage/frame3');
+			$uploadf3_4->setFolderName('HomePage/frame3');
 
 			
 			return $fields;

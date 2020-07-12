@@ -17,30 +17,22 @@
 				<a class="ppolicy" href="privacy-policy">Privacy Policy</a>
 			</div>
 			<div class="social-link">
-				<% loop $HeaderFooter %>
 				<div class="inlineBlock-parent">
-					<% if $fblink %>
-					<a href="$fblink" target="_blank">
-						<img src="$ThemeDir/images/fb.svg" alt="">
+				<% loop $HeaderFooter %>
+				<% loop $SocialMedias %>
+					<a href="$ssLink" target="_blank">
+						<img src="$ssIcon.URL">
 					</a>
-					<% end_if %>
-					<% if $iglink %>
-					<a href="$iglink" target="_blank">
-						<img src="$ThemeDir/images/ig.svg" alt="">
-					</a>
-					<% end_if %>
-					<% if $twitterlink %>
-					<a href="$twitterlink" target="_blank">
-						<img src="$ThemeDir/images/twitter.svg" alt="">
-					</a>
-					<% end_if %>
-				</div>
 				<% end_loop %>
+				<% end_loop %>
+				</div>
 			</div>
 		</div
 		><div class="pursuit align-t">
 			<div id="pursuit" class="pursuit-title">
-				<p>PURSUIT</p><i class="fas fa-caret-down"></i>
+				<% loop $HeaderFooter %>
+				<p>$ftrLabel1<i class="fas fa-caret-down"></i></p>
+				<% end_loop %>
 			</div>
 			<div class="inlineBlock-parent">
 				<div id="pursuittog" class="left-side">
@@ -55,24 +47,28 @@
 			</div>
 		</div
 		><div class="contact align-t">
-			<div id="contact" class="contact-title">
-				<p>CONTACT</p><i class="fas fa-caret-down"></i>
-			</div>
 			<% loop $HeaderFooter %>
+			<div id="contact" class="contact-title">
+				<p>$ftrLabel2<i class="fas fa-caret-down"></i></p>
+			</div>
 			<div id="contact-tog" class="contact-cntnr">
 				<% if $ftrphone %>
+				<div>
 				<a href="tel:$ftrphone" target="_blank" style="display: inline-block">
 					<div class="inlineBlock-parent">
 						<img src="$ThemeDir/images/phone.svg" alt=""><p>$ftrphone</p>
 					</div>
 				</a>
+				</div>
 				<% end_if %>
 				<% if $ftrmail %>
+				<div>
 				<a href="mailto:$ftrmail" target="_blank" style="display: inline-block">
 					<div class="inlineBlock-parent">
 						<img src="$ThemeDir/images/message.svg" alt=""><p>$ftrmail</p>
 					</div>
 				</a>
+				</div>
 				<% end_if %>
 			</div>
 			<% end_loop %>
@@ -80,7 +76,7 @@
 	</div>
 	<div class="ftr-bottom">
 		<% loop $HeaderFooter %>
-		<p>$copyright</p>
+		<p>Copyright &copy; $Now.Year$copyright</p>
 		<% end_loop %>
 	</div>
 </div>

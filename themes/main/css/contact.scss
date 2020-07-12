@@ -38,7 +38,6 @@
 }
 
 .cntct_frame2 {
-
 	padding-top: 100px;
 
 	.connect-cntnr {
@@ -121,6 +120,13 @@
 					color: #ade655;
 				}
 			}
+		}
+	}
+
+	.g-recaptcha {
+
+		> div {
+			margin: auto;
 		}
 	}
 
@@ -396,4 +402,12 @@
       		order: 1; 
       	}
 	}
+}
+
+@media screen and (max-width: 320px) {
+
+	.cntct_frame3 .recaptcha-hldr {
+		margin: 0 -2vw 20px;
+	}
+
 }
