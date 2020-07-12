@@ -40,7 +40,7 @@
 					</div>
 					</button>
 				</form>
-				<div class="progressBarContainer inlineBlock-parent fadeIn">
+				<div class="progressBarContainer inlineBlock-parent">
 					<% loop HomeBanners %>
 					<div class="item">
 						<span class="progressBar"></span>

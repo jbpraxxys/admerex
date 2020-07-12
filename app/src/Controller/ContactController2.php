@@ -219,6 +219,12 @@ class ContactController2 extends Controller {
 
 			// $mail->send();
 
+			if (!$mail->send()) {
+				echo 'Mailer Error: '. $mail->ErrorInfo;
+			} else {
+				echo 'Message sent!';
+			}
+
 			// print_r('Emailing done...');
 
 		} catch (phpmailerException $e) {
