@@ -6,8 +6,10 @@
 					<div class="header__logo-cntnr">
 						<a href="$AbsoluteBaseURL">
 							<div class="logo-container">
-								 <div class="header__logo" style="background-image: url('$ThemeDir/images/logo2.png');"></div>
-								 <div class="header__logo2" style="background-image: url('$ThemeDir/images/logo.png');"></div>
+								<% loop HeaderFooter %>
+								<div class="header__logo" style="background-image: url('$Logo2.URL');"></div>
+								<div class="header__logo2" style="background-image: url('$Logo.URL');"></div>
+								<% end_loop %>
 							</div>
 						</a>
 					</div

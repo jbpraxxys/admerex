@@ -5,6 +5,8 @@
 .hm_frame1 {
 	position: relative;
 	height: 100vh;
+	overflow-x: hidden;
+	overflow-y: hidden;
 
 	video {
 		width: 100%;
@@ -74,6 +76,46 @@
 		}
 	}
 
+	.progressBarContainer {
+		position: absolute;
+		bottom: -110px;
+		width: 100%;
+		opacity: 0;
+
+		.item:only-child {
+			display: none;
+		}
+
+		div {
+			width: 30%;
+			max-width: 30px;
+			padding: 0;
+			margin-right: 15px;
+			cursor: pointer;
+			color: white;
+
+			&:last-child {
+				margin-right: 0;
+			}
+
+			span.progressBar {
+				width: 100%;
+				height: 5px;
+				background-color: #ccc;
+				border-radius: 3px;
+				display: block;
+
+				.inProgress {
+					background-color: $green;
+					width: 0%;
+					height: inherit;
+					border-radius: 3px;
+					transition-timing-function: ease;
+				}
+			}
+		}
+	}
+
 	.hm_frame1-title {
 		opacity: 0;
 		transition-delay: .5s;
@@ -82,6 +124,7 @@
 			font-family: 'Mont', sans-serif;
 			font-size: 60px;
 			color: white;
+			line-height: 1.2;
 		}
 	}
 
@@ -99,6 +142,8 @@
 	.hm_frame1-search {
 		position: relative;
 		width: 280px;
+		opacity: 0;
+
 		input {
 			width: 100%;
 			height: 45px;
@@ -119,7 +164,7 @@
 
 		.btn-search {
 			position: absolute;
-			top: 45%;
+			top: 50%;
 			right: 0;
 			transform: translateY(-50%);
 			width: auto;
@@ -134,7 +179,9 @@
 
 .hm_frame2 {
 	position: relative;
-	height: 70vh;
+	height: auto;
+	padding: 140px 0;
+
 	.hm_frame2-bg {
 		position: absolute;
 		top: 0;
@@ -144,16 +191,6 @@
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: cover;
-	}
-
-	.gradient {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(120.54deg, #BCEC4D 1.62%, #6DC138 98.83%), #80BD19;
-		opacity: 0.8;
 	}
 
 	.f2-content {
@@ -182,9 +219,10 @@
 	position: relative;
 
 	.hm_frame3-bg {
-		position: absolute;
+		position: fixed;
 		top: 0;
 		left: 0;
+		z-index: -10;
 		width: 100%;
 		height: 100%;
 		background-repeat: no-repeat;
@@ -198,6 +236,7 @@
 
 	.tabbing-hldr {
 		margin-bottom: 20px;
+		opacity: 0;
 
 		a {
 			display: inline-block;
@@ -205,6 +244,7 @@
 	}
 
 	.left-cntnr {
+		position: relative;
 		width: 50%;
 		height: 250px;
 	}
@@ -244,6 +284,24 @@
 		}
 	}
 
+	.tabbing {
+		position: absolute;
+		display: none;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+
+		&.active {
+			opacity: 1;
+		}
+	}
+
+	.btn-con {
+
+		> a {
+			display: inline-block;
+		}
+	}
+
 	
 	/* Enter and leave animations can use different */
 	/* durations and timing functions.              */
@@ -260,6 +318,15 @@
 		opacity: 0;
 	}
 
+	.fade-enter-active, .fade-leave-active {
+		transition: opacity 0.3s;
+		transition-delay: 0.7s;
+	}
+
+	.fade-enter, .fade-leave-active {
+		opacity: 0;
+	}
+
 	.tab-content {
 		width: 95%;
 		margin-bottom: 40px;
@@ -269,12 +336,24 @@
 	}
 
 	.image-hldr {
+		position: relative;
+
 		.img {
+			position: absolute;
+			top: 0;
+			display: none;
 			width: 100%;
-			height: 350px;
+			height: 0;
+			padding-top: 60%;
 			background-repeat: no-repeat;
 			background-position: center;
 			background-size: cover;
+			opacity: 0;
+			transition: opacity 0.3s ease;
+
+			&.active {
+				opacity: 1;
+			}
 		}
 	}
 }
@@ -979,12 +1058,24 @@
 		margin-bottom: 50px;
 	}
 
+	.hm_frame3 .tabbing {
+		position: relative;
+	}
+
+	.hm_frame3 .btn-con {
+		text-align: center;
+	}
+
 	.hm_frame3 .right-cntnr {
 		width: 100%;
 	}
 
 	.hm_frame3 .tabbing-hldr {
 		text-align: center;
+	}
+
+	.hm_frame1 .progressBarContainer {
+		bottom: -50px;
 	}
 
 	.hm_frame3 .tab-cntnr {
@@ -995,12 +1086,13 @@
 		}
 	}
 
-	.hm_frame3 .image-hldr .img {
-		height: 200px;
+	.hm_frame3 .right-cntnr .image-hldr {
+		padding-top: 60%;
+		height: 0;
 	}
 
-	.hm_frame3 .right-cntnr .image-hldr {
-		height: 200px;
+	.hm_frame3 .image-hldr .img {
+		
 	}
 
 	.hm_frame4 .frm-cntnr {

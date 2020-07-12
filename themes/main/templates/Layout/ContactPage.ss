@@ -70,6 +70,9 @@
 								<input type="text" name="job" placeholder="Job Post" required>
 							</div>
 						</div>
+						<div class="recaptcha-hldr m-margin-b">
+							<div class="g-recaptcha" data-sitekey="6LcqdLAZAAAAANs30xdLFibJHrjq63M692IMlB__"></div>
+						</div>
 						<div class="button-holder">
 							<button id="contactBtn">Submit</button>
 							<input type="hidden" name="postFlag" value="1">
@@ -104,6 +107,9 @@
 							<div class="input-hldr">
 								<input type="text" name="contact" placeholder="Contact Number" required>
 							</div>
+						</div>
+						<div class="recaptcha-hldr m-margin-b">
+							<div class="g-recaptcha" data-sitekey="6LcqdLAZAAAAANs30xdLFibJHrjq63M692IMlB__"></div>
 						</div>
 						<div class="button-holder">
 							<button id="contactBtn2">Submit</button>
