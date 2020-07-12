@@ -192,7 +192,7 @@ class ContactController2 extends Controller {
 		    // 'messagedetails' => $this->messagedetails,
 		));
 
-		return $arrayData->renderWith('ContactEmailTemplate2');
+		return $arrayData->renderWith('ClientEmailTemplate');
 	}
 
 	private function sendPHPMailer($recipients, $subject, $body) {
