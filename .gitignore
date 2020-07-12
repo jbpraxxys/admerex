@@ -20,4 +20,8 @@ composer.lock
 node_modules/
 package-lock.json
 phpcs.xml.dist
+<<<<<<< HEAD
 _ss_environment.php
+=======
+_ss_environment.php
+>>>>>>> 8c3cb07068c56e8bbc2916d9864b201f5eaf2c12
