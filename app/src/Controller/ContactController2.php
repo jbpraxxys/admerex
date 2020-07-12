@@ -39,7 +39,7 @@ class ContactController2 extends Controller {
 						// print_r('Sending...');
 						$this->setRecipients();
 						$this->sendEmail();
-						$this->sendConfirmationEmail();
+						// $this->sendConfirmationEmail();
 						$this->returnEcho(1, 'Sending successful!');
 					}
 
@@ -166,20 +166,20 @@ class ContactController2 extends Controller {
 
 	}
 
-	private function sendConfirmationEmail() {
-		// print_r('Email confirmation...');
+	// private function sendConfirmationEmail() {
+	// 	// print_r('Email confirmation...');
 		
-		$recipients = explode(',', $this->email);
-		$subject = $this->subject .'ADMEREX: This is to notify you that we have succesfully received your message on ADMEREX';
+	// 	$recipients = explode(',', $this->email);
+	// 	$subject = $this->subject .'ADMEREX: This is to notify you that we have succesfully received your message on ADMEREX';
 		
-		// Enables HTML Text
-		// $headers .= "\r\n" . "MIME-Version: 1.0" . "\r\n";
-		// $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
+	// 	// Enables HTML Text
+	// 	// $headers .= "\r\n" . "MIME-Version: 1.0" . "\r\n";
+	// 	// $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
 
-		$message = $this->getEmailTemplate();
+	// 	$message = $this->getEmailTemplate();
 
-		$this->sendPHPMailer($recipients, $subject, $message);
-	}
+	// 	$this->sendPHPMailer($recipients, $subject, $message);
+	// }
 
 	private function getEmailTemplate() {
 

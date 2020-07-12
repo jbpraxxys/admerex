@@ -91,7 +91,6 @@
 						<p class="color--back"><strong>Contact Number :</strong> {$contact}</p>
 						<p class="color--back"><strong>Job Posting :</strong> {$job}</p>
 						<p class="color--back"><strong>Email Address :</strong> {$email}</p>
-						<p class="color--back"><strong>Message :</strong> {$messagedetails}</p>
 						<br>
 						<br>
 						<p class="color--back">Thank You,</p>
