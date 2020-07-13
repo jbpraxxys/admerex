@@ -1,23 +1,35 @@
 <?php
 namespace {
 	use SilverStripe\CMS\Model\SiteTree;
-	use Page;  
-	use PageController;
-	use SilverStripe\Forms\TextField;
-	use SilverStripe\Forms\TextareaField;
-	use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
-	use SilverStripe\Forms\HTMLEditor;
-	use SilverStripe\Forms\FormField;
-	use SilverStripe\AssetAdmin\Forms\UploadField;
-	use SilverStripe\Assets\Image;
-	use SilverStripe\Assets\File;
+	
 	use SilverStripe\Forms\TabSet;
 	use SilverStripe\Forms\Tab;
-	use SilverStripe\ORM\DataObject;
-	use SilverStripe\Forms\FieldList;
+	use SilverStripe\Forms\TextField;
+	use SilverStripe\Forms\TextareaField;
+	use SilverStripe\Forms\CheckboxField;
+	use SilverStripe\Forms\DateField;
+	use SilverStripe\Forms\ReadonlyField;
+	use SilverStripe\Forms\DropdownField;
+	use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
+
 	use SilverStripe\Forms\GridField\GridField;
 	use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 	use UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows;
+	use Bummzack\SortableFile\Forms\SortableUploadField;
+
+	use SilverStripe\AssetAdmin\Forms\UploadField;
+	use SilverStripe\Assets\Image;
+	use SilverStripe\Assets\File;
+
+	use SilverStripe\ORM\PaginatedList;
+	use SilverStripe\ORM\DataObject;
+	use SilverStripe\ORM\ArrayList;
+	use SilverStripe\ORM\GroupedList;
+
+	use SilverStripe\View\Requirements;
+	use SilverStripe\View\ArrayData;
+
+	use SilverStripe\Control\HTTPRequest;
 
 	class SolutionPage extends Page {
 
@@ -36,8 +48,8 @@ namespace {
 		];
 
 		private static $has_many = [
-	        'Solutions' => Solution::class,
-	    ];
+			'Solutions' => Solution::class,
+		];
 
 
 
@@ -77,12 +89,13 @@ namespace {
 			|----------------------------------------------- */
 
 			$fields->addFieldToTab('Root.Frame2.Main', new TabSet('Solutions',
-				new Tab('Solutions', GridField::create(
-		            'Solutions',
-		            'Solutions',
-		            $this->Solutions(),
-		            GridFieldConfig_RecordEditor::create()
-				))
+				new Tab('List',
+					GridField::create('Solutions', 'List of Solutions', 
+						$this->Solutions(), 
+					GridFieldConfig_RecordEditor::create(10)
+					->addComponent(new GridFieldSortableRows('SortOrder'))
+					)
+				)
 			));
 
 

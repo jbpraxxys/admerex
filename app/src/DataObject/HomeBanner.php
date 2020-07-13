@@ -45,6 +45,7 @@ namespace {
 		public function getCMSFields() {
 			$fields = parent::getCMSFields();
 			$fields->addFieldsToTab('Root.Main', array(
+				new ReadonlyField('SortOrder'),
 				new ReadonlyField('SortID', 'Sort ID'),
 				new HTMLEditorField('Header', 'Title'),
 				new TextareaField('Desc', 'Description'),

@@ -223,7 +223,7 @@ namespace {
 			$fields->addFieldsToTab('Root.Frame7.Main', array(
 				new TextField('F7Title', 'Title'),
 				new HTMLEditorField('F7Desc', 'Description'),
-				$upload = new UploadField('F7IMG', 'Image 150 x 150'),
+				$uploadf7 = new UploadField('F7IMG', 'Image'),
 			));
 
 			/*
@@ -232,16 +232,17 @@ namespace {
 			|----------------------------------------------- */
 			$fields->addFieldsToTab('Root.Frame8.TextBackground', array(
 				new TextField('F8Title', 'Title'),
-				$upload = new UploadField('F8Bg', 'Image 590 x 350'),
+				$uploadf8 = new UploadField('F8Bg', 'Image'),
 			));
 
 			$fields->addFieldToTab('Root.Frame8.List', new TabSet('Histories',
-				new Tab('Histories', GridField::create(
-					'Histories',
-					'Histories',
-					$this->Histories(),
-					GridFieldConfig_RecordEditor::create()
-				))
+				new Tab('List',
+					GridField::create('Histories', 'List of Histories', 
+						$this->Histories(), 
+					GridFieldConfig_RecordEditor::create(10)
+					->addComponent(new GridFieldSortableRows('SortOrder'))
+					)
+				)
 			));
 
 			/*
@@ -296,6 +297,9 @@ namespace {
 			$uploadf3_3->setDescription('Max file size: 2MB | Dimension: 590px x 350px');
 			$uploadf3_4->setDescription('Max file size: 2MB | Dimension: 1366px x 600px');
 
+			$uploadf7->setDescription('Max file size: 2MB | Dimension: 150px x 150px');
+			$uploadf8->setDescription('Max file size: 2MB | Dimension: 1366px x 900px');
+
 			
 			# Set destination path for the uploaded images.
 			$uploadf2->setFolderName('HomePage/frame2');
@@ -304,6 +308,9 @@ namespace {
 			$uploadf3_2->setFolderName('HomePage/frame3');
 			$uploadf3_3->setFolderName('HomePage/frame3');
 			$uploadf3_4->setFolderName('HomePage/frame3');
+
+			$uploadf7->setFolderName('HomePage/frame7');
+			$uploadf8->setFolderName('HomePage/frame8');
 
 			
 			return $fields;
