@@ -3,7 +3,7 @@
 		<% loop $HomeBanners %>
 		<div class="bg-holder">
 			<% if $VidFile.URL %>
-			<video autoplay="" muted="" loop="" playsinline="" poster="$Banner.URL">
+			<video id="hm-fr1__vid" autoplay="" muted="" loop="" playsinline="" poster="$Banner.URL">
 				<% if $VidFile %>
 					<source src="$VidFile.URL">
 				<% else_if $Fr1File2 %>
@@ -224,10 +224,11 @@
 	</div>
 </div>
 <div class="hm_frame8">
-	<div class="hm_frame8-bg" style="background-image: url('$ThemeDir/images/f8.png');"></div>
+	<div class="hm_frame8-bg" style="background-image: url('$F8Bg.URL');"></div>
 	<div class="frm-cntnr">
 		<div class="f8-title fadeIn">
 			<h2>$F8Title</h2>
+			<ion-icon name="chevron-back-outline"></ion-icon>
 		</div>
 		<div class="f8-image-slider fadeIn">
 			<% loop $Histories %>

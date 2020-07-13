@@ -1,23 +1,35 @@
 <?php
 namespace {
 	use SilverStripe\CMS\Model\SiteTree;
-	use Page;  
-	use PageController;
-	use SilverStripe\Forms\TextField;
-	use SilverStripe\Forms\TextareaField;
-	use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
-	use SilverStripe\Forms\HTMLEditor;
-	use SilverStripe\Forms\FormField;
-	use SilverStripe\AssetAdmin\Forms\UploadField;
-	use SilverStripe\Assets\Image;
-	use SilverStripe\Assets\File;
+	
 	use SilverStripe\Forms\TabSet;
 	use SilverStripe\Forms\Tab;
-	use SilverStripe\ORM\DataObject;
-	use SilverStripe\Forms\FieldList;
+	use SilverStripe\Forms\TextField;
+	use SilverStripe\Forms\TextareaField;
+	use SilverStripe\Forms\CheckboxField;
+	use SilverStripe\Forms\DateField;
+	use SilverStripe\Forms\ReadonlyField;
+	use SilverStripe\Forms\DropdownField;
+	use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
+
 	use SilverStripe\Forms\GridField\GridField;
 	use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 	use UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows;
+	use Bummzack\SortableFile\Forms\SortableUploadField;
+
+	use SilverStripe\AssetAdmin\Forms\UploadField;
+	use SilverStripe\Assets\Image;
+	use SilverStripe\Assets\File;
+
+	use SilverStripe\ORM\PaginatedList;
+	use SilverStripe\ORM\DataObject;
+	use SilverStripe\ORM\ArrayList;
+	use SilverStripe\ORM\GroupedList;
+
+	use SilverStripe\View\Requirements;
+	use SilverStripe\View\ArrayData;
+
+	use SilverStripe\Control\HTTPRequest;
 
 	class JourneyPage extends Page {
 
@@ -77,12 +89,13 @@ namespace {
 			|----------------------------------------------- */
 
 			$fields->addFieldToTab('Root.Frame2.Main', new TabSet('Announcements',
-				new Tab('Announcements', GridField::create(
-		            'Announcements',
-		            'Announcements',
-		            $this->Announcements(),
-		            GridFieldConfig_RecordEditor::create()
-				))
+				new Tab('List',
+					GridField::create('Announcements', 'List of Announcements', 
+						$this->Announcements(), 
+					GridFieldConfig_RecordEditor::create(10)
+					->addComponent(new GridFieldSortableRows('SortOrder'))
+					)
+				)
 			));
 
 			/*
@@ -91,12 +104,13 @@ namespace {
 			|----------------------------------------------- */
 
 			$fields->addFieldToTab('Root.Frame3.Main', new TabSet('Articles',
-				new Tab('Articles', GridField::create(
-		            'Articles',
-		            'Articles',
-		            $this->Articles(),
-		            GridFieldConfig_RecordEditor::create()
-				))
+				new Tab('List',
+					GridField::create('Articles', 'List of Articles', 
+						$this->Articles(), 
+					GridFieldConfig_RecordEditor::create(10)
+					->addComponent(new GridFieldSortableRows('SortOrder'))
+					)
+				)
 			));
 
 			

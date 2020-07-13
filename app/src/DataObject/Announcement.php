@@ -18,6 +18,7 @@ namespace {
 
 		private static $db = [
 			#Specialty
+			'SortOrder' => 'Int',
 			'SortID' => 'Int',
 			'ATitle' => 'Text',
 			'Date' => 'Text',
@@ -52,17 +53,23 @@ namespace {
 
 		public function getCMSFields() {
 			$fields = parent::getCMSFields();
+			$fields->addFieldToTab('Root.Main', ReadonlyField::create('SortOrder', 'Sort Order'));
 			$fields->addFieldToTab('Root.Main', ReadonlyField::create('SortID', 'Sort ID'));
-			$fields->addFieldToTab('Root.Main', $upload = UploadField::create('Image','Image 550 x 350'));
+			$fields->addFieldToTab('Root.Main', $upload = UploadField::create('Image','Image'));
 			$fields->addFieldToTab('Root.Main', TextField::create('ATitle', 'Title'));
 			$fields->addFieldToTab('Root.Main', TextField::create('Date', 'Date'));
 			$fields->addFieldToTab('Root.Main', TextareaField::create('Desc', 'Description'));
 
 			# SET FIELD DESCRIPTION 
-			$upload->setDescription('Max file size: 2MB');
+			$upload->setDescription('Max file size: 2MB | Dimension: within 550x x 350px');
 
 			# Set destination path for the uploaded images.
 			$upload->setFolderName('journey');
+
+
+			$fields->removeByName('SortOrder');
+            $fields->removeByName('JourneyPageID');
+            $fields->removeByName('SortID');
 
 			return $fields;
 		}

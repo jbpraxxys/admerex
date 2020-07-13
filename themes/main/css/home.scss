@@ -28,7 +28,12 @@
 	}
 
 	.bg-holder {
-		position: relative;
+		position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+
 		.gradient-bg {
 			position: absolute;
 			top: 0;
@@ -39,6 +44,18 @@
 			opacity: 0.4;
 		}
 	}
+
+	#hm-fr1__vid {
+		position: absolute;
+		z-index: -2;
+		top: -9999px;
+		bottom: -9999px;
+		left: -9999px;
+		right: -9999px;
+		margin: auto;
+		min-width: 100%;
+		min-height: 100%;
+    }
 
 	.frm-cntnr {
 		
@@ -80,7 +97,6 @@
 		position: absolute;
 		bottom: -110px;
 		width: 100%;
-		opacity: 0;
 
 		.item:only-child {
 			display: none;
@@ -1004,10 +1020,28 @@
 		left: auto;
 	}
 
+	.hm_frame1 .bg-holder {
+		height: auto;
+	}
+
 	.hm_frame1 {
 		padding-top: 70px;
 		height: auto;
 		background-color: black;
+
+		.hmfr1__videoCon {
+            position: relative;
+            height: auto;
+
+            &::after {
+                height: 100%;
+            }
+        }
+
+        #hm-fr1__vid {
+            position: unset;
+            width: 100%;
+        }
 	}
 
 	.hm_frame1 .hm_frame1-content {
@@ -1016,7 +1050,7 @@
 	}
 
 	.hm_frame1 .hm_frame1-title * {
-		font-size: 24px;
+		font-size: 39px;
 		text-align: center;
 	}
 
@@ -1072,6 +1106,12 @@
 
 	.hm_frame3 .tabbing-hldr {
 		text-align: center;
+	}
+
+	.hm_frame3 .tab-content {
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
 	.hm_frame1 .progressBarContainer {
