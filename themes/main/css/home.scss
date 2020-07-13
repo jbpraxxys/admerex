@@ -469,6 +469,13 @@
 	}
 
 	.solution-slider {
+		opacity: 0;
+		transition: opacity 0.3s ease;
+
+		&.slick-initialized.slick-slider {
+			opacity: 1;
+		}
+
 		.solution-cntnr {
 			padding: 0 10px;
 			// display: inline-block;
@@ -660,6 +667,12 @@
 		transform: translateX(-22.5%);
 		width: 175%;
 		margin-bottom: 40px;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+
+		&.slick-initialized.slick-slider {
+			opacity: 1;
+		}
 
 		.slick-slide {
 			opacity: 0.3;
@@ -673,6 +686,11 @@
 			&.slick-center {
 				opacity: 1;
 				transition: all 0.34s ease;
+
+				.slick-slide {
+					opacity: 1;
+					transition: all 0.34s ease;
+				}
 
 				.content-hldr {
 					opacity: 1;
@@ -749,6 +767,7 @@
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
+			cursor: pointer;
 			* {
 				font-family: 'Mont', sans-serif;
 				color: $green;

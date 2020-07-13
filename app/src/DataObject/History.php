@@ -3,16 +3,29 @@
 namespace {
 	use SilverStripe\CMS\Model\SiteTree;
 	use SilverStripe\ORM\DataObject;
-	use SilverStripe\Assets\Image;
-	use SilverStripe\Forms\FieldList;
+	
+	use SilverStripe\Forms\TabSet;
+	use SilverStripe\Forms\Tab;
 	use SilverStripe\Forms\TextField;
-	use SilverStripe\Forms\DateField;
 	use SilverStripe\Forms\TextareaField;
+	use SilverStripe\Forms\CheckboxField;
+	use SilverStripe\Forms\DateField;
 	use SilverStripe\Forms\ReadonlyField;
+	use SilverStripe\Forms\DropdownField;
 	use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
+
+	use SilverStripe\Forms\GridField\GridField;
+	use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
+	use UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows;
+	use Bummzack\SortableFile\Forms\SortableUploadField;
+
 	use SilverStripe\AssetAdmin\Forms\UploadField;
+	use SilverStripe\Assets\Image;
+	use SilverStripe\Assets\File;
+
 	use SilverStripe\Versioned\Versioned;
 	use SilverStripe\Control\Controller;
+	use SilverStripe\Control\HTTPRequest;
 
 	class History extends DataObject {
 
@@ -20,13 +33,10 @@ namespace {
 			#Specialty
 			'SortOrder' => 'Int',
 			'SortID' => 'Int',
-			'HTitle' => 'Text',
 			'Year' => 'Text',
-			'Desc' => 'Text',
 		];
 
 		private static $has_one = [
-			'Image' => Image::class,
 			'HomePage' => HomePage::class,
 		];
 
@@ -34,19 +44,12 @@ namespace {
 			'Image',
 		];
 
-		public function getThumbnail() {
-			if ($this->Image()->exists()) { 
-				return $this->Image()->ScaleWidth(50); 
-			} else { 
-				return '(No Image)'; 
-			}
-		}
+		private static $has_many = [
+			'HistoryLists' => HistoryList::class,
+		];
 
 		private static $summary_fields = array(
-			'Thumbnail' => 'Image',
 			'Year' => 'Year',
-			'HTitle' => 'Title',
-			'Desc' => 'Description',
 		);
 
 		public function getCMSFields() {
@@ -55,20 +58,15 @@ namespace {
 				new ReadonlyField('SortOrder'),
 				new ReadonlyField('SortID', 'Sort ID'),
 				new TextField('Year', 'Year'),
-				$upload = new UploadField('Image', 'Image'),
-				new TextField('HTitle', 'Title'),
-				new TextareaField('Desc', 'Description'),
 			));
 
-			# SET FIELD DESCRIPTION 
-			$upload->setDescription('Max file size: 2MB | Dimension: within 650px x 350px');
-
-			# Set destination path for the uploaded images.
-			$upload->setFolderName('homepage/history');
+			$fields->addFieldToTab('Root.HistoryLists', GridField::create('HistoryLists', 'Lists of Histories', 
+				$this->HistoryLists(), GridFieldConfig_RecordEditor::create(10)->addComponent(new GridFieldSortableRows('SortOrder'))
+			));
 
 			$fields->removeByName('SortOrder');
-            $fields->removeByName('HomePageID');
-            $fields->removeByName('SortID');
+			$fields->removeByName('HomePageID');
+			$fields->removeByName('SortID');
 
 			return $fields;
 		}

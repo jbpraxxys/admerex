@@ -219,7 +219,7 @@ var app = {
 			$('.solution-slider').slick({
 			 	infinite: true,
 				slidesToShow: 3,
-				slidesToScroll:1,
+				slidesToScroll: 3,
 				// autoplay: true,
 				speed: 1000,
 				dots: true,
@@ -247,6 +247,18 @@ var app = {
 				arrows: false,
 				centerMode: true,
 				asNavFor: '.year-slider',
+				swipe: false,
+				swipeToSlide: false,
+				touchMove: false
+			});
+
+			$('.f8-image-slider-inside').slick({
+				infinite: true,
+				slidesToShow: 1,
+				slidesToScroll:1,
+				speed: 1000,
+				dots: true,
+				arrows: false,
 			});
 
 			$('.year-slider').slick({

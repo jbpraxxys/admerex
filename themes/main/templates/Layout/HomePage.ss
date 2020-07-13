@@ -232,10 +232,21 @@
 		</div>
 		<div class="f8-image-slider fadeIn">
 			<% loop $Histories %>
-			<div class="image-cntnr">
-				<div class="image" style="background-image: url('$Image.URL');">
-					<div class="gradient"></div>
-					<div class="content-hldr">
+			<div class="f8-image-slider-inside">
+				<% loop $HistoryLists %>
+				<div class="image-cntnr">
+					<div class="image" style="background-image: url('$Image.URL');">
+						<div class="gradient"></div>
+						<div class="content-hldr">
+							<div class="content-title">
+								<h2>$HTitle</h2>
+							</div>
+							<div class="content-desc">
+								<p>$Desc</p>
+							</div>
+						</div>
+					</div>
+					<div class="m-content fadeIn">
 						<div class="content-title">
 							<h2>$HTitle</h2>
 						</div>
@@ -244,14 +255,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="m-content fadeIn">
-					<div class="content-title">
-						<h2>$HTitle</h2>
-					</div>
-					<div class="content-desc">
-						<p>$Desc</p>
-					</div>
-				</div>
+				<% end_loop %>
 			</div>
 			<% end_loop %>
 		</div>
