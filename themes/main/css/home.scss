@@ -887,6 +887,7 @@
 
 .hm_frame10 {
 	position: relative;
+	z-index: 1;
 	.frm-cntnr {
 		padding-top: 100px;
 		padding-bottom: 50px;
@@ -983,6 +984,9 @@
 }
 
 .hm_frame11 {
+	position: relative;
+	z-index: 1;
+	background-color: #fff;
 	.frm-cntnr {
 		padding: 50px 0;
 	}
