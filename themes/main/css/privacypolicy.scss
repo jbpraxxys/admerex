@@ -11,7 +11,7 @@
 			text-align: center;
 			margin-bottom: 20px;
 			* {
-				font-family: mont;
+				font-family: $font--1;
 				font-size: 36px;
 				text-transform: uppercase;
 				color: $green;
@@ -29,7 +29,7 @@
 			}
 
 			strong {
-				font-family: mont;
+				font-family: $font--1;
 				color: $green !important;
 			}
 		}

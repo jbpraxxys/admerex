@@ -26,14 +26,14 @@
 			.jrny_frame1-header {
 				margin-bottom: 20px;
 				* {
-					font-family: 'Mont', sans-serif;
+					font-family: $font--1;
 					font-size: 31px;
 				}
 			}
 
 			.jrny_frame1-text {
 				* {
-					font-family: gilroy;
+					font-family: $font--2;
 					line-height: 1.8em;
 				}
 			}

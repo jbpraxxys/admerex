@@ -15,7 +15,7 @@
 	<div class="jrny_frame2-bg" style="background-image: url('$ThemeDir/images/f5.png');"></div>
 	<div class="frm-cntnr width--90">
 		<div class="content-hldr staggerup_hldr1">
-			<% loop $Announcements %>
+			<% loop $Announcements.Sort(SortOrder) %>
 			
 			<div class="inlineBlock-parent journey-cntnr">
 				<div class="image-hldr fadeIn">
@@ -41,14 +41,14 @@
 	<div class="jrny_frame3-bg" style="background-image: url('$ThemeDir/images/f5.png');"></div>
 	<div class="frm-cntnr staggerup_hldr2">
 		<div class="jrny-img-slider">
-			<% loop $Articles %>
+			<% loop $Articles.Sort(SortOrder) %>
 			<div class="image-cntnr">
 				<div class="image fadeIn" style="background-image: url('$Image.URL');"></div>
 			</div>
 			<% end_loop %>
 		</div>
 		<div class="jrny-cont-slider">
-			<% loop $Articles %>
+			<% loop $Articles.Sort(SortOrder) %>
 			<div class="content-hldr">
 				<div class="content-cntnr">
 					<div class="title staggerup2">

@@ -13,7 +13,7 @@ header, hgroup, menu, nav, section, summary, time, mark, audio, video {
     border: 0;
     outline: 0;
     vertical-align: baseline;
-    font-family: 'Cabin';
+    font-family: 'Cabin', sans-serif;
     font-weight: normal;
     letter-spacing: 0px;
 }
@@ -54,7 +54,7 @@ strong{
 
 input,
 textarea {
-    font-family: Arial, sans-serif;
+    font-family: 'Cabin', sans-serif;
 }
 
 table {

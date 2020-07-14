@@ -40,6 +40,7 @@ class ClientController extends Controller {
 						$this->setRecipients();
 						$this->sendEmail();
 						// $this->sendConfirmationEmail();
+						$this->writeRecord();
 						$this->returnEcho(1, 'Sending successful!');
 					}
 
@@ -150,6 +151,16 @@ class ClientController extends Controller {
 		// $this->recipient = $_POST['mailrecipient'];
 	}
 
+	private function writeRecord() {
+		$duplicate = new ClientInquiry();
+		$duplicate->fullname = $this->fullname;
+		$duplicate->email = $this->email;
+		$duplicate->contact = $this->contact;
+		$duplicate->business = $this->business;
+		$duplicate->service = $this->service;
+		$duplicate->write();
+	}
+
 
 	private function sendEmail() {
 		// print_r('Email...');
@@ -218,12 +229,6 @@ class ClientController extends Controller {
 			$mail->Body = $body;
 
 			// $mail->send();
-
-			if (!$mail->send()) {
-				echo 'Mailer Error: '. $mail->ErrorInfo;
-			} else {
-				echo 'Message sent!';
-			}
 
 			// print_r('Emailing done...');
 

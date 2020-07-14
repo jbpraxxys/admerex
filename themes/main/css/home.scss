@@ -138,7 +138,7 @@
 		transition-delay: .5s;
 		transition: all 0.5s ease;
 		* {
-			font-family: 'Mont', sans-serif;
+			font-family: $font--1;
 			font-size: 60px;
 			color: white;
 			line-height: 1.2;
@@ -151,7 +151,7 @@
 		transition-delay: .5s;
 		transition: all 1s ease;
 		* {
-			font-family: gilroy;
+			font-family: $font--2;
 			color: white;
 		}
 	}
@@ -168,7 +168,7 @@
 			border-radius: 30px;
 			border: none;
 			padding-left: 20px;
-			font-family: gilroy;
+			font-family: $font--2;
 		}
 
 		.search-btn {
@@ -216,7 +216,7 @@
 		.f2-title {
 			margin-bottom: 20px;
 			* {
-				font-family: 'Mont', sans-serif;
+				font-family: $font--1;
 				color: white;
 			}
 		}
@@ -225,7 +225,7 @@
 			width: 630px;
 			margin: auto;
 			* {
-				font-family: gilroy;
+				font-family: $font--2;
 				color: white;
 			}
 		}
@@ -283,7 +283,7 @@
 		transition: all 0.34s ease;
 		cursor: pointer;
 		* {
-			font-family: 'Mont', sans-serif;
+			font-family: $font--1;
 			font-size: 14px;
 			transition: all 0.34s ease;
 		}
@@ -349,7 +349,7 @@
 		width: 95%;
 		margin-bottom: 40px;
 		* {
-			font-family: gilroy;
+			font-family: $font--2;
 		}
 	}
 
@@ -407,13 +407,13 @@
 	.hm_frame4-title {
 		margin-bottom: 15px;
 		* {
-			font-family: 'Mont', sans-serif;
+			font-family: $font--1;
 		}
 	}
 
 	.hm_frame4-desc {
 		* {
-			font-family: gilroy;
+			font-family: $font--2;
 		}
 	}
 }
@@ -456,16 +456,16 @@
 	.f5-title {
 		margin-bottom: 30px;
 		* {
-			font-family: 'Mont', sans-serif;
+			font-family: $font--1;
 		}
 	}
 
 	.f5-desc {
 		margin-bottom: 50px;
 		* {
-			font-family: gilroy;
+			font-family: $font--2;
 			strong {
-				font-family: 'Mont', sans-serif;
+				font-family: $font--1;
 			}
 		}
 	}
@@ -496,13 +496,13 @@
 			.solution-title {
 				margin-bottom: 10px;
 				* {
-					font-family: 'Mont', sans-serif;
+					font-family: $font--1;
 				}
 			}
 
 			.solution-desc {
 				* {
-					font-family: gilroy;
+					font-family: $font--2;
 				}
 			}
 		}
@@ -521,7 +521,7 @@
 		.f6-title {
 			margin-bottom: 15px;
 			* {
-				font-family: 'Mont', sans-serif;
+				font-family: $font--1;
 				color: white;
 			}
 		}
@@ -529,7 +529,7 @@
 		.f6-desc {
 			margin-bottom: 50px;
 			* {
-				font-family: gilroy;
+				font-family: $font--2;
 				color: white;
 			}
 		}
@@ -570,7 +570,7 @@
 		text-align: center;
 		margin-bottom: 10px;
 		* {
-			font-family: 'Mont', sans-serif;
+			font-family: $font--1;
 		}
 	}
 
@@ -585,7 +585,7 @@
 
 	.desc-cntnr {
 		* {
-			font-family: gilroy;
+			font-family: $font--2;
 			line-height: 1.8em;
 		}
 	}
@@ -608,7 +608,7 @@
 		text-align: center;
 		margin-bottom: 30px;
 		* {
-			font-family: 'Mont', sans-serif;
+			font-family: $font--1;
 		}
 	}
 
@@ -646,14 +646,14 @@
 		.content-title {
 			margin-bottom: 10px;
 			* {
-				font-family: 'Mont', sans-serif;
+				font-family: $font--1;
 				color: #a0d250;
 			}
 		}
 
 		.content-desc {
 			* {
-				font-family: gilroy;
+				font-family: $font--2;
 				color: white;
 			}
 		}
@@ -765,7 +765,7 @@
 			transform: translate(-50%, -50%);
 			cursor: pointer;
 			* {
-				font-family: 'Mont', sans-serif;
+				font-family: $font--1;
 				color: $green;
 				font-size: 18px;
 				transition: all 1s ease;
@@ -889,14 +889,14 @@
 			.f9-title {
 				margin-bottom: 20px;
 				* {
-					font-family: 'Mont', sans-serif;
+					font-family: $font--1;
 					font-size: 36px;
 				}
 			}
 
 			.f9-desc {
 				* {
-					font-family: gilroy;
+					font-family: $font--2;
 					line-height: 1.8em;
 				}
 			}
@@ -953,7 +953,7 @@
 	.loc-title {
 		margin-bottom: 20px;
 		* {
-			font-family: 'Mont', sans-serif;
+			font-family: $font--1;
 			font-size: 18px;
 		}
 	}
@@ -963,7 +963,7 @@
 		width: 95%;
 		margin-bottom: 10px;
 		* {
-			font-family: gilroy;
+			font-family: $font--2;
 			font-size: 14px;
 		}
 	}
@@ -971,7 +971,7 @@
 	.loc-link {
 		margin-bottom: 10px;
 		* {
-			font-family: 'Mont', sans-serif;
+			font-family: $font--1;
 			text-decoration: underline;
 			color: #93df65;
 			font-size: 14px;
@@ -980,7 +980,7 @@
 
 	.loc-details {
 		* {
-			font-family: gilroy;
+			font-family: $font--2;
 			display: block;
 			margin-bottom: 10px;
 		}
@@ -1017,7 +1017,7 @@
 		margin-bottom: 30px;
 		text-align: center;
 		* {
-			font-family: 'Mont', sans-serif;
+			font-family: $font--1;
 		}
 	}
 

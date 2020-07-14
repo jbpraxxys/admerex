@@ -128,7 +128,7 @@
 			cursor: pointer;
 
 			* {
-				font-family: 'Mont', sans-serif;
+				font-family: $font--1;
 				color: white;
 				font-size: 12px;
 			}
@@ -217,7 +217,7 @@
 				transform: translateY(-50%);
 				font-size: 11px;
 				color: gray;
-				font-family: gilroy;
+				font-family: $font--2;
 			}
 
 			input {
@@ -225,7 +225,7 @@
 				padding:10px 15px;
 				border-radius: 20px;
 				border: none;
-				font-family: gilroy;
+				font-family: $font--2;
 				font-size: 16px;
 			}
 

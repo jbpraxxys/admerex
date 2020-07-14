@@ -39,6 +39,7 @@ class ContactController extends Controller {
 						$this->setRecipients();
 						$this->sendEmail();
 						// $this->sendConfirmationEmail();
+						$this->writeRecord();
 						$this->returnEcho(1, 'Sending successful!');
 					}
 
@@ -137,6 +138,15 @@ class ContactController extends Controller {
 		// $this->recipient = $_POST['mailrecipient'];
 	}
 
+	private function writeRecord() {
+		$duplicate = new ApplicantInquiry();
+		$duplicate->fullname = $this->fullname;
+		$duplicate->email = $this->email;
+		$duplicate->contact = $this->contact;
+		$duplicate->job = $this->job;
+		$duplicate->write();
+	}
+
 
 	private function sendEmail() {
 		// print_r('Email...');
@@ -204,12 +214,6 @@ class ContactController extends Controller {
 			$mail->Body = $body;
 
 			// $mail->send();
-
-			if (!$mail->send()) {
-				echo 'Mailer Error: '. $mail->ErrorInfo;
-			} else {
-				echo 'Message sent!';
-			}
 
 			// print_r('Emailing done...');
 

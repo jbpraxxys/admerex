@@ -284,7 +284,7 @@ var app = {
 				]
 			});
 			$('.slick-prev').html('<i class="ion-chevron-left"></i>');
-	 	 	$('.slick-next').html('<i class="ion-chevron-right"></i');
+			$('.slick-next').html('<i class="ion-chevron-right"></i');
 
 			$('.year-slider .year-hldr').click(function(){
 				$('.year-slider .year-hldr').removeClass('active');
@@ -310,8 +310,7 @@ var app = {
 					  }
 					}
 				]
-			  });
-				
+			});
 		},
 
 		solutionpage: function() {
@@ -330,10 +329,10 @@ var app = {
 				dots: false,
 				adaptiveHeight: true,
 				asNavFor: '.jrny-img-slider',
-			  });
+			});
 
 			$('.jrny-img-slider').slick({
-			 	infinite: true,
+				infinite: true,
 				slidesToShow: 3,
 				slidesToScroll:1,
 				// autoplay: true,
@@ -343,9 +342,9 @@ var app = {
 				dots: false,
 				focusOnSelect: true,
 				// prevArrow: $('.prev-arrow'),
-	//   			nextArrow: $('.next-arrow'),
-   				asNavFor: '.jrny-cont-slider',
-	  			responsive: [
+				// nextArrow: $('.next-arrow'),
+				// asNavFor: '.jrny-cont-slider',
+				responsive: [
 					{
 					  breakpoint: 1024,
 					  settings: {
@@ -357,11 +356,11 @@ var app = {
 					}
 				]
 
-			  });
+			});
 			// $('.slick-prev').html('<i class="ion-chevron-left"></i>');
-   //   	 	$('.slick-next').html('<i class="ion-chevron-right"></i');
+		 	// $('.slick-next').html('<i class="ion-chevron-right"></i');
 
-	 	 	$('.pagination-slider').slick({
+			$('.pagination-slider').slick({
 			 	infinite: true,
 				slidesToShow: 4,
 				slidesToScroll:1,
@@ -369,9 +368,9 @@ var app = {
 				speed: 1000,
 				arrows: true,
 				dots: false,
-			  });
+			});
 
-			
+
 			//Calls the function on load to switch layout
 			segragateContent();
 
@@ -387,11 +386,6 @@ var app = {
 				}
 			};
 
-
-			
-
-			
-
 		},
 
 		contactpage: function() {
@@ -402,22 +396,21 @@ var app = {
 				$("#lightgallery").lightGallery();
 			});
 
-		   $("#AIbutton").click(function() {
-		   		$("#CIbutton").removeClass("active");
-		   		$(this).addClass("active");
-		   		$("#CIform").hide();
-		   		$("#AIform").fadeIn();
-		   });
+			$("#AIbutton").click(function() {
+					$("#CIbutton").removeClass("active");
+					$(this).addClass("active");
+					$("#CIform").hide();
+					$("#AIform").fadeIn();
+			});
 
-		   $("#CIbutton").click(function() {
-		   		$("#AIbutton").removeClass("active");
-		   		$(this).addClass("active");
-		   		$("#AIform").hide();
-		   		$("#CIform").fadeIn();
-		   });
+			$("#CIbutton").click(function() {
+					$("#AIbutton").removeClass("active");
+					$(this).addClass("active");
+					$("#AIform").hide();
+					$("#CIform").fadeIn();
+			});
 		},
 
-			
 
 	},
 
@@ -436,31 +429,23 @@ var app = {
 				submitHandler: function(form) {
 					swal({
 						title: 'Sending ...',
-						text: '',
 						timer: 2000,
 						onOpen: function () {
 							swal.showLoading()
 						}
-					})
-					var vars = $(form).serialize();
-					$.post(baseHref + route, vars, function(data) {
-						switch(data.status) {
-							case 0:
-								setMessage(false,data.message);
-							break;
-							case 1: 
-								setMessage(true,data.message);
-								$(form).trigger('reset');
-								if(bool == true) {
-									
-									window.location.reload(1);
-									
-								}
-
-							break;
-						}
-
-					}, 'json');
+					}).then(() => {
+						var vars = $(form).serialize();
+						$.post(baseHref + route, vars, function(data) {
+							switch(data.status) {
+								case 0:
+									setMessage(false,data.message);
+								break;
+								case 1: 
+									setMessage(true,data.message);
+								break;
+							}
+						}, 'json');
+					});
 				}
 			});
 
@@ -477,7 +462,9 @@ var app = {
 
 			function setMessage(status, msg) {
 				if(status) {
-					swal('',msg,'success')
+					swal('',msg,'success').then(function(){
+						window.location.reload(1);
+					});
 				} else {
 					swal('',msg,'error')
 				}
@@ -496,11 +483,11 @@ var app = {
 					Composer:
 						  "gargron/fileupload": "~1.4.0"
 					Silverstripe:
-						   Controller: Create UploadController
-						   ModelAdmin: Create an admin manager for back up purposes (list of emails received)
-						   Assets: Create folder inside, depends on what you declared
-						   Template Syntax: 
-						   		<label id="file-selected-permit" for="fileupload-permit" class="custom-file-upload">Business/Mayor Permit <i class="ion-paperclip"></i></label>
+							Controller: Create UploadController
+							ModelAdmin: Create an admin manager for back up purposes (list of emails received)
+							Assets: Create folder inside, depends on what you declared
+							Template Syntax: 
+									<label id="file-selected-permit" for="fileupload-permit" class="custom-file-upload">Business/Mayor Permit <i class="ion-paperclip"></i></label>
 								<input type="file" id="fileupload-permit" name="file" style="display: none;">
 								<input type="hidden" id="file-image-permit" name="permit" value="">
 
