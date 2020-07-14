@@ -18,6 +18,7 @@ namespace {
 
 		private static $db = [
 			#Specialty
+			'SortOrder' => 'Int',
 			'SortID' => 'Int',
 			'Desc' => 'Text',
 		];
@@ -49,14 +50,18 @@ namespace {
 		public function getCMSFields() {
 			$fields = parent::getCMSFields();
 			$fields->addFieldToTab('Root.Main', ReadonlyField::create('SortID', 'Sort ID'));
-			$fields->addFieldToTab('Root.Main', $upload = UploadField::create('Image','Image 370 x 220'));
+			$fields->addFieldToTab('Root.Main', $upload = UploadField::create('Image','Image'));
 			$fields->addFieldToTab('Root.Main', TextareaField::create('Desc', 'Description'));
 
 			# SET FIELD DESCRIPTION 
-			$upload->setDescription('Max file size: 2MB');
+			$upload->setDescription('Max file size: 2MB | Dimension: within 370px x 220px');
 
 			# Set destination path for the uploaded images.
 			$upload->setFolderName('contact');
+
+			$fields->removeByName('SortOrder');
+            $fields->removeByName('ContactPageID');
+            $fields->removeByName('SortID');
 
 			return $fields;
 		}

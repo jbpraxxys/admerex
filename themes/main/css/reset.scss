@@ -77,35 +77,71 @@ button:focus {
 * Silverstripe CMS Login/Forgot
 */
 #MemberLoginForm_LoginForm,
-#MemberLoginForm_LostPasswordForm {
-    height: 60%;
-    min-height: 400px;
-    padding-top: 8%;
-    text-align: center;
+#MemberLoginForm_LostPasswordForm,
+#LostPasswordForm_lostPasswordForm {
+    padding: 90px 32px 60px;
 }
 
-#MemberLoginForm_LoginForm_Password_Holder {
-    margin-top: 10px;
+#MemberLoginForm_LoginForm_Password_Holder,
+#LostPasswordForm_lostPasswordForm_Email_Holder,
+#ForgotPassword {
+    margin-top: 15px;
 }
 
+
+// input text
 #MemberLoginForm_LoginForm_Email,
 #MemberLoginForm_LoginForm_Password,
-#MemberLoginForm_LostPasswordForm_Email {
+#MemberLoginForm_LostPasswordForm_Email,
+#LostPasswordForm_lostPasswordForm_Email {
     margin-top: 5px;
-    padding: 5px 20px;
-    text-align: center;
+    padding: 8px 16px;
     border-radius: 20px;
-    border: 1px solid #f2f2f2;
+    border: 1px solid #cdcdcd;
     background: #fff;
     outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 0px rgba(0,0,0,0.05);
 }
 
-#MemberLoginForm_LoginForm_action_dologin,
-#MemberLoginForm_LostPasswordForm_action_forgotPassword {
-    padding: 5px 20px;
-    margin: 10px 0;
-    outline: none;
+// label
+#MemberLoginForm_LoginForm_Email_Holder label,
+#MemberLoginForm_LoginForm_Password_Holder label {
+    color: #c4c4c4;
 }
+
+// button
+#MemberLoginForm_LoginForm_action_doLogin,
+#MemberLoginForm_LostPasswordForm_action_forgotPassword,
+#LostPasswordForm_lostPasswordForm_action_forgotPassword {
+    padding: 8px 24px;
+    margin: 10px auto;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    background: #000;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    box-shadow: 0px 2px 0px rgba(0,0,0,0.1);
+    transition: all .3s ease;
+
+    &:hover { 
+        box-shadow: 0px 2px 0px rgba(0,0,0,0); 
+        transform: translateY(2px);
+    }
+}
+
+#ForgotPassword { 
+    font-size: 13px;
+}
+
+.btn-toolbar {
+    text-align: center;
+}
+
+#LostPasswordForm_lostPasswordForm_action_forgotPassword { margin-top: 24px; }
 
 #MemberLoginForm_LoginForm_Remember_Holder,
 #MemberLoginForm_LoginForm_Remember_Holder .checkbox {

@@ -78,11 +78,11 @@ namespace {
 			$fields->addFieldsToTab('Root.Frame1.Main', array(
 				new TextField('F1Title', 'Title'),
 				new TextareaField('F1Desc', 'Description'),
-				$upload = new UploadField('F1BG', 'Background 1300 x 650'),
+				$upload = new UploadField('F1BG', 'Background Image'),
 			));
 
 			# SET FIELD DESCRIPTION 
-			$upload->setDescription('Max file size: 2MB');
+			$upload->setDescription('Max file size: 2MB | Dimension: 1366px x 650px');
 			# Set destination path for the uploaded images.
 			$upload->setFolderName('contact');
 
@@ -91,12 +91,13 @@ namespace {
 			| Frame 2
 			|----------------------------------------------- */
 			$fields->addFieldToTab('Root.Frame2.Main', new TabSet('Medias',
-				new Tab('Medias', GridField::create(
-		            'Medias',
-		            'Medias',
-		            $this->Medias(),
-		            GridFieldConfig_RecordEditor::create()
-				))
+				new Tab('List',
+					GridField::create('Medias', 'List of Medias', 
+						$this->Medias(), 
+					GridFieldConfig_RecordEditor::create(10)
+					->addComponent(new GridFieldSortableRows('SortOrder'))
+					)
+				)
 			));
 
 			/*

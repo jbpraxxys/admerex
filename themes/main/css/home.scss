@@ -471,12 +471,6 @@
 	}
 
 	.solution-slider {
-		opacity: 0;
-		transition: opacity 0.3s ease;
-
-		&.slick-initialized.slick-slider {
-			opacity: 1;
-		}
 
 		.solution-cntnr {
 			padding: 0 10px;
