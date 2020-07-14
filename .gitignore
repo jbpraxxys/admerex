@@ -4,7 +4,7 @@
 /silverstripe-cache/
 /resources/
 /public/resources/
-/themes/main/images/
+#/themes/main/images/
 
 # custom ignore
 *.bak
