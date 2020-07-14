@@ -39,7 +39,7 @@
 					<% loop $SolutionPage %>
 					<% loop $Solutions %>
 					<div class="ftrlink">
-						<a href="$SolutionPage.Link">$SolTitle</a>
+						<a href="$Link#$ID">$SolTitle</a>
 					</div>
 					<% end_loop %>
 					<% end_loop %>

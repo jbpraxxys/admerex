@@ -62,6 +62,8 @@ namespace {
 		private $searchResults;
 		private $search;
 
+		private $searchResults1;
+
 		public function init() {
 			parent::init();
 
@@ -76,6 +78,7 @@ namespace {
 			}
 
 			$this->queryItems();
+			$this->queryItems2();
 		}
 
 		private function queryItems() {
@@ -103,11 +106,54 @@ namespace {
 
 		}
 
+		private function queryItems2() {
+			$results = new ArrayList();
+
+			if($this->search) {
+				$announcement = Announcement::get()->filterAny(Array(
+					'ATitle:PartialMatch:nocase' => $this->search,
+					'Date:PartialMatch:nocase' => $this->search,
+					'Desc:PartialMatch:nocase' => $this->search
+				));
+
+				foreach ($announcement as $p) { 
+					$results->push($p);
+				}
+
+				$article = Article::get()->filterAny(Array(
+					'ATitle:PartialMatch:nocase' => $this->search,
+					'Date:PartialMatch:nocase' => $this->search,
+					'Desc:PartialMatch:nocase' => $this->search
+				));
+
+				foreach ($article as $p) { 
+					$results->push($p);
+				}
+			}
+
+			if(count($results) > 0){
+				$this->searchResults1 = $results;
+				// $this->successResponse();
+				$this->PaginatedPages();
+			}
+			else{
+				 $this->searchResults1 =  $results;
+			}
+
+		}
+
 		public function getSearch() {
 			return $this->search;
 		}
 		public function PaginatedPages() {
 			$list = new PaginatedList($this->searchResults, $this->getRequest());
+			$list->setPageLength(9);
+		   	$list->setPaginationGetVar('page');
+			return $list;	
+		}
+
+		public function PaginatedPages1() {
+			$list = new PaginatedList($this->searchResults1, $this->getRequest());
 			$list->setPageLength(9);
 		   	$list->setPaginationGetVar('page');
 			return $list;	

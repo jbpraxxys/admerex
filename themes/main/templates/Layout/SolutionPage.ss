@@ -15,7 +15,7 @@
 	<div class="sol_frame2-bg" style="background-image: url('$ThemeDir/images/f5.png');"></div>
 	<div class="frm-cntnr width--90 staggerup_hldr8">
 		<div class="solution-container">
-			<% loop $Solutions %><div class="solution-hldr">
+			<% loop $Solutions %><div id="$ID" class="solution-hldr">
 				<div class="solution-logo staggerup8">
 					<img src="$Image.URL" alt="">
 				</div>

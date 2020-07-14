@@ -140,11 +140,11 @@
 				<div class="desc">
 					<p>$F4Desc</p>
 				</div>
-				<div class="button-hldr button">
-					<a href="$F4Link" target="_blank">
+				<a href="$F4Link" target="_blank">
+					<div class="button-hldr button">
 						$F4Button
-					</a>
-				</div>
+					</div>
+				</a>
 			</div>
 			
 		</div>
