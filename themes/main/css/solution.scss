@@ -100,6 +100,17 @@
 	}
 }
 
+.sol_frame2 .frm-cntnr .solution-container {
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+	.solution-hldr {
+		display: block;
+		margin-right: 0;
+	}
+}
+
 @media screen and (max-width: 1024px) {
 	.sol_frame1 {
 		height: calc(100vh - 80px);

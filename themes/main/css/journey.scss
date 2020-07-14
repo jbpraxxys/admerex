@@ -210,7 +210,6 @@
 	&.search-res {
 		width: 45%;
 		margin-bottom: 40px;
-		vertical-align: top;
 
 		.jrny-img-slider {
 			left: 0;
@@ -373,5 +372,9 @@
 
 	.jrny_frame3 .content-hldr {
 		opacity: 1;
+	}
+
+	.jrny_frame3.search-res {
+		width: 100%;
 	}
 }

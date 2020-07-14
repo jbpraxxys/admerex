@@ -5,7 +5,7 @@
 		</div>
 	</div>
 </div>
-<div class="sol_frame2">
+<div class="sol_frame2 searchCon">
 	<div class="sol_frame2-bg" style="background-image: url('$ThemeDir/images/f5.png');"></div>
 	<div class="frm-cntnr width--90 staggerup_hldr8">
 		<div class="align-c">
@@ -25,8 +25,6 @@
 				</div
 				><% end_loop %>
 			</div>
-			<% else %>
-			<p style="text-align: center; padding-bottom: 100px;">We can't find any related to your search.</p>
 			<% end_if %>
 
 			<% if $PaginatedPagesAnnounce.Count > 0 %>
@@ -87,6 +85,10 @@
 				</div>
 				<% end_loop %>
 			</div>
+			<% end_if %>
+
+			<% if $PaginatedPages.Count = 0 && $PaginatedPagesAnnounce.Count = 0 && $PaginatedPagesArticle.Count = 0 %>
+				<p style="text-align: center;">We can't find any related to your search.</p>
 			<% end_if %>
 		</div>
 	</div>
