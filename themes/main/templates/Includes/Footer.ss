@@ -9,9 +9,11 @@
 	<div class="ftr-cntnr inlineBlock-parent">
 		<div class="logo-hldr align-t">
 			<% loop $HeaderFooter %>
-			<a href="">
-				<div class="ftr-logo" style="background-image: url('$Logo2.URL');"></div>
-			</a>
+			<div class="ftr-logoCon">
+				<a href="$AbsoluteBaseURL">
+					<div class="ftr-logo" style="background-image: url('$Logo2.URL');"></div>
+				</a>
+			</div>
 			<% end_loop %>
 			<div class="ftr-link">
 				<a class="ppolicy" href="privacy-policy">Privacy Policy</a>
