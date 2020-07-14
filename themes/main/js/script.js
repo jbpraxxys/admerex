@@ -399,7 +399,7 @@ var app = {
 			app.form.init($('#contactForm2'), $('#contactBtn2'), 'form/client/send', false);
 
 			$(document).ready(function() {
-				$("#lightgallery").lightGallery(); 
+				$("#lightgallery").lightGallery();
 			});
 
 		   $("#AIbutton").click(function() {

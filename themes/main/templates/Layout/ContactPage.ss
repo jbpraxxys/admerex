@@ -14,10 +14,14 @@
 
 <div class="cntct_frame2">
 	<div class="frm-cntnr width--90 staggerup_hldr1">
-		<div class="inlineBlock-parent align-t" id="lightgallery">
-			<% loop $Medias %><div class="connect-cntnr staggerup1" href="$Image.URL">
-				<div class="image-hldr">
-					<div class="image" style="background-image: url('$Image.URL');"></div>
+		<div class="inlineBlock-parent align-t">
+			<% loop $Medias.Sort(SortOrder) %><div class="connect-cntnr staggerup1 align-t">
+				<div class="image-hldr <% if $Vid.URL || $ExternalLink %>video<% end_if %>" <% if $Vid.URL || $ExternalLink %>data-remodal-target="vid-$ID"<% else %> id="lightgallery"<% end_if %>">
+					<div class="image" href="$Image.URL" style="background-image: url('$Image.URL');">
+						<% if $Vid.URL || $ExternalLink %>
+							<img src="$Top.F2Img.URL" alt="">
+						<% end_if %>
+					</div>
 				</div>
 				<div class="cdesc">
 					<p>$Desc</p>
@@ -126,9 +130,9 @@
 	<div class="frm-cntnr width--70">
 		<div class="inlineBlock-parent formobile-flex flex">
 			<div class="mascot-hldr fadeIn">
-				<div class="mascot" style="background-image: url('$ThemeDir/images/mascot.png');">
+				<div class="mascot" style="background-image: url('$F4Img1.URL');">
 					<a href="$F4Link" class="messenger" target="_blank">
-						<img src="$ThemeDir/images/messenger.png" alt="">
+						<img src="$F4Img2.URL" alt="">
 					</a>
 				</div>
 			</div
@@ -138,7 +142,7 @@
 				</div>
 				<div class="button-hldr button">
 					<a href="$F4Link" target="_blank">
-						Check Us Out
+						$F4Button
 					</a>
 				</div>
 			</div>
@@ -146,3 +150,7 @@
 		</div>
 	</div>
 </div>
+
+<% loop $Medias.Sort(SortOrder) %>
+	<% include ContactModal %>
+<% end_loop %>
