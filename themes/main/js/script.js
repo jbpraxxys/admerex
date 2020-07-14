@@ -429,23 +429,31 @@ var app = {
 				submitHandler: function(form) {
 					swal({
 						title: 'Sending ...',
+						text: '',
 						timer: 2000,
 						onOpen: function () {
 							swal.showLoading()
 						}
-					}).then(() => {
-						var vars = $(form).serialize();
-						$.post(baseHref + route, vars, function(data) {
-							switch(data.status) {
-								case 0:
-									setMessage(false,data.message);
-								break;
-								case 1: 
-									setMessage(true,data.message);
-								break;
-							}
-						}, 'json');
-					});
+					})
+					var vars = $(form).serialize();
+					$.post(baseHref + route, vars, function(data) {
+						switch(data.status) {
+							case 0:
+								setMessage(false,data.message);
+							break;
+							case 1: 
+								setMessage(true,data.message);
+								$(form).trigger('reset');
+								if(bool == true) {
+									
+									window.location.reload(1);
+									
+								}
+
+							break;
+						}
+
+					}, 'json');
 				}
 			});
 
@@ -462,9 +470,7 @@ var app = {
 
 			function setMessage(status, msg) {
 				if(status) {
-					swal('',msg,'success').then(function(){
-						window.location.reload(1);
-					});
+					swal('',msg,'success')
 				} else {
 					swal('',msg,'error')
 				}
