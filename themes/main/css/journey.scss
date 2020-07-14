@@ -206,7 +206,31 @@
 	.slick-next {
 		right: -60px;
 	}
+
+	&.search-res {
+		width: 45%;
+		margin-bottom: 40px;
+		vertical-align: top;
+
+		.jrny-img-slider {
+			left: 0;
+			width: 100%;
+			transform: unset;
+		}
+
+		.jrny-cont-slider {
+			width: 100%;
+			padding-bottom: 0;
+		}
+
+		.content-hldr {
+			opacity: 1;
+		}
+	}
 }
+
+
+
 
 
 

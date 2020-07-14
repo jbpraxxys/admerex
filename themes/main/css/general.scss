@@ -989,3 +989,8 @@ $frame-bg--pos__b: bottom center;
     }
 }
 
+.search_resCon {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}

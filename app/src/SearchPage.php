@@ -1,8 +1,7 @@
 <?php
 namespace {
 	use SilverStripe\CMS\Model\SiteTree;
-	use Page;  
-	use PageController;
+
 	use SilverStripe\Forms\TextField;
 	use SilverStripe\Forms\TextareaField;
 	use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
@@ -34,7 +33,7 @@ namespace {
 		];
 
 		private static $has_many = [
-	    ];
+		];
 
 
 
@@ -62,23 +61,25 @@ namespace {
 		private $searchResults;
 		private $search;
 
-		private $searchResults1;
+		private $searchResultsAnnounce;
+		private $searchResultsArticle;
 
 		public function init() {
 			parent::init();
 
 			// $this->getProductsPage();
-			$this->search();		
+			$this->search();
 		}
 
 		private function search() {
 
-	    	if(isset($_GET['q']) && !empty($_GET['q'])) {
-				$this->search = ($_GET['q']);	
+			if(isset($_GET['q']) && !empty($_GET['q'])) {
+				$this->search = ($_GET['q']);
 			}
 
 			$this->queryItems();
-			$this->queryItems2();
+			$this->queryItemsAnnounce();
+			$this->queryItemsArticle();
 		}
 
 		private function queryItems() {
@@ -106,7 +107,7 @@ namespace {
 
 		}
 
-		private function queryItems2() {
+		private function queryItemsAnnounce() {
 			$results = new ArrayList();
 
 			if($this->search) {
@@ -119,7 +120,23 @@ namespace {
 				foreach ($announcement as $p) { 
 					$results->push($p);
 				}
+			}
 
+			if(count($results) > 0){
+				$this->searchResultsAnnounce = $results;
+				// $this->successResponse();
+				$this->PaginatedPages();
+			}
+			else{
+				 $this->searchResultsAnnounce =  $results;
+			}
+
+		}
+
+		private function queryItemsArticle() {
+			$results = new ArrayList();
+
+			if($this->search) {
 				$article = Article::get()->filterAny(Array(
 					'ATitle:PartialMatch:nocase' => $this->search,
 					'Date:PartialMatch:nocase' => $this->search,
@@ -132,12 +149,12 @@ namespace {
 			}
 
 			if(count($results) > 0){
-				$this->searchResults1 = $results;
+				$this->searchResultsArticle = $results;
 				// $this->successResponse();
 				$this->PaginatedPages();
 			}
 			else{
-				 $this->searchResults1 =  $results;
+				 $this->searchResultsArticle =  $results;
 			}
 
 		}
@@ -149,14 +166,21 @@ namespace {
 			$list = new PaginatedList($this->searchResults, $this->getRequest());
 			$list->setPageLength(9);
 		   	$list->setPaginationGetVar('page');
-			return $list;	
+			return $list;
 		}
 
-		public function PaginatedPages1() {
-			$list = new PaginatedList($this->searchResults1, $this->getRequest());
+		public function PaginatedPagesAnnounce() {
+			$list = new PaginatedList($this->searchResultsAnnounce, $this->getRequest());
 			$list->setPageLength(9);
 		   	$list->setPaginationGetVar('page');
-			return $list;	
+			return $list;
+		}
+
+		public function PaginatedPagesArticle() {
+			$list = new PaginatedList($this->searchResultsArticle, $this->getRequest());
+			$list->setPageLength(9);
+		   	$list->setPaginationGetVar('page');
+			return $list;
 		}
 	}
 }

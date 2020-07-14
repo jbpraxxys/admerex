@@ -20,6 +20,9 @@ var app = {
 			case 'SolutionPage':
 				setup.solutionpage();
 				break;
+			case 'SearchPage':
+				setup.searchpage();
+				break;
 		}
 
 		setup.menu();
