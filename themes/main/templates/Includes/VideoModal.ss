@@ -7,6 +7,8 @@
  		<video src="$F9Vid.URL" controls></video>
  		<% else_if $YTLink %>
  		<iframe src="$YTLink" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+ 		<% else %>
+ 		<img src="$F9IMG.URL">
  		<% end_if %>
 	</div>
 </div>

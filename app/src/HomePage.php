@@ -88,6 +88,7 @@ namespace {
 			'F7IMG' => Image::class,
 			'F8Bg' => Image::class,
 			'F9IMG' => Image::class,
+			'F9IMG2' => Image::class,
 			'F9Vid' => File::class,
 			
 		];
@@ -101,6 +102,7 @@ namespace {
 			'F7IMG',
 			'F8Bg',
 			'F9IMG',
+			'F9IMG2',
 			'F9Vid',
 		];
 
@@ -252,9 +254,10 @@ namespace {
 			$fields->addFieldsToTab('Root.Frame9.Main', array(
 				new TextField('F9Title', 'Title'),
 				new TextareaField('F9Desc', 'Description'),
-				$upload = new UploadField('F9IMG', 'Vid Thumbnail'),
-				$upload = new UploadField('F9Vid', 'Video'),
-				new TextField('YTLink', 'Youtube Link'),
+				$uploadf9_1 = new UploadField('F9IMG', 'Vid Thumbnail'),
+				$uploadf9_2 = new UploadField('F9Vid', 'Video'),
+				$uploadf9_3 = new TextField('YTLink', 'Youtube Link'),
+				$uploadf9_4 = new UploadField('F9IMG2', 'Play Button'),
 			));
 
 			/*
@@ -263,12 +266,13 @@ namespace {
 			|----------------------------------------------- */
 
 			$fields->addFieldToTab('Root.Frame10.Main', new TabSet('Locations',
-				new Tab('Locations', GridField::create(
-					'Locations',
-					'Locations',
-					$this->Locations(),
-					GridFieldConfig_RecordEditor::create()
-				))
+				new Tab('List',
+					GridField::create('Locations', 'List of Locations', 
+						$this->Locations(), 
+					GridFieldConfig_RecordEditor::create(10)
+					->addComponent(new GridFieldSortableRows('SortOrder'))
+					)
+				)
 			));
 
 			/*
@@ -277,16 +281,17 @@ namespace {
 			|----------------------------------------------- */
 
 			$fields->addFieldsToTab('Root.Frame11.Main', array(
-				new TextField('F11Title', 'Header'),
+				new TextField('F11Title', 'Title'),
 			));
 
 			$fields->addFieldToTab('Root.Frame11.Main', new TabSet('Affiliates',
-				new Tab('Affiliates', GridField::create(
-					'Affiliates',
-					'Affiliates',
-					$this->Affiliates(),
-					GridFieldConfig_RecordEditor::create()
-				))
+				new Tab('List',
+					GridField::create('Affiliates', 'List of Affiliates', 
+						$this->Affiliates(), 
+					GridFieldConfig_RecordEditor::create(10)
+					->addComponent(new GridFieldSortableRows('SortOrder'))
+					)
+				)
 			));
 
 			# SET FIELD DESCRIPTION 
@@ -300,6 +305,11 @@ namespace {
 			$uploadf7->setDescription('Max file size: 2MB | Dimension: 150px x 150px');
 			$uploadf8->setDescription('Max file size: 2MB | Dimension: 1366px x 900px');
 
+			$uploadf9_1->setDescription('Max file size: 2MB | Dimension: 650px x 450px');
+			$uploadf9_2->setDescription('Max file size: 5MB');
+			$uploadf9_3->setDescription('Get the link from the URL, and replace watch?v= with embed/');
+			$uploadf9_4->setDescription('Max file size: 2MB | Dimension: 90px x 90px');
+
 			
 			# Set destination path for the uploaded images.
 			$uploadf2->setFolderName('HomePage/frame2');
@@ -311,6 +321,10 @@ namespace {
 
 			$uploadf7->setFolderName('HomePage/frame7');
 			$uploadf8->setFolderName('HomePage/frame8');
+
+			$uploadf9_1->setFolderName('HomePage/frame9');
+			$uploadf9_2->setFolderName('HomePage/frame9');
+			$uploadf9_4->setFolderName('HomePage/frame9');
 
 			
 			return $fields;

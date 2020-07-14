@@ -167,6 +167,7 @@
         <!-- Slick -->
         <script src="//cdn.jsdelivr.net/jquery.slick/1.4.1/slick.min.js"></script>
         <script src="//alexandrebuffet.fr/codepen/slider/slick-animation.min.js"></script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
         
         <!-- Remodal -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/remodal/1.0.6/remodal.min.js"></script>

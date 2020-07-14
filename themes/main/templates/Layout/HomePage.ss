@@ -1,6 +1,6 @@
 <div class="hm_frame1">
 	<div class="hm_frame1-bg">
-		<% loop $HomeBanners %>
+		<% loop $HomeBanners.Sort(SortOrder) %>
 		<div class="bg-holder">
 			<% if $VidFile.URL %>
 			<video id="hm-fr1__vid" autoplay="" muted="" loop="" playsinline="" poster="$Banner.URL">
@@ -21,7 +21,7 @@
 	<div class="frm-cntnr width--90">
 		<div class="hm_frame1-content">
 			<div class="frame1-slider animate-up">
-				<% loop $HomeBanners %>
+				<% loop $HomeBanners.Sort(SortOrder) %>
 				<div class="slider-hldr">
 					<div class="hm_frame1-title">
 						<h1>$Header</h1>
@@ -41,7 +41,7 @@
 					</button>
 				</form>
 				<div class="progressBarContainer inlineBlock-parent">
-					<% loop HomeBanners %>
+					<% loop HomeBanners.Sort(SortOrder) %>
 					<div class="item">
 						<span class="progressBar"></span>
 					</div>
@@ -168,7 +168,7 @@
 			</div>
 			<div class="solution-slider staggerup3">
 				<% loop $SolutionPage %>
-				<% loop $Solutions %>
+				<% loop $Solutions.Sort(SortOrder) %>
 				<div class="solution-cntnr">
 					<div class="solution-logo">
 						<div class="logo" style="background-image: url('$Image.URL');"></div>
@@ -231,9 +231,9 @@
 			<ion-icon name="chevron-back-outline"></ion-icon>
 		</div>
 		<div class="f8-image-slider fadeIn">
-			<% loop $Histories %>
+			<% loop $Histories.Sort(SortOrder) %>
 			<div class="f8-image-slider-inside">
-				<% loop $HistoryLists %>
+				<% loop $HistoryLists.Sort(SortOrder) %>
 				<div class="image-cntnr">
 					<div class="image" style="background-image: url('$Image.URL');">
 						<div class="gradient"></div>
@@ -261,7 +261,7 @@
 		</div>
 		<div class="year-slider-cntnr">
 			<div class="year-slider">
-				<% loop $Histories %>
+				<% loop $Histories.Sort(SortOrder) %>
 				<div class="year-hldr">
 					<div class="year-cntnr">
 						<div class="year">
@@ -280,7 +280,9 @@
 		<div class="inlineBlock-parent">
 			<div class="video-cntnr fadeIn">
 				<div class="video-thumbnail" data-remodal-target="vid1" style="background-image: url('$F9IMG.URL');">
-					<img src="$ThemeDir/images/play.png" alt="">
+					<% if $F9Vid.URL || $YTLink %>
+						<img src="$F9IMG2.URL" alt="">
+					<% end_if %>
 				</div>
 			</div
 			><div class="hm_frame9-content">
@@ -301,7 +303,7 @@
 	<img class="hm_frame10-bg" src="$ThemeDir/images/f5.png" alt="">
 	<div class="frm-cntnr width--90 staggerup_hldr8">
 		<div class="location-cntnr">
-			<% loop $Locations %>
+			<% loop $Locations.Sort(SortOrder) %>
 			<div class="loc-hldr">
 				<div class="loc-logo staggerup8">
 					<img src="$Image.URL" alt="">
@@ -329,11 +331,11 @@
 			<h2>$F11Title</h2>
 		</div>
 		<div class="affiliate-slider staggerup_hldr9">
-			<% loop $Affiliates %>
+			<% loop $Affiliates.Sort(SortOrder) %>
 			<div class="affiliate-cntnr">
 				<div class="vertical-parent">
 					<div class="vertical-align">
-						<a href="$ALink">
+						<a <% if $ALink %>href="$ALink"<% end_if %> target="_blank">
 							<img class="affiliate-logo staggerup9" src="$Image.URL" alt="">
 						</a>
 					</div>

@@ -19,6 +19,7 @@ namespace {
 
 		private static $db = [
 			#Specialty
+			'SortOrder' => 'Int',
 			'SortID' => 'Int',
 			'Name' => 'Text',
 			'Address' => 'Text',
@@ -36,23 +37,22 @@ namespace {
 		];
 
 		public function getThumbnail() {
-		   if ($this->Image()->exists()) { 
-		       return $this->Image()->ScaleWidth(50); 
-		   } else { 
-		       return '(No Video)'; 
-		   }
+			if ($this->Image()->exists()) { 
+				return $this->Image()->ScaleWidth(50); 
+			} else { 
+				return '(No Video)'; 
+			}
 		}
 
 		private static $summary_fields = array(
 			'Thumbnail' => 'Image',
 			'Name' => 'Name',
 			'Address' => 'Address',
-			
-
 		);
 
 		public function getCMSFields() {
 			$fields = parent::getCMSFields();
+			$fields->addFieldToTab('Root.Main', ReadonlyField::create('SortOrder', 'Sort Order'));
 			$fields->addFieldsToTab('Root.Main', array(
 				new ReadonlyField('SortID', 'Sort ID'),
 				$upload = new UploadField('Image', 'Image'),
@@ -63,10 +63,14 @@ namespace {
 			));
 
 			# SET FIELD DESCRIPTION 
-			$upload->setDescription('Max file size: 2MB');
+			$upload->setDescription('Max file size: 2MB | Dimension: within 150px x 150px');
 
 			# Set destination path for the uploaded images.
 			$upload->setFolderName('homepage/location');
+
+			$fields->removeByName('SortOrder');
+			$fields->removeByName('HomePageID');
+			$fields->removeByName('SortID');
 
 			return $fields;
 		}

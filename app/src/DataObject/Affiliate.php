@@ -18,6 +18,7 @@ namespace {
 
 		private static $db = [
 			#Specialty
+			'SortOrder' => 'Int',
 			'SortID' => 'Int',
 			'ALink' => 'Text',
 		];
@@ -32,18 +33,16 @@ namespace {
 		];
 
 		public function getThumbnail() {
-		   if ($this->Image()->exists()) { 
-		       return $this->Image()->ScaleWidth(50); 
-		   } else { 
-		       return '(No Image)'; 
-		   }
+			if ($this->Image()->exists()) { 
+				return $this->Image()->ScaleWidth(50); 
+			} else { 
+				return '(No Image)'; 
+			}
 		}
 
 		private static $summary_fields = array(
 			'Thumbnail' => 'Image',
 			'ALink' => 'Link',
-			
-
 		);
 
 		public function getCMSFields() {
@@ -53,10 +52,14 @@ namespace {
 			$fields->addFieldToTab('Root.Main', TextField::create('ALink', 'Link'));
 
 			# SET FIELD DESCRIPTION 
-			$upload->setDescription('Max file size: 2MB');
+			$upload->setDescription('Max file size: 2MB | Dimension: within 150px x 150px');
 
 			# Set destination path for the uploaded images.
 			$upload->setFolderName('homepage/affiliate');
+
+			$fields->removeByName('SortOrder');
+			$fields->removeByName('HomePageID');
+			$fields->removeByName('SortID');
 
 			return $fields;
 		}

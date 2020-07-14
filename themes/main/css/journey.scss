@@ -284,6 +284,16 @@
 	.jrny_frame2 {
 		padding-top: 50px;
 		padding-bottom: 50px;
+
+		&::after {
+			position: absolute;
+			bottom: 50px;
+			display: block;
+			content: "";
+			width: 100%;
+			height: 3px;
+			background-color: #f1f1f1;
+		}
 	}
 
 	.jrny_frame2 .frm-cntnr .image-hldr {
