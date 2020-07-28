@@ -57,11 +57,11 @@ var app = {
 					$(document).ready(function() {
 						$('#pursuit p').on('click', function(event){
 							event.stopPropagation();
-							var status = $(this).data('status');
-							test(status)
+							test()
 						});
 
 						function test(status) {
+							var status = $('#pursuit p').data('status');
 							if (status === 'close'){
 								$('#pursuit p').attr('data-status', 'open');
 								$('#pursuittog').slideDown();
