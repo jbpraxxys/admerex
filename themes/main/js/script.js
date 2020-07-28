@@ -56,6 +56,7 @@ var app = {
 
 					$(document).ready(function() {
 						$('#pursuit p').on('click', function(event){
+							event.stopPropagation();
 							var status = $(this).data('status');
 							if (status === 'close'){
 								$('#pursuit p').attr('data-status', 'open');
@@ -69,6 +70,7 @@ var app = {
 						});
 
 						$('#contact p').on('click', function(event){
+							event.stopPropagation();
 							var status = $(this).data('status');
 							if (status === 'close'){
 								$('#contact p').data('status', 'open');
