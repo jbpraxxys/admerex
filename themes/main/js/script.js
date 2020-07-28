@@ -61,18 +61,20 @@ var app = {
 						});
 
 						function test(status) {
-							var status = $('#pursuit p').data('status');
-							if (status === 'close'){
-								$('#pursuit p').attr('data-status', 'open');
-								$('#pursuittog').slideDown();
-								$('.ftr-frame .pursuit .pursuit-title i').addClass('open');
-								console.log('success')
-							} else {
-								$('#pursuit p').attr('data-status', 'close');
-								$('#pursuittog').slideUp();
-								$('.ftr-frame .pursuit .pursuit-title i').removeClass('open');
-								console.log('else')
-							}
+							$('#pursuittog').slideToggle();
+							$('.ftr-frame .pursuit .pursuit-title i').toggleClass('open');
+							// var status = $('#pursuit p').data('status');
+							// if (status === 'close'){
+							// 	$('#pursuit p').attr('data-status', 'open');
+							// 	$('#pursuittog').slideDown();
+							// 	$('.ftr-frame .pursuit .pursuit-title i').addClass('open');
+							// 	console.log('success')
+							// } else {
+							// 	$('#pursuit p').attr('data-status', 'close');
+							// 	$('#pursuittog').slideUp();
+							// 	$('.ftr-frame .pursuit .pursuit-title i').removeClass('open');
+							// 	console.log('else')
+							// }
 						}
 
 						$('#contact p').on('click', function(event){
