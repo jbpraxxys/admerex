@@ -58,6 +58,10 @@ var app = {
 						$('#pursuit p').on('click', function(event){
 							event.stopPropagation();
 							var status = $(this).data('status');
+							test(status)
+						});
+
+						function test(status) {
 							if (status === 'close'){
 								$('#pursuit p').attr('data-status', 'open');
 								$('#pursuittog').slideDown();
@@ -69,7 +73,7 @@ var app = {
 								$('.ftr-frame .pursuit .pursuit-title i').removeClass('open');
 								console.log('else')
 							}
-						});
+						}
 
 						$('#contact p').on('click', function(event){
 							event.stopPropagation();
