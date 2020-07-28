@@ -57,10 +57,10 @@ var app = {
 					$(document).ready(function() {
 						$('#pursuit p').on('click', function(event){
 							event.stopPropagation();
-							test()
+							togglePursuit()
 						});
 
-						function test(status) {
+						function togglePursuit() {
 							$('#pursuittog').slideToggle();
 							$('.ftr-frame .pursuit .pursuit-title i').toggleClass('open');
 							// var status = $('#pursuit p').data('status');
@@ -79,19 +79,25 @@ var app = {
 
 						$('#contact p').on('click', function(event){
 							event.stopPropagation();
-							var status = $(this).data('status');
-							if (status === 'close'){
-								$('#contact p').attr('status', 'open');
-								$('#contact-tog').slideDown();
-								$('#contact p i').addClass('open');
-								console.log('success')
-							} else {
-								$('#contact p').data('status', 'close');
-								$('#contact-tog').slideUp();
-								$('#contact p i').removeClass('open');
-								console.log('else')
-							}
+							toggleContact()
+							// var status = $(this).data('status');
+							// if (status === 'close'){
+							// 	$('#contact p').attr('status', 'open');
+							// 	$('#contact-tog').slideDown();
+							// 	$('#contact p i').addClass('open');
+							// 	console.log('success')
+							// } else {
+							// 	$('#contact p').data('status', 'close');
+							// 	$('#contact-tog').slideUp();
+							// 	$('#contact p i').removeClass('open');
+							// 	console.log('else')
+							// }
 						});
+
+						function toggleContact() {
+							$('#contact-tog').slideToggle();
+							$('#contact p i').toggleClass('open');
+						}
 					});
 				} else {
 					// $('#pursuit').click(function(){
