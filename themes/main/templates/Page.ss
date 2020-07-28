@@ -153,7 +153,7 @@
         <!--  -->
 
         <!-- Vue -->
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>
+        <!--<script src="https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>-->
 
         <!-- jQuery Zoom -->
         <!-- <script src="https://cdn.rawgit.com/jackmoore/zoom/master/jquery.zoom.min.js"></script>-->
@@ -195,12 +195,12 @@
         <!-- HoverIntent -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js"></script>
         
-          <!-- GoogleMap -->
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsZhlAVfe9K80UZJvHRTBmMmsXpD9ocqo"></script>
+        <!-- GoogleMap -->
+        <%--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsZhlAVfe9K80UZJvHRTBmMmsXpD9ocqo"></script>
         <script type="text/javascript" src="$ThemeDir/js/vendor/chosen/chosen.jquery.min.js"></script>
         <script type="text/javascript" src="$ThemeDir/js/storelocator.js"></script>
 
-        <%--  <!-- Maps -->
+        <!-- Maps -->
         <% loop ContactPage %>
              <script type="text/javascript">
                     var mapLat = $Lat,

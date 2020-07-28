@@ -41,7 +41,9 @@
 		</div>
 
 		<div class="m-logo">
-			<div class="logo" style="background-image: url('$ThemeDir/images/logo.png')"></div>
+			<% loop HeaderFooter %>
+			<div class="logo" style="background-image: url('$Logo.URL')"></div>
+			<% end_loop %>
 		</div>
 
 		<div class="m-menu-cntnr">
