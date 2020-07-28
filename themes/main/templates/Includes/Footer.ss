@@ -33,7 +33,7 @@
 		><div class="pursuit align-t">
 			<div id="pursuit" class="pursuit-title">
 				<% loop $HeaderFooter %>
-				<p data-status="close">$ftrLabel1<i class="fas fa-caret-down"></i></p>
+				<p>$ftrLabel1<i class="fas fa-caret-down"></i></p>
 				<% end_loop %>
 			</div>
 			<div class="inlineBlock-parent">
@@ -51,7 +51,7 @@
 		><div class="contact align-t">
 			<% loop $HeaderFooter %>
 			<div id="contact" class="contact-title">
-				<p data-status="close">$ftrLabel2<i class="fas fa-caret-down"></i></p>
+				<p>$ftrLabel2<i class="fas fa-caret-down"></i></p>
 			</div>
 			<div id="contact-tog" class="contact-cntnr">
 				<% if $ftrphone %>
