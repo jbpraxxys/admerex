@@ -54,51 +54,6 @@ var app = {
 					// 	$('#pursuit-tog').toggleSlide();
 					// });
 
-					$(document).ready(function() {
-						$('#pursuit p').on('click', function(event){
-							event.stopPropagation();
-							togglePursuit()
-						});
-
-						function togglePursuit() {
-							$('#pursuittog').slideToggle();
-							$('.ftr-frame .pursuit .pursuit-title i').toggleClass('open');
-							// var status = $('#pursuit p').data('status');
-							// if (status === 'close'){
-							// 	$('#pursuit p').attr('data-status', 'open');
-							// 	$('#pursuittog').slideDown();
-							// 	$('.ftr-frame .pursuit .pursuit-title i').addClass('open');
-							// 	console.log('success')
-							// } else {
-							// 	$('#pursuit p').attr('data-status', 'close');
-							// 	$('#pursuittog').slideUp();
-							// 	$('.ftr-frame .pursuit .pursuit-title i').removeClass('open');
-							// 	console.log('else')
-							// }
-						}
-
-						$('#contact p').on('click', function(event){
-							event.stopPropagation();
-							// toggleContact()
-							var status = $(this).data('status');
-							if (status === 'close'){
-								$('#contact p').attr('status', 'open');
-								$('#contact-tog').slideDown();
-								$('#contact p i').addClass('open');
-								console.log('success')
-							} else {
-								$('#contact p').data('status', 'close');
-								$('#contact-tog').slideUp();
-								$('#contact p i').removeClass('open');
-								console.log('else')
-							}
-						});
-
-						// function toggleContact() {
-						// 	$('#contact-tog').slideToggle();
-						// 	$('#contact p i').toggleClass('open');
-						// }
-					});
 				} else {
 					// $('#pursuit').click(function(){
 					// 	// $('#pursuit-tog').fadeIn();
@@ -106,6 +61,29 @@ var app = {
 					// });
 				}
 			};
+					$('#pursuit p').on('click', function(event){
+						if ($(this).hasClass("active")){
+							$(this).removeClass('active');
+							$('#pursuittog').slideDown();
+							$('.ftr-frame .pursuit .pursuit-title i').addClass('open');
+						} else {
+							$(this).addClass('active');
+							$('#pursuittog').slideUp();
+							$('.ftr-frame .pursuit .pursuit-title i').removeClass('open');
+						}
+					});
+
+					$('#contact p').on('click', function(event){
+						if ($(this).hasClass("active")){
+							$(this).removeClass('active');
+							$('#contact-tog').slideUp();
+							$('#contact p i').removeClass('open');
+						} else {
+							$(this).addClass('active');
+							$('#contact-tog').slideDown();
+							$('#contact p i').addClass('open');
+						}
+					});
 			
 
 		},
