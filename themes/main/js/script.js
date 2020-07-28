@@ -55,14 +55,15 @@ var app = {
 					// });
 
 					$('#pursuit p').on('click', function(event){
-						if ($(this).hasClass("active")){
-							$(this).removeClass('active');
-							$('#pursuittog').slideUp();
-							$('.ftr-frame .pursuit .pursuit-title i').removeClass('open');
-						} else {
-							$(this).addClass('active');
+						var status = $(this).data('status');
+						if (status === close){
+							$(this).data('status', 'open');
 							$('#pursuittog').slideDown();
 							$('.ftr-frame .pursuit .pursuit-title i').addClass('open');
+						} else {
+							$(this).data('status', 'close');
+							$('#pursuittog').slideUp();
+							$('.ftr-frame .pursuit .pursuit-title i').removeClass('open');
 						}
 					});
 
