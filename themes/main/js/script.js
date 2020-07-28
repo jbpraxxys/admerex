@@ -50,18 +50,15 @@ var app = {
 			function segragateContent(){
 				var width = $(window).width(); 
 				if (width <= 1024){
-					// $('#pursuit').click(function() {
-					// 	$('#pursuit-tog').toggleSlide();
-					// });
+					$('#pursuit').addClass('mobile');
+					$('#contact').addClass('mobile');
 
 				} else {
-					// $('#pursuit').click(function(){
-					// 	// $('#pursuit-tog').fadeIn();
-					// 	alert('S');
-					// });
+					$('#pursuit').removeClass('mobile');
+					$('#contact').removeClass('mobile');
 				}
 			};
-					$('#pursuit p').on('click', function(event){
+					$('#pursuit.mobile p').on('click', function(event){
 						if ($(this).hasClass("active")){
 							$(this).removeClass('active');
 							$('#pursuittog').slideDown();
@@ -73,7 +70,7 @@ var app = {
 						}
 					});
 
-					$('#contact p').on('click', function(event){
+					$('#contact.mobile p').on('click', function(event){
 						if ($(this).hasClass("active")){
 							$(this).removeClass('active');
 							$('#contact-tog').slideUp();
