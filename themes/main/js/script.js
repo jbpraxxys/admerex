@@ -61,11 +61,11 @@ var app = {
 
 			$('#pursuit.mobile p').on('click', function(event){
 				if ($(this).hasClass("active")){
-					$(this).addClass('active');
+					$(this).removeClass('active');
 					$('#pursuittog').slideUp();
 					$('.ftr-frame .pursuit .pursuit-title i').removeClass('open');
 				} else {
-					$(this).removeClass('active');
+					$(this).addClass('active');
 					$('#pursuittog').slideDown();
 					$('.ftr-frame .pursuit .pursuit-title i').addClass('open');
 				}
