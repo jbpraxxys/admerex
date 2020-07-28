@@ -115,7 +115,7 @@
 				<transition name="slide-fade" mode="out-in"> --%>
 				<div class="tabbing" data-target="3">
 					<div class="tab-content">
-						<p>$F3Desc1</p>
+						<p>$F3Desc3</p>
 					</div>
 					<div class="btn-con">
 						<a href="$F3link3">
