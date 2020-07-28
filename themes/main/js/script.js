@@ -54,31 +54,33 @@ var app = {
 					// 	$('#pursuit-tog').toggleSlide();
 					// });
 
-					// $('#pursuit p').on('click', function(event){
-					// 	var status = $(this).data('status');
-					// 	if (status === 'close'){
-					// 		$('#pursuit p').data('status', 'open');
-					// 		$('#pursuittog').slideDown();
-					// 		$('.ftr-frame .pursuit .pursuit-title i').addClass('open');
-					// 	} else {
-					// 		$('#pursuit p').data('status', 'close');
-					// 		$('#pursuittog').slideUp();
-					// 		$('.ftr-frame .pursuit .pursuit-title i').removeClass('open');
-					// 	}
-					// });
+					$(document).ready(function() {
+						$('#pursuit p').on('click', function(event){
+							var status = $(this).data('status');
+							if (status === 'close'){
+								$('#pursuit p').data('status', 'open');
+								$('#pursuittog').slideDown();
+								$('.ftr-frame .pursuit .pursuit-title i').addClass('open');
+							} else {
+								$('#pursuit p').data('status', 'close');
+								$('#pursuittog').slideUp();
+								$('.ftr-frame .pursuit .pursuit-title i').removeClass('open');
+							}
+						});
 
-					// $('#contact p').on('click', function(event){
-					// 	var status = $(this).data('status');
-					// 	if (status === 'close'){
-					// 		$('#contact p').data('status', 'open');
-					// 		$('#contact-tog').slideDown();
-					// 		$('#contact p i').addClass('open');
-					// 	} else {
-					// 		$('#contact-tog').slideUp();
-					// 		$('#contact p i').removeClass('open');
-					// 		$('#contact p').data('status', 'close');
-					// 	}
-					// });
+						$('#contact p').on('click', function(event){
+							var status = $(this).data('status');
+							if (status === 'close'){
+								$('#contact p').data('status', 'open');
+								$('#contact-tog').slideDown();
+								$('#contact p i').addClass('open');
+							} else {
+								$('#contact-tog').slideUp();
+								$('#contact p i').removeClass('open');
+								$('#contact p').data('status', 'close');
+							}
+						});
+					});
 				} else {
 					// $('#pursuit').click(function(){
 					// 	// $('#pursuit-tog').fadeIn();
