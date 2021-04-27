@@ -34,10 +34,12 @@ var app = {
 
 			$('.hdr-frame .header__menu-cntnr .bar-hldr i').click(function(){
 				$('.m-menu-hldr').css('transform', 'translateY(0)');
+				$('body').css('overflow-y', 'hidden');
 			});
 
 			$('.m-menu-hldr .m-exit').click(function(){
 				$('.m-menu-hldr').css('transform', 'translateX(110%)');
+				$('body').css('overflow-y', 'unset');
 			});
 
 
