@@ -23,6 +23,8 @@ namespace {
 			'SortID' => 'Int',
 			'Header' => 'HTMLText',
 			'Desc' => 'Text',
+			'BtnLinkText' => 'Text',
+			'BtnLinkTo' => 'Text',
 			'Fr1File2' => 'Text',
 		];
 
@@ -48,6 +50,8 @@ namespace {
 				new ReadonlyField('SortOrder'),
 				new ReadonlyField('SortID', 'Sort ID'),
 				new HTMLEditorField('Header', 'Title'),
+				new TextField('BtnLinkText', 'Button Text'),
+				new TextField('BtnLinkTo', 'Button Link To'),
 				new TextareaField('Desc', 'Description'),
 			));
 

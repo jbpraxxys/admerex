@@ -29,13 +29,15 @@
 					<div class="hm_frame1-desc">
 						<p>$Desc</p>
 					</div>
+					<% if $BtnLinkTo %>
 					<div class="button-hldr">
-						<a href="#">
+						<a href="$BtnLinkTo">
 							<div class="button type-white-out fadeIn">
-								<p>test</p>
+								<p>$BtnLinkText</p>
 							</div>
 						</a>
 					</div>
+					<% end_if %>
 				</div>
 				<% end_loop %>
 			</div>
