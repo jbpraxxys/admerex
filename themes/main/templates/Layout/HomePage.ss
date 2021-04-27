@@ -29,13 +29,17 @@
 					<div class="hm_frame1-desc">
 						<p>$Desc</p>
 					</div>
+					<div class="button-hldr">
+						<a href="#">
+							<div class="button type-white-out fadeIn">
+								<p>test</p>
+							</div>
+						</a>
+					</div>
 				</div>
 				<% end_loop %>
 			</div>
 			<div class="hm_frame1-search fadeIn">
-				<div class="button-hldr button type-white-out fadeIn">
-					<p>test</p>
-				</div>
 				<div class="progressBarContainer inlineBlock-parent">
 					<% loop HomeBanners.Sort(SortOrder) %>
 					<div class="item">
@@ -140,7 +144,7 @@
 	</div>
 </div>
 <div class="hm_frame4">
-	<div class="frm-cntnr">
+	<div class="frm-cntnr align-c">
 		<div class="hm_frame4-content staggerup_hldr2">
 			<div class="hm_frame4-title staggerup2">
 				<h2>$F4Title</h2>
@@ -186,18 +190,20 @@
 			</a>
 		</div>
 	</div>
-	<div class="f6-cntnr staggerup_hldr4">
+	<div class="f6-cntnr staggerup_hldr4 align-c">
 		<div class="f6-title staggerup4">
 			<h2>$F6Title</h2>
 		</div>
 		<div class="f6-desc staggerup4">
 			<p>$F6Desc</p>
 		</div>
-		<a href="$F6Link">
-		<div class="button-hldr button staggerup4">
-			<p>$F6Btn</p>
+		<div class="button-hldr staggerup4">
+			<a href="$F6Link">
+				<div class="button">
+					<p>$F6Btn</p>
+				</div>
+			</a>
 		</div>
-		</a>
 	</div>
 </div>
 <div class="hm_frame7">
@@ -205,7 +211,7 @@
 		<div class="inlineBlock-parent">
 			<div class="logo-holder">
 				<div class="logo-title staggerup5">
-					<h2>$F7Title</h2>
+					<h3 class="font-weight--bold">$F7Title</h3>
 				</div>
 				<div class="logo-cntnr staggerup5">
 					<div class="logo" style="background-image: url('$F7IMG.URL');"></div>
@@ -223,7 +229,7 @@
 	<div class="hm_frame8-bg" style="background-image: url('$F8Bg.URL');"></div>
 	<div class="frm-cntnr">
 		<div class="f8-title fadeIn">
-			<h2>$F8Title</h2>
+			<h3 class="font-weight--bold">$F8Title</h3>
 			<ion-icon name="chevron-back-outline"></ion-icon>
 		</div>
 		<div class="f8-image-slider fadeIn">
@@ -324,7 +330,7 @@
 <div class="hm_frame11">
 	<div class="frm-cntnr width--80">
 		<div class="hm_frame11-title fadeIn">
-			<h2>$F11Title</h2>
+			<h3>$F11Title</h3>
 		</div>
 		<div class="affiliate-slider staggerup_hldr9">
 			<% loop $Affiliates.Sort(SortOrder) %>
