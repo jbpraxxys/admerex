@@ -33,13 +33,9 @@
 				<% end_loop %>
 			</div>
 			<div class="hm_frame1-search fadeIn">
-				<form action="{$BaseHref}search" method="GET">
-					<input type="text" name="q" placeholder="Search">
-					<button class="btn-search">
-					<div class="search-btn" style="background-image: url('$ThemeDir/images/search.png');">
-					</div>
-					</button>
-				</form>
+				<div class="button-hldr button type-white-out fadeIn">
+					<p>test</p>
+				</div>
 				<div class="progressBarContainer inlineBlock-parent">
 					<% loop HomeBanners.Sort(SortOrder) %>
 					<div class="item">

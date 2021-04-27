@@ -3,24 +3,25 @@
     "type": "silverstripe-recipe",
     "description": "The SilverStripe Framework Installer",
     "require": {
-        "php": ">=5.6.0",
+        "php": "^7.1 || ^8",
         "silverstripe/recipe-plugin": "^1.2",
-        "silverstripe/recipe-cms": "4.3.3@stable",
+        "silverstripe/recipe-cms": "4.7.3@stable",
         "silverstripe-themes/simple": "~3.2.0",
-        "unclecheese/betterbuttons": "dev-feature/ss4-upgrade",
+        "silverstripe/login-forms": "4.3.0@stable",
         "undefinedoffset/sortablegridfield": "^2.0",
-        "silverstripe/login-forms": " ^4.1",
         "bummzack/sortablefile": "^2.0",
         "phpmailer/phpmailer": "^6.0",
         "gargron/fileupload": "~1.4.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7"
+        "phpunit/phpunit": "^5.7",
+        "sminnee/phpunit-mock-objects": "^3.4.5"
     },
     "extra": {
         "project-files-installed": [
             "app/.htaccess",
             "app/_config.php",
+            "app/_config/mimevalidator.yml",
             "app/_config/mysite.yml",
             "app/src/Page.php",
             "app/src/PageController.php"
@@ -28,8 +29,6 @@
         "public-files-installed": [
             ".htaccess",
             "index.php",
-            "install-frameworkmissing.html",
-            "install.php",
             "web.config"
         ],
         "expose": [
