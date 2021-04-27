@@ -366,7 +366,7 @@ body {
             border-radius: 30px;
             border: 1px solid #d5d5d5;
             padding-left: 20px;
-            font-family: $font--2;
+            font-size: 16px;
         }
 
         .search-btn {
@@ -466,7 +466,6 @@ body {
 
             .ppolicy {
                 color: white;
-                font-family: $font--1;
                 text-transform: uppercase;
             }
 
@@ -490,7 +489,6 @@ body {
         .pursuit-title {
             width: 100%;
             p {
-                font-family: $font--1;
                 color: white;
             }
 
@@ -503,7 +501,6 @@ body {
             margin-bottom: 10px;
             * {
                 color: #ccc;
-                font-family: $font--2;
                 font-size: 14px;
             }
 
@@ -519,7 +516,6 @@ body {
         .contact-title {
             width: 100%;
             p {
-                font-family: $font--1;
                 color: white;
             }
 
@@ -537,7 +533,6 @@ body {
             }
 
             p {
-                font-family: $font--2;
                 color: #ccc;
             }
 
@@ -580,7 +575,6 @@ body {
             margin: auto;
             font-size: 14px;
             color: #ccc;
-            font-family: $font--2;
             padding-bottom: 10px;
 
         }
@@ -843,43 +837,49 @@ $frame-bg--pos__b: bottom center;
 
 
 @media screen and (max-width: 1024px) {
-    .hdr-frame .header__menu-cntnr .header__menu-hldr,
-    .hdr-frame .header__search {
-        display: none;
-    }
+    .hdr-frame {
 
-    .hdr-frame .header {
-        background-color: #fff;
-        border-bottom: 2px solid #8cbb3f;
-        box-shadow: 0 1px 3px 0 #aaaaaa66;
-    }
+        .header__search {
+            display: none;
+        }
 
-    .hdr-frame .header__logo {
-        opacity: 0;
-    }
+        .header {
+            background-color: #fff;
+            border-bottom: 2px solid #8cbb3f;
+            box-shadow: 0 1px 3px 0 #aaaaaa66;
+        }
 
-    .hdr-frame .header__logo2 {
-        opacity: 1;
-    }
+        .header__logo {
+            opacity: 0;
+        }
 
-    .hdr-frame .header-logo-cntnr, .hdr-frame .logo-container {
-        width: 170px;
-        height: 70px;
-    }
+        .header__logo2 {
+            opacity: 1;
+        }
 
-    .hdr-frame .header__logo-cntnr {
-        width: auto;
-    }
+        .header-logo-cntnr, .hdr-frame .logo-container {
+            width: 170px;
+            height: 70px;
+        }
 
-    .hdr-frame .header__menu-cntnr {
-        width: auto;
-    }
+        .header__logo-cntnr {
+            width: auto;
+        }
 
-    .hdr-frame .header__menu-cntnr .bar-hldr {
-        display: block;
-        i {
-            font-size: 40px;
-            color: $green;
+        .header__menu-cntnr {
+            width: auto;
+
+            .header__menu-hldr {
+                display: none;
+            }
+
+            .bar-hldr {
+                display: block;
+                i {
+                    font-size: 40px;
+                    color: $green;
+                }
+            }
         }
     }
 
@@ -914,7 +914,7 @@ $frame-bg--pos__b: bottom center;
         }
 
         .m-logo {
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             .logo {
                 width: 200px;
                 height: 80px;
@@ -927,17 +927,20 @@ $frame-bg--pos__b: bottom center;
 
         .m-search {
             position: relative;
-            width: 260px;
+            width: 100%;
+            margin-bottom: 50px;
             opacity: 0;
 
             input {
                 width: 100%;
-                height: 45px;
+                height: 50px;
+                padding-left: 20px;
+                padding-right: 60px;
                 background-color: white;
                 border-radius: 30px;
                 border: 1px solid #d5d5d5;
-                padding-left: 20px;
-                font-family: $font--2;
+                box-sizing: border-box;
+                font-size: 16px;
             }
 
             .search-btn {
@@ -951,11 +954,11 @@ $frame-bg--pos__b: bottom center;
             .btn-search {
                 position: absolute;
                 top: 50%;
-                right: 0;
+                right: 5px;
                 transform: translateY(-50%);
                 width: auto;
-                width: 20px;
-                height: 20px;
+                width: 40px;
+                height: 50px;
                 border: none;
                 background-color: transparent;
                 padding: 0;
@@ -964,6 +967,9 @@ $frame-bg--pos__b: bottom center;
 
         .m-menu-cntnr {
             text-align: center;
+            height: calc(100vh - 250px);
+            overflow-y: auto;
+
             * {
                 text-transform: uppercase;
             }
@@ -973,8 +979,8 @@ $frame-bg--pos__b: bottom center;
                 margin-bottom: 40px;
 
                 * {
-                    font-family: $font--1;
-                    font-size: 22px;
+                    font-size: 31.25px;
+                    font-weight: bold;
                 }
 
                 &.current {
