@@ -2,7 +2,7 @@
 	<div class="header <% if ClassName != HomePage %>header-scroll<% end_if %>">
 		<div class="vertical-parent">
 			<div class="vertical-align">
-				<div class="inlineBlock-parent hdr-cntnr">
+				<div class="hdr-cntnr">
 					<div class="header__logo-cntnr">
 						<a href="$AbsoluteBaseURL">
 							<div class="logo-container">
@@ -28,6 +28,15 @@
 								</div>
 							</div>
 						</div>
+						<div class="header__search fadeIn">
+							<form action="{$BaseHref}search" method="GET">
+								<input type="text" name="q" placeholder="Search">
+								<button class="btn-search">
+								<div class="search-btn" style="background-image: url('$ThemeDir/images/search.png');">
+								</div>
+								</button>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -44,6 +53,16 @@
 			<% loop HeaderFooter %>
 			<div class="logo" style="background-image: url('$Logo.URL')"></div>
 			<% end_loop %>
+		</div>
+
+		<div class="m-search fadeIn">
+			<form action="{$BaseHref}search" method="GET">
+				<input type="text" name="q" placeholder="Search">
+				<button class="btn-search">
+				<div class="search-btn" style="background-image: url('$ThemeDir/images/search.png');">
+				</div>
+				</button>
+			</form>
 		</div>
 
 		<div class="m-menu-cntnr">
