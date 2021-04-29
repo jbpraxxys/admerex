@@ -64,6 +64,7 @@
         <%-- <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
         <link href="$ThemeDir/fonts/Ubuntu.css" rel="stylesheet"> --%>
         <link href="$ThemeDir/fonts/product-sans/stylesheet.css" rel="stylesheet">
+        <link href="$ThemeDir/fonts/Mont/stylesheet.css" rel="stylesheet">
 
         <!-- Compiled CSS -->
         <link href="$ThemeDir/assets/app.min.css" rel="stylesheet">

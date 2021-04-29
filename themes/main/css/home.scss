@@ -8,6 +8,13 @@
 	overflow-x: hidden;
 	overflow-y: hidden;
 
+	.hm_frame1-hldr {
+		.button {
+			color: white;
+			border-color: white;
+		}
+	}
+
 	video {
 		width: 100%;
 	}
@@ -157,8 +164,6 @@
 
 .hm_frame2 {
 	position: relative;
-	height: auto;
-	padding: 140px 0;
 
 	.hm_frame2-bg {
 		position: absolute;
@@ -173,6 +178,7 @@
 
 	.f2-content {
 		text-align: center;
+		padding: 144px 0;
 
 		.f2-title {
 			margin-bottom: 20px;
@@ -207,7 +213,7 @@
 	}
 
 	.content-container {
-		padding: 100px 0;
+		padding: 120px 0;
 	}
 
 	.tabbing-hldr {
@@ -339,8 +345,9 @@
 
 	.frm-cntnr {
 		width: 60%;
-		padding-top: 100px;
-		padding-bottom: 100px;
+		max-width: 596px;
+		padding-top: 120px;
+		padding-bottom: 120px;
 	}
 
 	.hm_frame4-bg {
@@ -851,7 +858,7 @@
 	.loc-logo {
 		position: relative;
 		height: 150px;
-		margin-bottom: 10px;
+		margin-bottom: 30px;
 
 		img {
 			position: absolute;

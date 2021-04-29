@@ -322,6 +322,16 @@ var app = {
 
 		journeypage: function() {
 
+			$('.upper-news__slider').slick({
+			 	infinite: true,
+				slidesToShow: 1,
+				slidesToScroll:1,
+				fade: true,
+  				cssEase: 'linear',
+  				dots: true
+				// autoplay: true,
+			});
+
 			$('.jrny-cont-slider').slick({
 			 	infinite: true,
 				slidesToShow: 1,

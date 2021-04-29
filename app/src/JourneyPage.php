@@ -53,7 +53,7 @@ namespace {
 
 
 
-		private static $allowed_children = "none";
+		private static $allowed_children = "Blog";
 
 		private static $defaults = array(
 			'PageName' => 'Journey Page',

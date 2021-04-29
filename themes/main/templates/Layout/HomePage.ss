@@ -50,6 +50,13 @@
 					<% end_loop %>
 				</div>
 			</div>
+			<div class="hm_frame1-hldr">
+				<a href="">
+					<div class="button-hldr button">
+						<p>See All Services</p>
+					</div>
+				</a>
+			</div>
 		</div>
 	</div>
 </div>

@@ -15,16 +15,15 @@
 	<div class="sol_frame2-bg" style="background-image: url('$ThemeDir/images/f5.png');"></div>
 	<div class="frm-cntnr width--90 staggerup_hldr8">
 		<div class="solution-container">
-			<% loop $Solutions %><div id="$ID" class="solution-hldr">
-				<div class="solution-logo staggerup8">
-					<img src="$Image.URL" alt="">
-				</div>
-				<div class="solution-title animate-up">
-					<p>$SolTitle</p>
-				</div>
-				<div class="solution-desc animate-up">
-					<p>$Desc</p>
-				</div>
+			<% loop $Children %><div id="$ID" class="solution-hldr">
+				<a href="$Link">
+					<div class="solution-logo staggerup8">
+						<img src="$Image.URL" alt="">
+					</div>
+					<div class="solution-title animate-up">
+						<p>$Header</p>
+					</div>
+				</a>
 			</div
 			><% end_loop %>
 		</div>

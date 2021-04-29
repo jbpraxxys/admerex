@@ -53,7 +53,7 @@ namespace {
 
 
 
-		private static $allowed_children = "none";
+		private static $allowed_children = "SelectedSolution";
 
 		private static $defaults = array(
 			'PageName' => 'Solution Page',
