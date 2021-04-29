@@ -81,6 +81,7 @@
 
 		.career-title {
 			margin-bottom: 28px;
+			min-height: 60px;
 		}
 
 		.career-card__wrapper {
@@ -180,10 +181,24 @@
 		}
 
 		.input-attached {
+			position: relative;
 			border: 1px solid $gray--200;
 			border-radius: 20px;
 			padding: 8px 15px;
 			margin-bottom: 25px;
+			cursor: pointer;
+
+			* {
+				cursor: pointer;
+			}
+
+			i {
+				color: $green;
+				position: absolute;
+				right: 20px;
+				top: 50%;
+				transform: translateY(-50%);
+			}
 
 			* {
 				color: gray;

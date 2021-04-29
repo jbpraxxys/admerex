@@ -15,13 +15,13 @@
 	<div class="crr_frame2--bg" style="background-image: url('$ThemeDir/images/f5.png')"></div>
 	<div class="frm-cntnr width--80">
 		<div class="inlineBlock-parent">
-			<div class="career-card">
+			<% loop $Children %><div class="career-card">
 				<div class="career-card__wrapper">
 					<div class="career-title">
-						<h2>Customer Service Representative</h2>
+						<h2 class="line-clamp-2">$JobTitle</h2>
 					</div>
 					<div class="career-button">
-						<a href="">
+						<a href="$Link">
 							<div class="button-hldr button">
 								<p>Apply Now</p>
 							</div>
@@ -29,34 +29,7 @@
 					</div>
 				</div>
 			</div
-			><div class="career-card">
-				<div class="career-card__wrapper">
-					<div class="career-title">
-						<h2>Customer Service Representative</h2>
-					</div>
-					<div class="career-button">
-						<a href="">
-							<div class="button-hldr button">
-								<p>Apply Now</p>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div
-			><div class="career-card">
-				<div class="career-card__wrapper">
-					<div class="career-title">
-						<h2>Customer Service Representative</h2>
-					</div>
-					<div class="career-button">
-						<a href="">
-							<div class="button-hldr button">
-								<p>Apply Now</p>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>
+			><% end_loop %>
 		</div>
 	</div>
 </div>

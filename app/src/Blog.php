@@ -39,7 +39,7 @@ namespace {
 			/*blog*/
 			'Featured' => 'Boolean',
 			'Header' => 'Text',
-			'Date' => 'Text',
+			'Date' => 'Date',
 			'Desc' => 'HTMLText',
 		
 		];

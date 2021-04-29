@@ -155,7 +155,7 @@
         <!--  -->
 
         <!-- Vue -->
-        <!--<script src="https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>-->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>
 
         <!-- jQuery Zoom -->
         <!-- <script src="https://cdn.rawgit.com/jackmoore/zoom/master/jquery.zoom.min.js"></script>-->
@@ -231,6 +231,67 @@
         <!-- Light Gallery -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.4/js/lightgallery.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-video@1.2.2/dist/lg-video.min.js"></script>
+
+        <script src="https://rawgithub.com/timrwood/moment/2.9.0/min/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+
+        <% if ClassName == 'JourneyPage' %>
+        <script>
+            var news = [
+                    <% loop $PaginatedBlogs %>
+                    <% if $Featured %>
+                    <% else %>
+                        {
+                            newsTitle: "$Header",
+                            newsDate: "$Date",
+                            newsLink: "$Link",
+                            newsImage: "<% if $Image %>$Image.URL<% else %>http://goo.gl/vyAs27<%end_if%>"
+                        },
+
+                    <% end_if %>
+                    <% end_loop %>
+                    ];
+
+            var vm = new Vue({
+                el:  "#top",
+                data: {
+                    keyword: '',
+                    sortBy: '',
+                    news: news,
+                },
+                mounted() {
+                    var url_string = window.location.href;
+                    var url = new URL(url_string); 
+                    var catID = url.searchParams.get("id");
+                    if (catID == null) {
+                        this.selectedCategory = ['All'];
+                        this.news = _.sortBy(news.sort((a, b) => new Date(a.newsDate) - new Date(b.newsDate))).reverse();
+                    } else {
+                        this.selectedCategory = [catID];
+                    }
+                },
+                methods: {
+                    filterNews: function(evt){
+                        $('.news-pagination').hide();
+                        var val = evt.target.value;
+                        if (val == 'All') {
+                            this.news = _.sortBy(news.sort((a, b) => new Date(a.newsDate) - new Date(b.newsDate))).reverse();
+                            $('.news-pagination').show();
+                        } else { 
+                            this.news = _.sortBy(news.filter(function (e){
+                                return moment(e.newsDate).format('MMMM') == val; 
+                            })).reverse();
+                        }
+                    }
+                },
+                filters: {
+                  moment: function (newsDate) {
+                    return moment(newsDate).format('MMMM DD, YYYY');
+                  }
+                }
+            });
+        </script>
+        <% end_if %>
         
         <!-- Script --> 
         <script type="text/javascript" src="$ThemeDir/js/script.js"></script>

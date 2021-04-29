@@ -47,7 +47,7 @@ namespace {
 		];
 
 		private static $has_many = [
-	        'Announcements' => Announcement::class,
+	        // 'Announcements' => Announcement::class,
 	        'Articles' => Article::class,
 	    ];
 
@@ -88,24 +88,24 @@ namespace {
 			| Frame 2
 			|----------------------------------------------- */
 
-			$fields->addFieldToTab('Root.Frame2.Main', new TabSet('Announcements',
-				new Tab('List',
-					GridField::create('Announcements', 'List of Announcements', 
-						$this->Announcements(), 
-					GridFieldConfig_RecordEditor::create(10)
-					->addComponent(new GridFieldSortableRows('SortOrder'))
-					)
-				)
-			));
+			// $fields->addFieldToTab('Root.Frame2.Main', new TabSet('Announcements',
+			// 	new Tab('List',
+			// 		GridField::create('Announcements', 'List of Announcements', 
+			// 			$this->Announcements(), 
+			// 		GridFieldConfig_RecordEditor::create(10)
+			// 		->addComponent(new GridFieldSortableRows('SortOrder'))
+			// 		)
+			// 	)
+			// ));
 
 			/*
 			|-----------------------------------------------
 			| Frame 3
 			|----------------------------------------------- */
 
-			$fields->addFieldToTab('Root.Frame3.Main', new TabSet('Articles',
+			$fields->addFieldToTab('Root.Frame3.Main', new TabSet('Announcements',
 				new Tab('List',
-					GridField::create('Articles', 'List of Articles', 
+					GridField::create('Articles', 'List of Announcements', 
 						$this->Articles(), 
 					GridFieldConfig_RecordEditor::create(10)
 					->addComponent(new GridFieldSortableRows('SortOrder'))
@@ -120,6 +120,14 @@ namespace {
 
 	class JourneyPageController extends PageController {
 
+		public function PaginatedBlogs() {
+			$blogs = Blog::get()->filter('ParentID', $this->ID );
 
+			$list = new PaginatedList($blogs, $this->getRequest());
+			$list->setPageLength(10);
+			$list->setPaginationGetVar('page');
+
+			return $list;
+		}
 	}
 }

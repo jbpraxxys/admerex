@@ -20,6 +20,9 @@ var app = {
 			case 'SolutionPage':
 				setup.solutionpage();
 				break;
+			case 'Career':
+				setup.career();
+				break;
 			case 'SearchPage':
 				setup.searchpage();
 				break;
@@ -424,7 +427,51 @@ var app = {
 			});
 		},
 
+		career: function() {
+			app.form.init($('#contactForm'), $('#contactBtn'), 'form/contact/send', false);
 
+			// $('.input-attached label').each(function() {
+			// 	$(this).fileupload({
+			//         url: baseHref + 'form/contact/upload',
+			//         dataType: 'json',
+			// 		submit: function(e, data) {},
+			// 		done: function(e, data) {
+			// 			switch(data.result.response) {
+			// 				case 0: break;
+			// 				case 1:
+
+			// 					$('#file-image').val(data.result.message);
+			// 					$('#maskfile-image').val(data.result.message);
+			// 					$('#file-selected').html(data.result.filename);
+
+			// 				break;
+			// 			}
+			// 		}
+			//     });
+			// });
+
+			$('.modal__careers-form').each(function() {
+				var id = $(this).data('id');
+
+				$(this).fileupload({
+			        url: baseHref + 'form/contact/upload',
+			        dataType: 'json',
+					submit: function(e, data) {},
+					done: function(e, data) {
+						switch(data.result.response) {
+							case 0: break;																
+							case 1:
+
+								$('#file-image' + id).val(data.result.message);
+								$('#maskfile-image').val(data.result.message);
+								$('#file-selected' + id).html(data.result.filename);
+
+							break;
+						}
+					}
+			    });
+			});
+		}
 	},
 
 	form: {

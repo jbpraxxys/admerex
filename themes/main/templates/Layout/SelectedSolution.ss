@@ -43,7 +43,7 @@
 						$Desc
 					</div>
 					<div class="button-hldr">
-						<a href="">
+						<a href="connect-with-us">
 							<div class="button-hldr button">
 								<p>Contact Us</p>
 							</div>

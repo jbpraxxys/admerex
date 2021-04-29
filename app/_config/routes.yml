@@ -8,3 +8,4 @@ SilverStripe\Control\Director:
   rules:
     'form/contact/send//': 'ContactController'
     'form/client/send//': 'ClientController'
+    'form/contact/upload//$Action/$ID': 'ApplyUploadController'

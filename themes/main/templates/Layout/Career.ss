@@ -17,53 +17,46 @@
 	<div class="crr_frame2--bg" style="background-image: url('$ThemeDir/images/f5.png')"></div>
 	<div class="frm-cntnr width--90 selected">
 		<div class="back-btn">
-			<a href="">
+			<a href="$Parent.Link">
 				<div class="inlineBlock-parent">
 					<i class="fas fa-long-arrow-alt-left s-margin-r green"></i><p class="green">Back to Careers</p>
 				</div>
 			</a>
 		</div>
 		<div class="crr-title">
-			<h1 class="text-bold">Customer Service Representative</h1>
+			<h1 class="text-bold">$JobTitle</h1>
 		</div>
 		<div class="crr-desc">
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			$Desc
 		</div>
 		<div class="crr-qualification">
 			<h2 class="text-bold m-margin-b">Qualifications</h2>
 			<div class="crr-qualification-content">
 				<div class="qualification">
 					<p class="gray--300">Career Level</p>
-					<p class="text-bold">1-4 Years Experienced Employee</p>
+					<p class="text-bold">$CareerLevel</p>
 				</div>
 				<div class="qualification">
 					<p class="gray--300">Year of Experience</p>
-					<p class="text-bold">1 year</p>
+					<p class="text-bold">$YearExp</p>
 				</div>
 				<div class="qualification">
 					<p class="gray--300">Qualification</p>
-					<p class="text-bold">Bachelor's/College Degree</p>
+					<p class="text-bold">$Qualification</p>
 				</div>
 				<div class="qualification">
 					<p class="gray--300">Job Type</p>
-					<p class="text-bold">Full time</p>
+					<p class="text-bold">$JobType</p>
 				</div>
 			</div>
 		</div>
 		<div class="crr-highlights">
 			<h2 class="text-bold m-margin-b">Job Highlights</h2>
-			<ul>
-				<li>Competitive salary</li>
-				<li>HM0 from Day 1 of employment</li>
-			</ul>
+			$JobHighlights
 		</div>
 		<div class="crr-requirements">
 			<h2 class="text-bold m-margin-b">Job Requirements</h2>
-			<ul>
-				<li>Competitive salary</li>
-				<li>HM0 from Day 1 of employment</li>
-				<li>Willing to work for night shift and shifting schedule</li>
-			</ul>
+			$JobRequirements
 		</div>
 		<div class="career-form">
 			<form action="" id="contactForm" method="post">
@@ -80,14 +73,27 @@
 						<input type="text" name="email" placeholder="E-mail" required>
 					</div
 					><div class="input-hldr">
-						<input type="text" name="job" placeholder="Job Post" required>
+						<input type="text" name="job" placeholder="Job Post" value="$JobTitle" required>
 					</div>
 				</div>
 				<div class="input-attached">
-					<div class="inlineBlock-parent">
-						<p class="align-b">Attach Resume</p><p class="gray--100 align-b">(DOCX or PDF files only)</p>
-					</div>
+					<label id="file-selected" for="fileupload">
+						<div class="inlineBlock-parent">
+							<p class="align-b">Attach Resume</p><p class="gray--100 align-b">(DOCX or PDF files only)</p>
+						</div>
+					</label>
+					<i class="fas fa-paperclip geen"></i>
+					<input type="file" id="fileupload" class="fileuploadBtn" name="file" required hidden>
+					<input type="hidden" id="file-image" name="resume" value="" required/>
 				</div>
+				<div class="modal__careers-form-row modal__careers-form" data-id="{$ID}">
+	 				<div class="modal__careers__upload">
+						<label id="file-selected{$ID}" for="fileupload{$ID}" class="custom-file-upload inlineBlock-parent"><p class="ptext">Attached Resume</p><p class="lbtn">Choose File</p></label>
+					</div>
+					<input type="file" id="fileupload{$ID}" class="fileuploadBtn" name="file" required hidden>
+					<input type="hidden" id="file-image{$ID}" name="resume" value="" required/>
+	 			</div>
+
 				<div class="input-pitch">
 					<textarea type="text" name="pitch" placeholder="Applicant Pitch"></textarea>
 				</div>

@@ -15,8 +15,11 @@ class ContactController extends Controller {
 	private $email;
 	private $contact;
 	private $job;
+
+	private $resume;
+	private $file;
 	
-	// private $messagedetails;
+	private $pitch;
 	private $recipient;
 	private $captcha;
 
@@ -70,9 +73,13 @@ class ContactController extends Controller {
 			$this->job = $_POST['job'];
 		}
 
-		// if(isset($_POST['messagedetails'])) {
-		// 	$this->messagedetails = $_POST['messagedetails'];
-		// }
+		if(isset($_POST['resume'])) {
+			$this->resume = $_POST['resume'];
+		}
+
+		if(isset($_POST['pitch'])) {
+			$this->pitch = $_POST['pitch'];
+		}
 
 		if(isset($_POST['g-recaptcha-response'])){
 			$this->captcha=$_POST['g-recaptcha-response'];
@@ -104,11 +111,17 @@ class ContactController extends Controller {
 			);
 		}
 
-		// if(empty($_POST['messagedetails'])) {
-		// 	$this->errors['messagedetails'] = array(
-		// 		'error' => 'Please leave a message'
-		// 	);
-		// }
+		if(empty($_POST['resume'])) {
+			$this->errors['resume'] = array(
+				'error' => 'Please upload your resume'
+			);
+		}
+
+		if(empty($_POST['pitch'])) {
+			$this->errors['pitch'] = array(
+				'error' => 'Please leave a pitch'
+			);
+		}
 
 		if(empty($_POST['g-recaptcha-response']) ) {
 			$this->errors = 'Please check the the captcha form';
@@ -144,6 +157,8 @@ class ContactController extends Controller {
 		$duplicate->email = $this->email;
 		$duplicate->contact = $this->contact;
 		$duplicate->job = $this->job;
+		$this->file = File::get()->ByID($this->resume);
+		$duplicate->FileID = $this->file->ID;
 		$duplicate->write();
 	}
 
@@ -185,7 +200,8 @@ class ContactController extends Controller {
 			'contact' => $this->contact,
 			'email' => $this->email,
 			'job' => $this->job,
-			// 'messagedetails' => $this->messagedetails,
+			'pitch' => $this->pitch,
+			'file' => $this->file->AbsoluteLink(),
 		));
 
 		return $arrayData->renderWith('ContactEmailTemplate');

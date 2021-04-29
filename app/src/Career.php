@@ -5,6 +5,7 @@ namespace {
 
 	use SilverStripe\Forms\TabSet;
 	use SilverStripe\Forms\Tab;
+	use SilverStripe\Forms\LabelField;
 	use SilverStripe\Forms\TextField;
 	use SilverStripe\Forms\TextareaField;
 	use SilverStripe\Forms\CheckboxField;
@@ -36,20 +37,22 @@ namespace {
 
 		private static $db = [
 
-			/*blog*/
-			// 'Featured' => 'Boolean',
-			// 'Header' => 'Text',
-			// 'Date' => 'Text',
-			// 'Desc' => 'HTMLText',
+			/*Career*/
+			'JobTitle' => 'Text',
+			'Desc' => 'HTMLText',
+			'CareerLevel' => 'Text',
+			'YearExp' => 'Text',
+			'Qualification' => 'Text',
+			'JobType' => 'Text',
+			'JobHighlights' => 'HTMLText',
+			'JobRequirements' => 'HTMLText',
 		
 		];
 
 		private static $has_one = [
-			'Image' => Image::class
 		];
 
 		private static $owns = [
-			'Image',
 	    ];
 
 		private static $allowed_children = "none";
@@ -67,32 +70,31 @@ namespace {
 			#Remove by tab
 			$fields->removeFieldFromTab('Root.Main', 'Content');
 
-			// /*
-			// |-----------------------------------------------
-			// | @Service
-			// |----------------------------------------------- */
-			// $fields->addFieldsToTab('Root.Blog.Main', array(
-			// 	$upload = UploadField::create('Image','Blog Banner'),
-			// 	new TextField('Header', 'Blog Title'),
-			// 	new DateField('Date', 'Date'),
-			// 	new HTMLEditorField('Desc', 'Description'),
-			// ));
+			/*
+			|-----------------------------------------------
+			| @SCareer
+			|----------------------------------------------- */
+			$fields->addFieldsToTab('Root.Career.Main', array(
+				new TextField('JobTitle', 'Job Title'),
+				new HTMLEditorField('Desc', 'Job Description'),
+			));
 
-			// # SET FIELD DESCRIPTION 
-			// $upload->setDescription('Max file size: 2MB | Dimension: 1366px x 768px');
-			// # Set destination path for the uploaded images.
-			// $upload->setFolderName('Solution');
+			$fields->addFieldsToTab('Root.Career.Qualification', array(
+				new TextField('CareerLevel', 'Career Level'),
+				new TextField('YearExp', 'Years of Experience'),
+				new TextField('Qualification', 'Qualification'),
+				new TextField('JobType', 'Job Type'),
+			));
 
-			// $fields->addFieldsToTab('Root.Blog.Featured', array(
-			// 	new CheckboxField('Featured', 'Featured News')
-			// ));
+			$fields->addFieldsToTab('Root.Career.JobHighlights', array(
+				new LabelField('For Bullets', 'Use Bullet List'),
+				new HTMLEditorField('JobHighlights', 'Job Highlights'),
+			));
 
-
-			# SET FIELD DESCRIPTION 
-			// $uploadf->setDescription('Max file size: 2MB | Dimension: 1366px x 768px');
-			
-			# Set destination path for the uploaded images.
-			// $uploadf->setFolderName('ServicePage/frame-1');
+			$fields->addFieldsToTab('Root.Career.JobRequirement', array(
+				new LabelField('For Bullets2', 'Use Bullet List'),
+				new HTMLEditorField('JobRequirements', 'Job Requirements'),
+			));
 
 			return $fields;
 		}
