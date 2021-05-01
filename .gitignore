@@ -4,6 +4,7 @@
 /silverstripe-cache/
 /resources/
 /public/resources/
+/public/_resources/
 #/themes/main/images/
 
 # custom ignore
